@@ -1,10 +1,10 @@
-# mobile_gki_imy
+# Mobile GKI Indramayu
 
 A new Flutter project.
 
-## Getting Started
+## Created by Filemon Sitanggang on Last Semester on Bachelor Academic Project.
 
-This project is a starting point for a Flutter application.
+The Project are purposed to help surrounding area of academia place, to boost tecnology appliance for better knowlegde.
 
 A few resources to get you started if this is your first Flutter project:
 

@@ -25,7 +25,7 @@ class NavigationExample extends StatefulWidget {
 
 class _NavigationExampleState extends State<NavigationExample> {
   int currentPageIndex = 0;
-
+  Halaman1() {}
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -59,14 +59,20 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         //Halaman 1
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Home page',
-                style: theme.textTheme.titleLarge,
+        NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              title: const Text('App Bar'),
+              expandedHeight: 200,
+              pinned: true,
+              forceElevated: innerBoxIsScrolled,
+            ),
+          ],
+          // The content of the scroll view
+          body: ListView.builder(
+            itemBuilder: (context, index) => ListTile(
+              title: Text(
+                'Text $index',
               ),
             ),
           ),

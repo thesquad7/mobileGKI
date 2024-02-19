@@ -20,7 +20,7 @@ class FilemonTextTheme {
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
     bodyMedium: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
-    displaySmall: TextStyle().copyWith(
+    bodySmall: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
     labelLarge: TextStyle().copyWith(
         fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black),
@@ -44,7 +44,7 @@ class FilemonTextTheme {
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
     bodyMedium: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-    displaySmall: TextStyle().copyWith(
+    bodySmall: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
     labelLarge: TextStyle().copyWith(
         fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white),

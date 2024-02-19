@@ -1,3 +1,4 @@
+import 'package:MobileGKI/home/beranda.dart';
 import 'package:MobileGKI/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,7 @@ class _SplashScreen extends State<SplashScreen>
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const NavigationBarApp()));
+          MaterialPageRoute(builder: (_) => const HomeScreen()));
     });
   }
 

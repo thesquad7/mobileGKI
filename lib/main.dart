@@ -1,4 +1,5 @@
 import 'package:MobileGKI/init/splash_screen.dart';
+import 'package:MobileGKI/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,10 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mobile GKI Indramayu',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.system,
+      theme: FilemonAppTheme.temaTerang,
+      darkTheme: FilemonAppTheme.temaGelap,
       home: const SplashScreen(),
     );
   }

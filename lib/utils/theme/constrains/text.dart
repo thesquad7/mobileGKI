@@ -66,6 +66,6 @@ class FilemonText {
   static const String popularProducts = "Popular Products";
 
   // -- Home
-  static const String homeAppbarTitle = "Good day for shopping";
-  static const String homeAppbarSubTitle = "Taimoor Sikander";
+  static const String homeAppbarTitle = "Selamat Beribadah";
+  static const String homeAppbarSubTitle = "Jemaat Terkasih";
 }

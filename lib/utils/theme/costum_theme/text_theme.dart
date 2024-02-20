@@ -22,6 +22,12 @@ class FilemonTextTheme {
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
     bodySmall: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+    displayLarge:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+    displayMedium:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+    displaySmall:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
     labelLarge: TextStyle().copyWith(
         fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black),
     labelMedium: TextStyle().copyWith(
@@ -44,7 +50,13 @@ class FilemonTextTheme {
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
     bodyMedium: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-    bodySmall: TextStyle().copyWith(
+    bodySmall:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+    displayLarge:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+    displayMedium:
+        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+    displaySmall: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
     labelLarge: TextStyle().copyWith(
         fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white),

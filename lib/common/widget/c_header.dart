@@ -4,9 +4,9 @@ import 'package:MobileGKI/utils/theme/constrains/colors.dart';
 import 'package:flutter/material.dart';
 
 class FilemonPrimaryHeaderCon extends StatelessWidget {
-  const FilemonPrimaryHeaderCon({super.key, this.child});
+  const FilemonPrimaryHeaderCon({super.key, required this.child});
 
-  final Widget? child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class FilemonPrimaryHeaderCon extends StatelessWidget {
         color: FilemonColor.primary,
         padding: const EdgeInsets.all(0),
         child: SizedBox(
-          height: 400,
+          height: 250,
           child: Stack(
             children: [
               Positioned(
@@ -28,7 +28,9 @@ class FilemonPrimaryHeaderCon extends StatelessWidget {
                   top: -100,
                   right: -300,
                   child: FilemonTopContainer(
-                      backgroundColor: FilemonColor.textWhite.withOpacity(0.1)))
+                      backgroundColor:
+                          FilemonColor.textWhite.withOpacity(0.1))),
+              child,
             ],
           ),
         ),

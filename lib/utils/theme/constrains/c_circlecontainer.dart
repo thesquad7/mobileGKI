@@ -7,7 +7,7 @@ class FilemonTopContainer extends StatelessWidget {
       this.child,
       this.backgroundColor = FilemonColor.white,
       this.width = 400,
-      this.heigth = 400,
+      this.heigth = 250,
       this.radius = 400,
       this.padding = 0});
   final double? width;

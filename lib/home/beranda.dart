@@ -1,4 +1,10 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
+import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
+import 'package:MobileGKI/home/d_config/widget/b_catitem.dart';
+import 'package:MobileGKI/home/d_config/widget/b_headcat.dart';
+import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
+import 'package:MobileGKI/utils/theme/constrains/colors.dart';
+import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,8 +17,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             FilemonPrimaryHeaderCon(
-              child: Container(),
-            )
+                child: Column(
+              children: [berandaAppbar(), menuSecHome()],
+            ))
           ],
         ),
       ),

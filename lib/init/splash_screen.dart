@@ -1,8 +1,6 @@
 import 'package:MobileGKI/home/beranda.dart';
-import 'package:MobileGKI/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:MobileGKI/main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -42,17 +40,19 @@ class _SplashScreen extends State<SplashScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 150,
-              child: Image.asset("assets/logo.png"),
+            Card(
+              child: Container(
+                width: 150,
+                child: Image.asset("assets/logo.png"),
+              ),
             ),
             Text(
               'Mobile GKI',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(fontSize: 30),
             ),
             Text(
               'Indramayu',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(fontSize: 24),
             )
           ],
         ),

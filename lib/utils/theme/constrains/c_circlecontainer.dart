@@ -9,12 +9,14 @@ class FilemonTopContainer extends StatelessWidget {
       this.width = 400,
       this.heigth = 250,
       this.radius = 400,
+      this.margin,
       this.padding = 0});
   final double? width;
   final double? heigth;
   final double radius;
   final double padding;
   final Widget? child;
+  final EdgeInsets? margin;
   final Color backgroundColor;
 
   @override

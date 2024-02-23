@@ -4,18 +4,21 @@ import 'package:MobileGKI/utils/theme/constrains/colors.dart';
 import 'package:flutter/material.dart';
 
 class FilemonPrimaryHeaderCon extends StatelessWidget {
-  const FilemonPrimaryHeaderCon({super.key, required this.child});
+  const FilemonPrimaryHeaderCon(
+      {super.key, required this.child, required this.color, this.height});
 
   final Widget child;
+  final Color? color;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return FilemonCurveEdgeWidget(
       child: Container(
-        color: FilemonColor.primary,
+        color: color,
         padding: const EdgeInsets.all(0),
         child: SizedBox(
-          height: 250,
+          height: height,
           child: Stack(
             children: [
               Positioned(

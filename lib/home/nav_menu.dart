@@ -1,3 +1,4 @@
+import 'package:MobileGKI/home/admin_area.dart';
 import 'package:MobileGKI/home/beranda.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/colors.dart';
@@ -26,9 +27,9 @@ class NavMenu extends StatelessWidget {
                 controller.selectedIndex.value = index,
             destinations: const [
               NavigationDestination(icon: Icon(Icons.church), label: "Warta"),
-              NavigationDestination(icon: Icon(Icons.person), label: "Laporan"),
               NavigationDestination(
-                  icon: Icon(Icons.account_circle_outlined), label: "Personal"),
+                  icon: Icon(Icons.chrome_reader_mode), label: "Jadwal"),
+              NavigationDestination(icon: Icon(Icons.menu), label: "AdminArea"),
             ],
           ),
         ),
@@ -40,5 +41,5 @@ class NavMenu extends StatelessWidget {
 
 class NavigationCon extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screens = [const HomeScreen(), Container(), Container()];
+  final screens = [const HomeScreen(), Container(), const AdminArea()];
 }

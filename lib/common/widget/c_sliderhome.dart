@@ -21,6 +21,7 @@ class FilemonHomeSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
+              autoPlay: true,
               onPageChanged: (index, _) =>
                   controller.updatePageIndicator(index),
               viewportFraction: 1),

@@ -1,13 +1,11 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
-import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/c_sliderhome.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
-import 'package:MobileGKI/utils/theme/constrains/c_circlecontainer.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
+import 'package:MobileGKI/utils/theme/constrains/text.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,11 +17,22 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             FilemonPrimaryHeaderCon(
+                color: Colors.amber,
+                height: 250,
                 child: Column(
-              children: [berandaAppbar(), menuSecHome()],
-            )),
+                  children: [
+                    berandaAppbar(
+                      Imgurl: "null",
+                      icon: Icon(Icons.calendar_month),
+                      textGrettings: FilemonText.homeAppbarTitle,
+                      textUser: FilemonText.homeAppbarSubTitle,
+                      areImage: false,
+                    ),
+                    menuSecHome()
+                  ],
+                )),
             Padding(
-              padding: const EdgeInsets.all(FilemonSized.defaultSpace),
+              padding: const EdgeInsets.all(0),
               child: FilemonHomeSlider(
                 banners: [
                   Filemonimages.slide1,

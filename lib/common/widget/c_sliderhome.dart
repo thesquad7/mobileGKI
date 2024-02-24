@@ -1,7 +1,7 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/utils/controller/controller_home.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_circlecontainer.dart';
-import 'package:MobileGKI/utils/theme/constrains/colors.dart';
+import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,8 +11,10 @@ class FilemonHomeSlider extends StatelessWidget {
   const FilemonHomeSlider({
     super.key,
     required this.banners,
+    required this.autoplay,
   });
   final List<String> banners;
+  final bool autoplay;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class FilemonHomeSlider extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              autoPlay: true,
+              autoPlay: autoplay,
               onPageChanged: (index, _) =>
                   controller.updatePageIndicator(index),
               viewportFraction: 1),

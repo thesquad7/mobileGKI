@@ -1,6 +1,6 @@
 import 'package:MobileGKI/common/widget/costum_curve_widget.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_circlecontainer.dart';
-import 'package:MobileGKI/utils/theme/constrains/colors.dart';
+import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:flutter/material.dart';
 
 class FilemonPrimaryHeaderCon extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:MobileGKI/home/admin_area.dart';
 import 'package:MobileGKI/home/beranda.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-import 'package:MobileGKI/utils/theme/constrains/colors.dart';
+import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

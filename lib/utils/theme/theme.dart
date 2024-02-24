@@ -25,10 +25,11 @@ class FilemonAppTheme {
       bottomSheetTheme: FilemonBottomSheetTheme.terangBottomSheetTheme,
       outlinedButtonTheme: FilemonOutlineButtonTheme.terangOutlineButtonTheme,
       inputDecorationTheme: FilemonTextFieldTheme.terangInputDecorationTheme);
+
   static ThemeData temaGelap = ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       primaryColor: Colors.blue,
       scaffoldBackgroundColor: Colors.black,
       textTheme: FilemonTextTheme.gelapTextTheme,

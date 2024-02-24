@@ -1,6 +1,5 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
-import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class AdminArea extends StatelessWidget {

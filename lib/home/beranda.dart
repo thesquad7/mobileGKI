@@ -1,5 +1,6 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_sliderhome.dart';
+import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
@@ -33,11 +34,28 @@ class HomeScreen extends StatelessWidget {
                 )),
             Padding(
               padding: const EdgeInsets.all(0),
-              child: FilemonHomeSlider(
-                banners: [
-                  Filemonimages.slide1,
-                  Filemonimages.slide2,
-                  Filemonimages.slide3
+              child: Column(
+                children: [
+                  FilemonHomeSlider(
+                    autoplay: false,
+                    banners: [
+                      Filemonimages.slide1,
+                      Filemonimages.slide2,
+                      Filemonimages.slide3
+                    ],
+                  ),
+                  SizedBox(height: FilemonSized.spaceBtwItems),
+                  GridView.builder(
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: FilemonSized.gridViewSpacing,
+                              crossAxisSpacing: FilemonSized.gridViewSpacing,
+                              mainAxisExtent: 220),
+                      itemBuilder: (_, index) => FverticalCard())
                 ],
               ),
             )

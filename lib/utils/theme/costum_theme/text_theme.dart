@@ -13,15 +13,15 @@ class FilemonTextTheme {
     titleLarge: TextStyle().copyWith(
         fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
     titleMedium: TextStyle().copyWith(
-        fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
     titleSmall: TextStyle().copyWith(
-        fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
     bodyLarge: TextStyle().copyWith(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
     bodyMedium: TextStyle().copyWith(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 14, fontWeight: FontWeight.normal, color: Colors.black),
     bodySmall: TextStyle().copyWith(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
     displayLarge:
         TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
     displayMedium:
@@ -43,15 +43,15 @@ class FilemonTextTheme {
     titleLarge: TextStyle().copyWith(
         fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
     titleMedium: TextStyle().copyWith(
-        fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
     titleSmall: TextStyle().copyWith(
-        fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white),
     bodyLarge: TextStyle().copyWith(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
     bodyMedium: TextStyle().copyWith(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white),
     bodySmall:
-        TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+        TextStyle().copyWith(fontWeight: FontWeight.w500, color: Colors.white),
     displayLarge:
         TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
     displayMedium:

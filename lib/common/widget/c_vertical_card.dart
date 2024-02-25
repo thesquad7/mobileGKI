@@ -1,7 +1,6 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/c_rounded_container.dart';
 import 'package:MobileGKI/common/widget/c_text_title.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -11,7 +10,9 @@ import 'package:flutter/material.dart';
 class FverticalCard extends StatelessWidget {
   const FverticalCard({
     super.key,
+    required this.ImgUrl,
   });
+  final String ImgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,19 @@ class FverticalCard extends StatelessWidget {
           color: dark ? FilemonColor.darkGrey : FilemonColor.white),
       child: Column(children: [
         RoundedContainer(
-          height: 180,
+          height: 170,
           backgroundColor: dark ? FilemonColor.dark : FilemonColor.light,
           child: Stack(
             children: [
-              const RoundedIMG(
-                  imageUrl: Filemonimages.product1, applyImgRadius: true),
+              RoundedIMG(
+                imageUrl: ImgUrl,
+                height: 170,
+                applyImgRadius: true,
+                fit: BoxFit.fitHeight,
+              ),
               Positioned(
-                top: 12,
+                top: 10,
+                left: 10,
                 child: RoundedContainer(
                   child: Text("Tag"),
                   radius: FilemonSized.sm,

@@ -1,4 +1,3 @@
-import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class FProductTextTitle extends StatelessWidget {

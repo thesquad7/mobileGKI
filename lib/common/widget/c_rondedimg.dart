@@ -1,4 +1,5 @@
 import 'package:MobileGKI/utils/constrains/colors.dart';
+import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class RoundedIMG extends StatelessWidget {
     super.key,
     this.width,
     this.height,
-    required this.imageUrl,
+    this.imageUrl = Filemonimages.product1,
     this.applyImgRadius = true,
     this.border,
     this.backgroundColor = FilemonColor.light,

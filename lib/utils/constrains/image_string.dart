@@ -6,4 +6,7 @@ class Filemonimages {
   static const String product2 = "assets/image/product2.jpg";
   static const String product3 = "assets/image/product3.jpg";
   static const String product4 = "assets/image/product4.jpg";
+  static const String pendeta1 = "assets/image/pendeta1.jpg";
+  static const String pendeta2 = "assets/image/pendeta2.jpg";
+  static const String pendeta3 = "assets/image/pendeta3.jpg";
 }

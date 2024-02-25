@@ -13,6 +13,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> imgberanda;
+    imgberanda = [
+      Filemonimages.product1,
+      Filemonimages.product2,
+      Filemonimages.product3,
+      Filemonimages.product4,
+    ];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -23,7 +30,8 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     berandaAppbar(
-                      Imgurl: "null",
+                      are2line: true,
+                      areAction: true,
                       icon: Icon(Icons.calendar_month),
                       textGrettings: FilemonText.homeAppbarTitle,
                       textUser: FilemonText.homeAppbarSubTitle,
@@ -45,17 +53,22 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: FilemonSized.spaceBtwItems),
-                  GridView.builder(
-                      itemCount: 4,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: FilemonSized.gridViewSpacing,
-                              crossAxisSpacing: FilemonSized.gridViewSpacing,
-                              mainAxisExtent: 220),
-                      itemBuilder: (_, index) => FverticalCard())
+                  Padding(
+                    padding: const EdgeInsets.all(FilemonSized.borderRadiusMd),
+                    child: GridView.builder(
+                        itemCount: 4,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: FilemonSized.gridViewSpacing,
+                                crossAxisSpacing: FilemonSized.gridViewSpacing,
+                                mainAxisExtent: 222),
+                        itemBuilder: (_, index) => FverticalCard(
+                              ImgUrl: imgberanda[index].toString(),
+                            )),
+                  )
                 ],
               ),
             )

@@ -18,6 +18,8 @@ class AdminArea extends StatelessWidget {
                 textGrettings: "Halo",
                 textUser: "Pdt.Tiwan",
                 areImage: true,
+                are2line: true,
+                areAction: true,
                 Imgurl: "assets/logo.png",
                 imgH: 40,
                 imgW: 40,

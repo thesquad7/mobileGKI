@@ -42,7 +42,10 @@ class _SplashScreen extends State<SplashScreen>
             Card(
               child: Container(
                 width: 150,
-                child: Image.asset("assets/logo.png"),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/logo.png"),
+                ),
               ),
             ),
             Text(

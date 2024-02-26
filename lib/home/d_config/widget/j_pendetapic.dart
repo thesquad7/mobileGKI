@@ -1,4 +1,3 @@
-import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 
 class PendetaPic extends StatelessWidget {

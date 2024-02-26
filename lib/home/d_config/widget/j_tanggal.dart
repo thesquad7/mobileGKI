@@ -16,9 +16,12 @@ class Tanggal extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.amber[400]?.withOpacity(0.5),
                 borderRadius: BorderRadius.all(Radius.circular(5))),
-            child: Text(
-              tanggal,
-              style: Theme.of(context).textTheme.bodyMedium,
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Text(
+                tanggal,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             )));
   }
 }

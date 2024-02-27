@@ -1,4 +1,6 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
+import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
+import 'package:MobileGKI/utils/constrains/aa_menubutton_config.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -35,9 +37,9 @@ class AdminArea extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           )),
           Padding(
-            padding: EdgeInsets.all(FilemonSized.borderRadiusLg),
+            padding: EdgeInsets.all(FilemonSized.borderRadiusMd),
             child: GridView.builder(
-                itemCount: 4,
+                itemCount: 9,
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: FilemonSized.gridViewSpacing,
@@ -45,54 +47,17 @@ class AdminArea extends StatelessWidget {
                     crossAxisCount: 3,
                     mainAxisExtent: 120),
                 itemBuilder: (_, index) => Container(
-                      child: icondataAdmin(),
+                      child: GestureDetector(
+                        onTap: () {
+                          print(FMenubuttonConfig.menuname[index]);
+                        },
+                        child: icondataAdmin(
+                            icon: FMenubuttonConfig.menuIcon[index],
+                            name: FMenubuttonConfig.menuname[index]),
+                      ),
                     )),
           ),
         ]),
-      ),
-    );
-  }
-}
-
-class icondataAdmin extends StatelessWidget {
-  const icondataAdmin({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = FilemonHelperFunctions.isDarkMode(context);
-    return Padding(
-      padding: EdgeInsets.all(0),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 2,
-              offset: Offset(0, 3), // Shadow position
-            ),
-          ],
-          color: dark
-              ? FilemonColor.white.withOpacity(0.1)
-              : FilemonColor.black.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: dark
-                ? FilemonColor.white.withOpacity(0.2)
-                : FilemonColor.black.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(
-              Icons.group,
-              size: 70,
-            ),
-            Text("Jemaat")
-          ]),
-        ),
       ),
     );
   }

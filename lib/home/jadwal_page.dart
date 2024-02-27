@@ -1,8 +1,10 @@
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
+import 'package:MobileGKI/common/widget/j_detail.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Jadwal extends StatelessWidget {
   const Jadwal({super.key});
@@ -21,14 +23,17 @@ class Jadwal extends StatelessWidget {
               ),
             ]),
           ),
-          HorizontalCard(
-              tanggal: "10 Maret 2024",
-              tempat: "GKI Indramayu",
-              tema: "Melayani Tuhan",
-              nama_pendeta: "Pdt.Markus",
-              img_pendeta: Filemonimages.pendeta1,
-              jenis_ibadah: "Ibadah Umum",
-              img_bg: Filemonimages.slide2),
+          GestureDetector(
+            onTap: () => Get.to(() => const FDetailJadwal()),
+            child: HorizontalCard(
+                tanggal: "10 Maret 2024",
+                tempat: "GKI Indramayu",
+                tema: "Melayani Tuhan",
+                nama_pendeta: "Pdt.Markus",
+                img_pendeta: Filemonimages.pendeta1,
+                jenis_ibadah: "Ibadah Umum",
+                img_bg: Filemonimages.slide2),
+          ),
           HorizontalCard(
               tanggal: "18 Maret 2024",
               tempat: "GKI Indramayu",

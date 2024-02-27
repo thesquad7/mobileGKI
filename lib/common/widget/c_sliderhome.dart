@@ -27,7 +27,12 @@ class FilemonHomeSlider extends StatelessWidget {
               onPageChanged: (index, _) =>
                   controller.updatePageIndicator(index),
               viewportFraction: 1),
-          items: banners.map((url) => RoundedIMG(imageUrl: url)).toList(),
+          items: banners
+              .map((url) => RoundedIMG(
+                    imageUrl: url,
+                    padding: EdgeInsets.all(0),
+                  ))
+              .toList(),
         ),
         const SizedBox(height: FilemonSized.spaceBtwItems),
         Center(

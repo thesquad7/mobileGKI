@@ -31,6 +31,7 @@ class FverticalCard extends StatelessWidget {
           child: Stack(
             children: [
               RoundedIMG(
+                padding: EdgeInsets.all(0),
                 imageUrl: ImgUrl,
                 height: 170,
                 applyImgRadius: true,

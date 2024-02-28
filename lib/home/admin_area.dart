@@ -2,10 +2,9 @@ import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
 import 'package:MobileGKI/utils/constrains/aa_menubutton_config.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
-import 'package:MobileGKI/utils/constrains/colors.dart';
-import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AdminArea extends StatelessWidget {
   const AdminArea({super.key});
@@ -48,9 +47,8 @@ class AdminArea extends StatelessWidget {
                     mainAxisExtent: 120),
                 itemBuilder: (_, index) => Container(
                       child: GestureDetector(
-                        onTap: () {
-                          print(FMenubuttonConfig.menuname[index]);
-                        },
+                        onTap: () =>
+                            Get.to(() => FMenubuttonConfig.screen[index]),
                         child: icondataAdmin(
                             icon: FMenubuttonConfig.menuIcon[index],
                             name: FMenubuttonConfig.menuname[index]),

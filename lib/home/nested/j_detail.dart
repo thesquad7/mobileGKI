@@ -1,13 +1,8 @@
-import 'package:MobileGKI/common/widget/c_appabar.dart';
-import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/common/widget/jd_imgslide.dart';
-import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
-import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class FDetailJadwal extends StatelessWidget {

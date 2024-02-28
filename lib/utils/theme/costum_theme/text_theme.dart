@@ -29,9 +29,11 @@ class FilemonTextTheme {
     displaySmall:
         TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.black),
     labelLarge: TextStyle().copyWith(
-        fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
     labelMedium: TextStyle().copyWith(
-        fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: Colors.black.withOpacity(0.5)),
   );
   static TextTheme gelapTextTheme = TextTheme(
     headlineLarge: TextStyle().copyWith(
@@ -50,8 +52,8 @@ class FilemonTextTheme {
         fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
     bodyMedium: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white),
-    bodySmall:
-        TextStyle().copyWith(fontWeight: FontWeight.w500, color: Colors.white),
+    bodySmall: TextStyle().copyWith(
+        fontWeight: FontWeight.w500, color: Colors.white..withOpacity(0.5)),
     displayLarge:
         TextStyle().copyWith(fontWeight: FontWeight.w600, color: Colors.white),
     displayMedium:
@@ -59,8 +61,10 @@ class FilemonTextTheme {
     displaySmall: TextStyle().copyWith(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
     labelLarge: TextStyle().copyWith(
-        fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 12, fontWeight: FontWeight.normal, color: Colors.white),
     labelMedium: TextStyle().copyWith(
-        fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        color: Colors.white.withOpacity(0.5)),
   );
 }

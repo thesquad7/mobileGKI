@@ -1,7 +1,8 @@
-import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
+import 'package:MobileGKI/home/nested/edit/crud_aa_jemaat.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Jemaat extends StatelessWidget {
   const Jemaat({super.key});
@@ -82,7 +83,7 @@ class JemaatItem extends StatelessWidget {
               Container(
                 width: 40,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(() => EditJemaat()),
                   icon: Icon(Icons.edit),
                 ),
               )

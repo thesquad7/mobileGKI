@@ -47,8 +47,11 @@ class AdminArea extends StatelessWidget {
                     mainAxisExtent: 120),
                 itemBuilder: (_, index) => Container(
                       child: GestureDetector(
-                        onTap: () =>
-                            Get.to(() => FMenubuttonConfig.screen[index]),
+                        onTap: () {
+                          Get.to(() {
+                            return FMenubuttonConfig.screen[index];
+                          });
+                        },
                         child: icondataAdmin(
                             icon: FMenubuttonConfig.menuIcon[index],
                             name: FMenubuttonConfig.menuname[index]),

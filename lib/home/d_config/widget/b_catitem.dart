@@ -1,4 +1,5 @@
 import 'package:MobileGKI/utils/constrains/colors.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,23 @@ class CatHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = FilemonHelperFunctions.isDarkMode(context);
+    final List<String> judulMenu = [
+      "Kesaksian",
+      "Acara",
+      "Keuangan",
+      "Jadwal TU",
+      "Renungan",
+      "Saran&Kritik"
+    ];
+    final List<IconData> iconMenu = [
+      Icons.star_outlined,
+      Icons.event,
+      Icons.monetization_on,
+      Icons.schedule_rounded,
+      Icons.doorbell,
+      Icons.feedback
+    ];
     return Padding(
       padding: const EdgeInsets.only(left: FilemonSized.defaultSpace / 3),
       child: SizedBox(
@@ -27,22 +45,28 @@ class CatHome extends StatelessWidget {
                     height: 56,
                     padding: const EdgeInsets.all(FilemonSized.sm),
                     decoration: BoxDecoration(
-                      color: FilemonColor.white,
-                      borderRadius: BorderRadius.circular(100),
+                      color: dark ? FilemonColor.darkGrey : FilemonColor.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Center(child: Image.asset("assets/logo.png")),
+                    child: Center(
+                        child: Icon(
+                      iconMenu[index],
+                      size: 40,
+                    )),
                   ),
                   const SizedBox(height: FilemonSized.spaceBtwItems / 2),
                   SizedBox(
                       width: 55,
-                      child: Text(
-                        'Category',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .apply(color: FilemonColor.white),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                      child: Center(
+                        child: Text(
+                          judulMenu[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .apply(color: FilemonColor.white),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ))
                 ],
               ),

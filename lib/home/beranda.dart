@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     berandaAppbar(
                       are2line: true,
-                      areAction: true,
+                      areAction: false,
                       icon: Icon(Icons.calendar_month),
                       textGrettings: FilemonText.homeAppbarTitle,
                       textUser: FilemonText.homeAppbarSubTitle,

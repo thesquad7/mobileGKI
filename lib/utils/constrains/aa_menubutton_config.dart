@@ -1,5 +1,7 @@
+import 'package:MobileGKI/home/nested/aa_acara_page.dart';
+import 'package:MobileGKI/home/nested/aa_jamkerja.dart';
 import 'package:MobileGKI/home/nested/aa_jemaat_page.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/home/nested/aa_kritiksaran.dart';
 import 'package:flutter/material.dart';
 
 class FMenubuttonConfig {
@@ -19,12 +21,12 @@ class FMenubuttonConfig {
   static final screen = [
     const Jemaat(),
     const Jemaat(),
+    const Acara(),
     const Jemaat(),
     const Jemaat(),
     const Jemaat(),
-    const Jemaat(),
-    const Jemaat(),
-    const Jemaat(),
+    const JamKerja(),
+    const KritikSaran(),
     const Jemaat()
   ];
 

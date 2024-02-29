@@ -71,7 +71,7 @@ class JemaatEdit extends State<EditJemaat> {
                     height: 200,
                     child: FilemonAppBar(
                       showBackArrow: true,
-                      title: Text("Edit"),
+                      title: Text("Edit Jemaat"),
                     ),
                     color: Colors.blue),
                 EditPhotoJemaat(),

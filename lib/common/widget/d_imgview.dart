@@ -1,7 +1,5 @@
 import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
-import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class FDetailImgView extends StatelessWidget {
@@ -21,9 +19,10 @@ class FDetailImgView extends StatelessWidget {
         child: Stack(children: [
           Container(
             height: double.infinity,
+            width: double.infinity,
             child: Image.asset(
               imgUrl,
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
             ),
           ),
           const FilemonAppBar(

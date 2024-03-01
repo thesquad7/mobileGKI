@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class FHorizontalCardImgBG extends StatelessWidget {
   const FHorizontalCardImgBG({
     super.key,
+    required this.imgUrl,
   });
+  final String imgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class FHorizontalCardImgBG extends StatelessWidget {
                 height: 150,
                 child: ClipRRect(
                     child: Image.asset(
-                      Filemonimages.pendeta1,
+                      imgUrl,
                       fit: BoxFit.fitWidth,
                     ),
                     borderRadius: BorderRadius.circular(10))),

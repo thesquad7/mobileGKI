@@ -3,10 +3,12 @@ import 'package:MobileGKI/common/widget/c_sliderhome.dart';
 import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
+import 'package:MobileGKI/home/nested/b_productpagedetail.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/constrains/text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -65,8 +67,12 @@ class HomeScreen extends StatelessWidget {
                                 mainAxisSpacing: FilemonSized.gridViewSpacing,
                                 crossAxisSpacing: FilemonSized.gridViewSpacing,
                                 mainAxisExtent: 222),
-                        itemBuilder: (_, index) => FverticalCard(
-                              ImgUrl: imgberanda[index].toString(),
+                        itemBuilder: (_, index) => GestureDetector(
+                              onTap: () => Get.to(
+                                  () => const BerandaProductPageDetail()),
+                              child: FverticalCard(
+                                ImgUrl: imgberanda[index].toString(),
+                              ),
                             )),
                   )
                 ],

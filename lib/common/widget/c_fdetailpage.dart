@@ -41,10 +41,13 @@ class FDetailPage extends StatelessWidget {
                   tanggal: DT_tanggal,
                   jam: DT_jam,
                 )
-              : SearchBar(),
+              : SizedBox(),
           isAddress
-              ? AddressDetail(
-                  address: Address,
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: AddressDetail(
+                    address: Address,
+                  ),
                 )
               : SizedBox(),
           isHeadMetadata

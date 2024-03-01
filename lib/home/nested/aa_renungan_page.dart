@@ -1,5 +1,6 @@
 import 'package:MobileGKI/common/widget/c_fhorizontalcardImgbg.dart';
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
+import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 
 class Renungan extends StatelessWidget {
@@ -10,7 +11,9 @@ class Renungan extends StatelessWidget {
     return FManagementPageDesign(
         floatAButton: true,
         child: Stack(children: [
-          FHorizontalCardImgBG(),
+          FHorizontalCardImgBG(
+            imgUrl: Filemonimages.pendeta3,
+          ),
           Positioned(
             right: 30,
             top: 65,

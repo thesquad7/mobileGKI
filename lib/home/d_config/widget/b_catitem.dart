@@ -1,7 +1,9 @@
+import 'package:MobileGKI/home/nested/b_menu_kesaksian.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CatHome extends StatelessWidget {
   const CatHome({
@@ -40,19 +42,23 @@ class CatHome extends StatelessWidget {
               padding: const EdgeInsets.only(right: FilemonSized.spaceBtwItems),
               child: Column(
                 children: [
-                  Container(
-                    width: 56,
-                    height: 56,
-                    padding: const EdgeInsets.all(FilemonSized.sm),
-                    decoration: BoxDecoration(
-                      color: dark ? FilemonColor.darkGrey : FilemonColor.white,
-                      borderRadius: BorderRadius.circular(10),
+                  GestureDetector(
+                    onTap: () => Get.to(() => const KesaksianBeranda()),
+                    child: Container(
+                      width: 56,
+                      height: 56,
+                      padding: const EdgeInsets.all(FilemonSized.sm),
+                      decoration: BoxDecoration(
+                        color:
+                            dark ? FilemonColor.darkGrey : FilemonColor.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                          child: Icon(
+                        iconMenu[index],
+                        size: 40,
+                      )),
                     ),
-                    child: Center(
-                        child: Icon(
-                      iconMenu[index],
-                      size: 40,
-                    )),
                   ),
                   const SizedBox(height: FilemonSized.spaceBtwItems / 2),
                   SizedBox(

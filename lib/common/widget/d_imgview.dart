@@ -8,25 +8,23 @@ class FDetailImgView extends StatelessWidget {
   const FDetailImgView({
     super.key,
     required this.children,
+    required this.imgUrl,
   });
 
   final Widget children;
+  final String imgUrl;
 
   @override
   Widget build(BuildContext context) {
     return FilemonPrimaryHeaderCon(
         height: 300,
         child: Stack(children: [
-          const SizedBox(
-            height: 300,
-            child: Padding(
-                padding: const EdgeInsets.only(
-                    top: FilemonSized.productImageRadius * 2),
-                child: Center(
-                  child: Image(
-                    image: AssetImage(Filemonimages.pendeta1),
-                  ),
-                )),
+          Container(
+            height: double.infinity,
+            child: Image.asset(
+              imgUrl,
+              fit: BoxFit.fitHeight,
+            ),
           ),
           const FilemonAppBar(
             showBackArrow: true,

@@ -1,3 +1,5 @@
+import 'package:MobileGKI/utils/constrains/colors.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/device/device_utility.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +22,25 @@ class FilemonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = FilemonHelperFunctions.isDarkMode(context);
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: FilemonSized.md),
+        padding: const EdgeInsets.symmetric(horizontal: FilemonSized.sm),
         child: AppBar(
           automaticallyImplyLeading: false,
           leading: showBackArrow
-              ? IconButton(
-                  onPressed: () => Get.back(), icon: Icon(Icons.arrow_back))
+              ? Container(
+                  decoration: BoxDecoration(
+                      color: dark
+                          ? FilemonColor.white.withOpacity(0.3)
+                          : FilemonColor.dark.withOpacity(0.7),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: IconButton(
+                      onPressed: () => Get.back(),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: dark ? Colors.black : Colors.white,
+                      )),
+                )
               : leadingIcon != null
                   ? IconButton(
                       onPressed: leeadingOnPressed, icon: Icon(leadingIcon))

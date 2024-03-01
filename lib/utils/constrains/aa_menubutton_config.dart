@@ -2,6 +2,7 @@ import 'package:MobileGKI/home/nested/aa_acara_page.dart';
 import 'package:MobileGKI/home/nested/aa_jamkerja.dart';
 import 'package:MobileGKI/home/nested/aa_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/aa_kritiksaran.dart';
+import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
 import 'package:flutter/material.dart';
 
 class FMenubuttonConfig {
@@ -24,7 +25,7 @@ class FMenubuttonConfig {
     const Acara(),
     const Jemaat(),
     const Jemaat(),
-    const Jemaat(),
+    const Renungan(),
     const JamKerja(),
     const KritikSaran(),
     const Jemaat()

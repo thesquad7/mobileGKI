@@ -14,17 +14,14 @@ class FTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        width: double.infinity,
-        child: TextField(
-          obscureText: passtext,
-          controller: controller,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: title,
-          ),
+    return SizedBox(
+      width: double.infinity,
+      child: TextField(
+        obscureText: passtext,
+        controller: controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: title,
         ),
       ),
     );

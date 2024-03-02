@@ -1,5 +1,4 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 
 class HeadDMetadata extends StatelessWidget {
@@ -8,8 +7,9 @@ class HeadDMetadata extends StatelessWidget {
     required this.personname,
     required this.status,
     required this.jenisacara,
+    required this.imgUrl,
   });
-  final String personname, status, jenisacara;
+  final String personname, status, jenisacara, imgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HeadDMetadata extends StatelessWidget {
           child: SizedBox(
             height: 80,
             child: RoundedIMG(
-              imageUrl: Filemonimages.pendeta1,
+              imageUrl: imgUrl,
             ),
           ),
         ),

@@ -28,7 +28,7 @@ class FDetailImgView extends StatelessWidget {
           const FilemonAppBar(
             showBackArrow: true,
           ),
-          children
+          Positioned(bottom: 30, right: 10, child: children)
         ]),
         color: Colors.purpleAccent);
   }

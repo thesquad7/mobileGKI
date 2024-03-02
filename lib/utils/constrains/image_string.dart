@@ -9,4 +9,8 @@ class Filemonimages {
   static const String pendeta1 = "assets/image/pendeta1.jpg";
   static const String pendeta2 = "assets/image/pendeta2.jpg";
   static const String pendeta3 = "assets/image/pendeta3.jpg";
+  static const String pendeta4 = "assets/image/pendeta4.jpg";
+  static const String pendeta5 = "assets/image/pendeta5.jpg";
+  static const String person1 = "assets/image/person1.jpg";
+  static const String person2 = "assets/image/person2.jpg";
 }

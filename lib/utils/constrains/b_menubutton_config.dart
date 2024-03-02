@@ -1,6 +1,7 @@
-import 'package:MobileGKI/home/nested/b_menu_acara_page.dart';
-import 'package:MobileGKI/home/nested/b_menu_jadwaltu_page.dart';
-import 'package:MobileGKI/home/nested/b_menu_kesaksian.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_menu_acara_page.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_menu_jadwaltu_page.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_menu_kesaksian.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_menu_renungan_page.dart';
 import 'package:flutter/material.dart';
 
 class berandaMenuConfig {
@@ -28,7 +29,7 @@ class berandaMenuConfig {
     const MenuAcaraBeranda(),
     const KesaksianBeranda(),
     const JadwalTUBeranda(),
-    const KesaksianBeranda(),
+    const RenunganBeranda(),
     const KesaksianBeranda(),
   ];
 }

@@ -10,12 +10,14 @@ class FManagementPageDesign extends StatelessWidget {
     this.search,
     required this.searchbutton,
     required this.child,
+    this.onPressed,
   });
   final int itemCount;
   final String pageTitle;
   final IconButton? search;
   final bool floatAButton, autokeepalive, searchbutton;
   final NullableIndexedWidgetBuilder child;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class FManagementPageDesign extends StatelessWidget {
       ),
       floatingActionButton: floatAButton
           ? FloatingActionButton.small(
-              child: const Icon(Icons.add), onPressed: () {})
+              child: const Icon(Icons.add), onPressed: onPressed)
           : null,
       body: Center(
         child: ListView.builder(

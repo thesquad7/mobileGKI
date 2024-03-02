@@ -13,31 +13,35 @@ class FJadwalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: operasional ? Colors.blueAccent : Colors.redAccent,
       width: double.infinity,
       height: 80,
       child: Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 60,
-              child: Text(hari),
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 40,
-                  child: Text(jamMulai),
-                ),
-                SizedBox(width: 30),
-                Container(
-                  width: 40,
-                  child: Text(jamSelesai),
-                )
-              ],
-            )
-          ],
+        child: Container(
+          decoration: BoxDecoration(
+              color: operasional ? Colors.blueAccent : Colors.redAccent,
+              borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: 60,
+                child: Text(hari),
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    child: Text(jamMulai),
+                  ),
+                  SizedBox(width: 30),
+                  Container(
+                    width: 40,
+                    child: Text(jamSelesai),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
         elevation: 6,
       ),

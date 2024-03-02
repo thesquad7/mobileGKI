@@ -5,25 +5,26 @@ import 'package:MobileGKI/common/widget/c_jadwal_metadata.dart';
 import 'package:flutter/material.dart';
 
 class FDetailPage extends StatelessWidget {
-  const FDetailPage({
-    super.key,
-    required this.isTime,
-    required this.isHeadMetadata,
-    this.HMD_personName = "",
-    this.HMD_status = "",
-    this.HMD_jenisAcara = "",
-    required this.deskripsi,
-    required this.Judul,
-    this.DT_tanggal = "",
-    this.DT_jam = "",
-    required this.isAddress,
-    this.Address = "",
-  });
+  const FDetailPage(
+      {super.key,
+      required this.isTime,
+      required this.isHeadMetadata,
+      this.HMD_personName = "",
+      this.HMD_status = "",
+      this.HMD_jenisAcara = "",
+      required this.deskripsi,
+      required this.Judul,
+      this.DT_tanggal = "",
+      this.DT_jam = "",
+      required this.isAddress,
+      this.Address = "",
+      this.HMD_personPic = ""});
   final bool isTime, isHeadMetadata, isAddress;
   final String HMD_personName,
       Address,
       HMD_status,
       HMD_jenisAcara,
+      HMD_personPic,
       deskripsi,
       Judul,
       DT_tanggal,
@@ -52,6 +53,7 @@ class FDetailPage extends StatelessWidget {
               : SizedBox(),
           isHeadMetadata
               ? HeadDMetadata(
+                  imgUrl: HMD_personPic,
                   personname: HMD_personName,
                   status: HMD_status,
                   jenisacara: HMD_jenisAcara,

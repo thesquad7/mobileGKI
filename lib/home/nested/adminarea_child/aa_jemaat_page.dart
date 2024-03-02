@@ -1,5 +1,5 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
-import 'package:MobileGKI/home/nested/edit/crud_aa_jemaat.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

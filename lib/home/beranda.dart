@@ -3,7 +3,7 @@ import 'package:MobileGKI/common/widget/c_sliderhome.dart';
 import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
-import 'package:MobileGKI/home/nested/b_productpagedetail.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/constrains/text.dart';

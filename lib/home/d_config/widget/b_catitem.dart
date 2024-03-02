@@ -1,4 +1,5 @@
 import 'package:MobileGKI/home/nested/b_menu_kesaksian.dart';
+import 'package:MobileGKI/utils/constrains/b_menubutton_config.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -13,22 +14,7 @@ class CatHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = FilemonHelperFunctions.isDarkMode(context);
-    final List<String> judulMenu = [
-      "Kesaksian",
-      "Acara",
-      "Keuangan",
-      "Jadwal TU",
-      "Renungan",
-      "Saran&Kritik"
-    ];
-    final List<IconData> iconMenu = [
-      Icons.star_outlined,
-      Icons.event,
-      Icons.monetization_on,
-      Icons.schedule_rounded,
-      Icons.doorbell,
-      Icons.feedback
-    ];
+
     return Padding(
       padding: const EdgeInsets.only(left: FilemonSized.defaultSpace / 3),
       child: SizedBox(
@@ -43,7 +29,7 @@ class CatHome extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () => Get.to(() => const KesaksianBeranda()),
+                    onTap: () => Get.to(() => berandaMenuConfig.screen[index]),
                     child: Container(
                       width: 56,
                       height: 56,
@@ -55,7 +41,7 @@ class CatHome extends StatelessWidget {
                       ),
                       child: Center(
                           child: Icon(
-                        iconMenu[index],
+                        berandaMenuConfig.iconMenu[index],
                         size: 40,
                       )),
                     ),
@@ -65,7 +51,7 @@ class CatHome extends StatelessWidget {
                       width: 55,
                       child: Center(
                         child: Text(
-                          judulMenu[index],
+                          berandaMenuConfig.judulMenu[index],
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!

@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 class FManagementPageDesign extends StatelessWidget {
   const FManagementPageDesign({
     super.key,
-    required this.child,
     required this.pageTitle,
     this.floatAButton = false,
     required this.itemCount,
     required this.autokeepalive,
     this.search,
     required this.searchbutton,
+    required this.child,
   });
-  final Widget child;
   final int itemCount;
   final String pageTitle;
   final IconButton? search;
   final bool floatAButton, autokeepalive, searchbutton;
+  final NullableIndexedWidgetBuilder child;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,9 @@ class FManagementPageDesign extends StatelessWidget {
           : null,
       body: Center(
         child: ListView.builder(
-          addAutomaticKeepAlives: autokeepalive,
-          itemCount: itemCount,
-          itemBuilder: (_, index) {
-            return child;
-          },
-        ),
+            addAutomaticKeepAlives: autokeepalive,
+            itemCount: itemCount,
+            itemBuilder: child),
       ),
     );
   }

@@ -10,26 +10,28 @@ class Renungan extends StatelessWidget {
   Widget build(BuildContext context) {
     return FManagementPageDesign(
         floatAButton: true,
-        child: Stack(children: [
-          FHorizontalCardImgBG(
-            imgUrl: Filemonimages.pendeta3,
-          ),
-          Positioned(
-            right: 30,
-            top: 65,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {},
-              ),
+        child: (_, index) {
+          return Stack(children: [
+            FHorizontalCardImgBG(
+              imgUrl: Filemonimages.pendeta3,
             ),
-          )
-        ]),
+            Positioned(
+              right: 30,
+              top: 65,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {},
+                ),
+              ),
+            )
+          ]);
+        },
         pageTitle: "Renungan",
         itemCount: 10,
         autokeepalive: false,

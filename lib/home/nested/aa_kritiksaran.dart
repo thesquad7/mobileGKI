@@ -11,48 +11,50 @@ class KritikSaran extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isNetworkImg = false;
     return FManagementPageDesign(
-        child: Container(
-          width: double.infinity,
-          height: 80,
-          child: Card(
-            elevation: 6,
-            child: Stack(
-              children: [
-                Positioned(
-                    right: 10,
-                    top: 15,
-                    child: IconButton(
-                      icon: Icon(Icons.visibility),
-                      onPressed: () {},
-                    )),
-                Positioned(
-                  top: 10,
-                  left: 70,
-                  child: Column(
-                    children: [
-                      Text(
-                        "text",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      Text(
-                        "text",
-                        style: TextStyle(
-                          fontSize: 10.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
+        child: (_, index) {
+          return Container(
+            width: double.infinity,
+            height: 80,
+            child: Card(
+              elevation: 6,
+              child: Stack(
+                children: [
+                  Positioned(
+                      right: 10,
+                      top: 15,
+                      child: IconButton(
+                        icon: Icon(Icons.visibility),
+                        onPressed: () {},
+                      )),
+                  Positioned(
                     top: 10,
-                    left: 10,
-                    child: RoundedImgWithShadow(isNetworkImg: isNetworkImg)),
-              ],
+                    left: 70,
+                    child: Column(
+                      children: [
+                        Text(
+                          "text",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        Text(
+                          "text",
+                          style: TextStyle(
+                            fontSize: 10.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                      top: 10,
+                      left: 10,
+                      child: RoundedImgWithShadow(isNetworkImg: isNetworkImg)),
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
         pageTitle: "Kritik & Saran",
         itemCount: 5,
         autokeepalive: false,

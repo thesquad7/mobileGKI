@@ -78,10 +78,15 @@ class HorizontalCard extends StatelessWidget {
               ),
               Positioned(
                 bottom: 5,
-                right: 10,
-                child: Text(
-                  tempat,
-                  style: Theme.of(context).textTheme.headlineSmall,
+                right: 5,
+                child: Container(
+                  width: 150,
+                  child: Text(
+                    tempat,
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.end,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               )
             ]),

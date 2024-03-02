@@ -9,9 +9,11 @@ class KesaksianBeranda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FManagementPageDesign(
-        child: FHorizontalCardImgBG(
-          imgUrl: Filemonimages.pendeta2,
-        ),
+        child: (_, index) {
+          return const FHorizontalCardImgBG(
+            imgUrl: Filemonimages.pendeta2,
+          );
+        },
         pageTitle: "Kesaksian",
         itemCount: 6,
         search: IconButton(onPressed: () {}, icon: Icon(Icons.search)),

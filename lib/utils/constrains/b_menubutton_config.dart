@@ -1,4 +1,5 @@
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_acara_page.dart';
+import 'package:MobileGKI/home/nested/beranda_child/b_menu_feeback.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_jadwaltu_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_kesaksian.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_renungan_page.dart';
@@ -30,6 +31,6 @@ class berandaMenuConfig {
     const KesaksianBeranda(),
     const JadwalTUBeranda(),
     const RenunganBeranda(),
-    const KesaksianBeranda(),
+    const BerandaFeedback(),
   ];
 }

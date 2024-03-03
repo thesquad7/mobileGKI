@@ -22,7 +22,10 @@ class DateTimeAcara extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(Icons.calendar_month),
               ),
-              Text(tanggal)
+              Text(
+                tanggal,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
             ],
           ),
           SizedBox(width: 30),
@@ -32,7 +35,10 @@ class DateTimeAcara extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(Icons.schedule),
               ),
-              Text(jam)
+              Text(
+                jam,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
             ],
           )
         ],

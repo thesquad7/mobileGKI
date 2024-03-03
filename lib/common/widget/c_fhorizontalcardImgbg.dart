@@ -38,9 +38,14 @@ class FHorizontalCardImgBG extends StatelessWidget {
                     color: Colors.amber.withOpacity(0.5),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 width: 100,
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text("Categori"),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text(
+                      "Categori",
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ),
             ),

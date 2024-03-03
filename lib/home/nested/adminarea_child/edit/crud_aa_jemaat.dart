@@ -1,4 +1,5 @@
 import 'package:MobileGKI/common/widget/c_appabar.dart';
+import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
@@ -34,32 +35,7 @@ class JemaatEdit extends State<EditJemaat> {
   Widget build(BuildContext context) {
     final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: Container(
-        height: 60,
-        decoration: BoxDecoration(
-            color: dark ? Colors.black54 : Colors.white54,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                  width: 100,
-                  child:
-                      ElevatedButton(onPressed: () {}, child: Text("Simpan"))),
-              Container(
-                  width: 100,
-                  child:
-                      ElevatedButton(onPressed: () {}, child: Text("Update"))),
-              Container(
-                  width: 100,
-                  child: ElevatedButton(onPressed: () {}, child: Text("Hapus")))
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: FCRUDNavigation(),
       body: SingleChildScrollView(
         child: Column(
           children: [

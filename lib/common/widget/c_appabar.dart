@@ -28,18 +28,23 @@ class FilemonAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: AppBar(
           automaticallyImplyLeading: false,
           leading: showBackArrow
-              ? Container(
-                  decoration: BoxDecoration(
-                      color: dark
-                          ? FilemonColor.white.withOpacity(0.3)
-                          : FilemonColor.dark.withOpacity(0.7),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: IconButton(
-                      onPressed: () => Get.back(),
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: dark ? Colors.black : Colors.white,
-                      )),
+              ? Center(
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: dark
+                            ? FilemonColor.white.withOpacity(0.3)
+                            : FilemonColor.dark.withOpacity(0.7),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 20,
+                          color: dark ? Colors.black : Colors.white,
+                        )),
+                  ),
                 )
               : leadingIcon != null
                   ? IconButton(

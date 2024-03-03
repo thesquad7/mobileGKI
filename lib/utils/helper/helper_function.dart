@@ -94,6 +94,10 @@ class FilemonHelperFunctions {
     return MediaQuery.of(Get.context!).size.width;
   }
 
+  static double screenWidthtoPendeta() {
+    return MediaQuery.of(Get.context!).size.width - 120.0;
+  }
+
   static String getFormattedDate(DateTime date,
       {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddressDetail extends StatelessWidget {
-  const AddressDetail({
+class AuthorWidget extends StatelessWidget {
+  const AuthorWidget({
     super.key,
     required this.address,
   });
@@ -15,7 +15,7 @@ class AddressDetail extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.location_on),
+          Icon(Icons.manage_accounts_rounded),
           SizedBox(width: 10),
           Container(
               width: 280,

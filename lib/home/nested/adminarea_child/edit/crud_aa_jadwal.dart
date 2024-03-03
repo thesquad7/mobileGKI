@@ -1,8 +1,12 @@
+import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:MobileGKI/utils/theme/constrains/c_ltexfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class JadwalCRUD extends StatefulWidget {
   const JadwalCRUD({super.key});
@@ -13,10 +17,13 @@ class JadwalCRUD extends StatefulWidget {
 
 class _JadwalCRUDState extends State<JadwalCRUD> {
   DateTime tanggal = DateTime.now();
+  TimeOfDay jam = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
+    final pendetaSize = FilemonHelperFunctions.screenWidthtoPendeta();
     return Scaffold(
+      bottomNavigationBar: FCRUDNavigation(),
       body: SingleChildScrollView(
         child: Column(children: [
           FDetailImgView(
@@ -69,7 +76,7 @@ class _JadwalCRUDState extends State<JadwalCRUD> {
                     width: 10,
                   ),
                   SizedBox(
-                    width: 240,
+                    width: pendetaSize,
                     child: FTextField(title: "Nama Pendeta"),
                   )
                 ],
@@ -100,39 +107,68 @@ class _JadwalCRUDState extends State<JadwalCRUD> {
                 child: SizedBox(
                   width: double.infinity,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        width: 100,
-                        child: Text(tanggal.toString()),
+                        width: 120,
+                        child: Text(DateFormat.yMMMEd('id_ID')
+                            .format(tanggal)
+                            .toString()),
                       ),
                       Container(
                         child: ElevatedButton(
                           child: Text("Pilih"),
                           onPressed: () async {
-                            DateTime? newtanggal = await showDatePicker(
-                              context: context,
-                              initialDate: tanggal,
-                              firstDate: DateTime(2021),
-                              lastDate: DateTime(2026),
-                            );
-                            if (newtanggal == null) return;
-                            setState(() => tanggal = newtanggal);
+                            try {
+                              DateTime? newtanggal = await showDatePicker(
+                                  context: context,
+                                  initialDate: tanggal,
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(2030));
+                              if (newtanggal == null) return;
+                              setState(() => tanggal = newtanggal);
+                            } catch (e) {
+                              print(e.toString());
+                            }
                           },
                         ),
                       ),
-                      Container(
-                        width: 80,
-                        child: Text("Jam"),
+                      Center(
+                        child: Container(
+                          width: 80,
+                          child: Text(
+                            jam.format(context).toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                       Container(
                         child: ElevatedButton(
                           child: Text("Pilih"),
-                          onPressed: () {},
+                          onPressed: () async {
+                            try {
+                              TimeOfDay? newtime = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now());
+                              if (newtime == null) return;
+                              setState(() {
+                                jam = newtime;
+                              });
+                            } catch (e) {
+                              print(e.toString());
+                            }
+                          },
                         ),
                       )
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: LTextField(title: "Deskripsi"),
                 ),
               ),
             ]),

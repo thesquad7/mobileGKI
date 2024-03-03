@@ -1,7 +1,9 @@
 import 'package:MobileGKI/common/widget/c_fhorizontalcardImgbg.dart';
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
+import 'package:MobileGKI/home/nested/beranda_child/beranda_menu_detail/bd_acara_page.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MenuAcaraBeranda extends StatelessWidget {
   const MenuAcaraBeranda({super.key});
@@ -10,13 +12,18 @@ class MenuAcaraBeranda extends StatelessWidget {
   Widget build(BuildContext context) {
     return FManagementPageDesign(
       child: (_, index) {
-        return FHorizontalCardImgBG(
-          imgUrl: Filemonimages.pendeta2,
+        return InkWell(
+          onTap: () {
+            Get.to(() => const BerandaAcaraDetail());
+          },
+          child: FHorizontalCardImgBG(
+            imgUrl: Filemonimages.pendeta2,
+          ),
         );
       },
       pageTitle: "Acara",
       searchbutton: false,
-      itemCount: 7,
+      itemCount: 4,
       autokeepalive: false,
     );
   }

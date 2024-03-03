@@ -22,6 +22,7 @@ class FDetailJadwal extends StatelessWidget {
             deskripsi: FilemonText.lorem100,
             Judul: FilemonText.loginSubTitle,
             HMD_jenisAcara: "Ibadah Umum",
+            HMD_personPic: Filemonimages.pendeta1,
             HMD_personName: "PDT.FR Sitanggang",
             HMD_status: "Pendeta Senior",
             DT_jam: "11.00",

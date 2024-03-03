@@ -1,4 +1,5 @@
 import 'package:MobileGKI/common/widget/c_addressdetail.dart';
+import 'package:MobileGKI/common/widget/c_authour.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_date_time.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_judul.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_metadata.dart';
@@ -18,9 +19,12 @@ class FDetailPage extends StatelessWidget {
       this.DT_jam = "",
       required this.isAddress,
       this.Address = "",
-      this.HMD_personPic = ""});
-  final bool isTime, isHeadMetadata, isAddress;
+      this.HMD_personPic = "",
+      this.isAuthor = false,
+      this.Author = ""});
+  final bool isTime, isHeadMetadata, isAddress, isAuthor;
   final String HMD_personName,
+      Author,
       Address,
       HMD_status,
       HMD_jenisAcara,
@@ -48,6 +52,14 @@ class FDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 15),
                   child: AddressDetail(
                     address: Address,
+                  ),
+                )
+              : SizedBox(),
+          isAuthor
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: AuthorWidget(
+                    address: Author,
                   ),
                 )
               : SizedBox(),

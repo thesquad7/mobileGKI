@@ -13,4 +13,6 @@ class Filemonimages {
   static const String pendeta5 = "assets/image/pendeta5.jpg";
   static const String person1 = "assets/image/person1.jpg";
   static const String person2 = "assets/image/person2.jpg";
+  static const String visitor = "assets/animated/visitor.json";
+  static const String admin = "assets/animated/admin.json";
 }

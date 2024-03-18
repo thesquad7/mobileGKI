@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class BerandaFeedback extends StatelessWidget {
   const BerandaFeedback({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +37,7 @@ class BerandaFeedback extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 15),
             child: SizedBox(
+              height: 58,
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -48,6 +48,7 @@ class BerandaFeedback extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             child: SizedBox(
+                height: 50,
                 width: double.infinity,
                 child: ElevatedButton(onPressed: () {}, child: Text("Kirim"))),
           )

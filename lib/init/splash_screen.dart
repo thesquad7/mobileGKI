@@ -1,4 +1,5 @@
-import 'package:MobileGKI/home/nav_menu.dart';
+import 'package:MobileGKI/home/navigation_ui/nav_menuadmin.dart';
+import 'package:MobileGKI/init/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,8 +15,8 @@ class _SplashScreen extends State<SplashScreen>
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const NavMenu()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const OnboardingScreen()));
     });
   }
 

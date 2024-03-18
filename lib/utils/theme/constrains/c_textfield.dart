@@ -1,4 +1,3 @@
-import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 
 class FTextField extends StatelessWidget {
@@ -21,7 +20,6 @@ class FTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = FilemonHelperFunctions.isDarkMode(context);
     return SizedBox(
       width: double.infinity,
       child: TextField(

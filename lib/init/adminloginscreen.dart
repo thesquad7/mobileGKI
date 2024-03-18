@@ -21,6 +21,7 @@ class LoginAdmin extends State<LoginUI> {
 
   @override
   Widget build(BuildContext context) {
+    final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -39,7 +40,7 @@ class LoginAdmin extends State<LoginUI> {
                 ),
               ),
               Text(
-                "Hi,Admin",
+                "Hi! Admin",
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(
@@ -74,11 +75,25 @@ class LoginAdmin extends State<LoginUI> {
                   icon: Icon(
                     // Based on passwordVisible state choose the icon
                     _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                    color: Theme.of(context).primaryColorDark,
+                    color: dark ? Colors.white : Colors.black,
                   ),
                 ),
                 passtext: _passwordVisible,
               ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: FilemonHelperFunctions.screenWidth(),
+                child: Center(
+                  child: Container(
+                      width: FilemonHelperFunctions.screenWidth() * 0.5,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Masuk"),
+                      )),
+                ),
+              )
             ],
           ),
         ),

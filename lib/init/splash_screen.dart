@@ -1,4 +1,3 @@
-import 'package:MobileGKI/home/navigation_ui/nav_menuadmin.dart';
 import 'package:MobileGKI/init/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

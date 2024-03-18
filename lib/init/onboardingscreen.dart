@@ -45,7 +45,7 @@ class OnboardingScreen extends StatelessWidget {
                 animated_asset: Filemonimages.admin,
                 navigasi: () {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const LoginAdmin()));
+                      MaterialPageRoute(builder: (_) => LoginUI()));
                 },
               )
             ],

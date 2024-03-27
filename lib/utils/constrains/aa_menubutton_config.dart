@@ -29,7 +29,6 @@ class FMenubuttonConfig {
     const Renungan(),
     const JamKerja(),
     const KritikSaran(),
-    const Jemaat()
   ];
 
   static List<IconData> menuIcon = [

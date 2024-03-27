@@ -1,6 +1,4 @@
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
-import 'package:MobileGKI/common/widget/c_rondedimg.dart';
-import 'package:MobileGKI/home/d_config/widget/j_pendetapic.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 

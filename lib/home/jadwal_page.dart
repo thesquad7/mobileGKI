@@ -3,6 +3,7 @@ import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
 import 'package:MobileGKI/home/nested/j_detail.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class Jadwal extends StatelessWidget {
         child: Column(children: [
           FilemonPrimaryHeaderCon(
             color: Colors.brown,
-            height: 100,
+            height: FilemonSized.appBarHeight * 2.2,
             child: Column(children: [
               berandaAppbar(
                 title: "Jadwal Sepekan",

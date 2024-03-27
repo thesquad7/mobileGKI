@@ -19,13 +19,17 @@ class AuthRepos extends GetxController {
 
   screenRedirect() async {
     //Local
-    deviceStorage.writeIfNull("isFirstTime", true);
-    deviceStorage.read('IsFirstTime') != true
-        ? Get.offAll(() => const OnboardingScreen())
-        : deviceStorage.read('useradmin')
-            ? Get.offAll(() => const NavMenuVisitor())
-            : deviceStorage.read('user_login')
-                ? Get.offAll(() => const NavMenu())
-                : Get.offAll(() => LoginUI());
+    if (deviceStorage.read('IsFirstTime') == true) {
+      return Get.offAll(() => OnboardingScreen());
+    } else {
+      if (deviceStorage.read('useradmin') == false) {
+        return Get.offAll(() => const NavMenuVisitor());
+      } else {
+        if (deviceStorage.read('user_login')) {
+          return Get.offAll(() => const NavMenu());
+        }
+        return Get.offAll(() => LoginUI());
+      }
+    }
   }
 }

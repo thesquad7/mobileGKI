@@ -3,7 +3,6 @@ import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
-import 'package:MobileGKI/utils/helper/helper_function.dart';
 
 import 'package:flutter/material.dart';
 
@@ -33,7 +32,6 @@ class JemaatEdit extends State<EditJemaat> {
 
   @override
   Widget build(BuildContext context) {
-    final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: FCRUDNavigation(),
       body: SingleChildScrollView(

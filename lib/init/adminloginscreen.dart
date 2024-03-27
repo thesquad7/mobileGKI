@@ -1,7 +1,11 @@
+import 'package:MobileGKI/data/api_config.dart';
+import 'package:MobileGKI/init/onboardingscreen.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginUI extends StatefulWidget {
   @override
@@ -11,6 +15,7 @@ class LoginUI extends StatefulWidget {
 class LoginAdmin extends State<LoginUI> {
   late TextEditingController? username, password;
   late bool _passwordVisible;
+  final deviceStorage = GetStorage();
   @override
   void initState() {
     super.initState();
@@ -29,7 +34,14 @@ class LoginAdmin extends State<LoginUI> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: FilemonHelperFunctions.screenHeight() * 0.15),
+              SizedBox(height: FilemonSized.appBarHeight * 0.4),
+              IconButton(
+                  onPressed: () {
+                    deviceStorage.write('isFirstTime', true);
+                    Get.offAll(() => OnboardingScreen());
+                  },
+                  icon: Icon(Icons.arrow_back)),
+              SizedBox(height: FilemonHelperFunctions.screenHeight() * 0.1),
               Card(
                 child: Container(
                   width: 100,
@@ -89,7 +101,25 @@ class LoginAdmin extends State<LoginUI> {
                   child: Container(
                       width: FilemonHelperFunctions.screenWidth() * 0.5,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (username!.text == "" && username!.text == "") {
+                            return FilemonHelperFunctions.showSnackBar(
+                                "Harap Isi Usernama & Password");
+                          }
+                          if (username!.text == "") {
+                            return FilemonHelperFunctions.showSnackBar(
+                                "Harap Isi Username");
+                          }
+                          if (password!.text == "") {
+                            return FilemonHelperFunctions.showSnackBar(
+                                "Harap Isi Password");
+                          }
+                          deviceStorage.write('user_login', true);
+                          APILogin(
+                                  userCred: username!.text,
+                                  userCredPw: password!.text)
+                              .requestLogin();
+                        },
                         child: Text("Masuk"),
                       )),
                 ),

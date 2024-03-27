@@ -1,11 +1,25 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
+import 'package:MobileGKI/data/crud_state/jemaatlisting.dart';
+import 'package:MobileGKI/data/jemaat/jemaat.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Jemaat extends StatelessWidget {
+class Jemaat extends StatefulWidget {
   const Jemaat({super.key});
+
+  @override
+  State<Jemaat> createState() => _JemaatState();
+}
+
+class _JemaatState extends State<Jemaat> {
+  late final Future<List<JemaatJSON>> fetchdata;
+  @override
+  void initState() {
+    super.initState();
+    fetchdata = fecthJemaat();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +29,30 @@ class Jemaat extends StatelessWidget {
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
       ),
       body: Center(
-        child: ListView.builder(
-          addAutomaticKeepAlives: false,
-          itemCount: 16,
-          itemBuilder: (_, index) {
-            return JemaatItem(
-              imngUrl: Filemonimages.pendeta1,
-              noInduk: '4433121',
-              nama: "Jetson",
-              alamat: "Sidikalang",
-            );
+        child: FutureBuilder<List<JemaatJSON>>(
+          future: fetchdata,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<JemaatJSON>? fetchdata = snapshot.data;
+              return ListView.builder(
+                addAutomaticKeepAlives: false,
+                itemCount: fetchdata!.length,
+                itemBuilder: (_, index) {
+                  final d_all = fetchdata[index];
+                  return JemaatItem(
+                    imngUrl: Filemonimages.pendeta1,
+                    noInduk: d_all.jemaatId.toString(),
+                    nama: d_all.name.toString(),
+                    alamat: d_all.alamat.toString(),
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text("Koneksi ke Server Terputus"),
+              );
+            }
+            return CircularProgressIndicator();
           },
         ),
       ),

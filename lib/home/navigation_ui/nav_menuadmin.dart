@@ -42,5 +42,5 @@ class NavMenu extends StatelessWidget {
 
 class NavigationCon extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screens = [const HomeScreen(), const Jadwal(), const AdminArea()];
+  final screens = [const HomeScreen(), const Jadwal(), AdminArea()];
 }

@@ -5,12 +5,14 @@ import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+  OnboardingScreen({super.key});
+  final deviceStorage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,8 @@ class OnboardingScreen extends StatelessWidget {
                 title: "Pengunjung Umum",
                 animated_asset: Filemonimages.visitor,
                 navigasi: () {
+                  deviceStorage.write("useradmin", false);
+                  deviceStorage.write("isFirstTime", false);
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (_) => const NavMenuVisitor()));
                 },
@@ -44,6 +48,7 @@ class OnboardingScreen extends StatelessWidget {
                 title: "Administrator",
                 animated_asset: Filemonimages.admin,
                 navigasi: () {
+                  deviceStorage.write("useradmin", true);
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => LoginUI()));
                 },

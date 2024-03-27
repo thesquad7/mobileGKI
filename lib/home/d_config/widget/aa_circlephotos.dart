@@ -16,12 +16,14 @@ class CircleImg extends StatelessWidget {
     return Container(
       width: width,
       height: heigth,
-      padding: const EdgeInsets.all(FilemonSized.sm),
       decoration: BoxDecoration(
         color: FilemonColor.white,
         borderRadius: BorderRadius.circular(100),
       ),
-      child: Center(child: Image.asset(imgUrl)),
+      child: Center(
+        child:
+            CircleAvatar(radius: heigth, backgroundImage: NetworkImage(imgUrl)),
+      ),
     );
   }
 }

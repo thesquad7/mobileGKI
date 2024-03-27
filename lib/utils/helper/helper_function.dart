@@ -63,6 +63,28 @@ class FilemonHelperFunctions {
     );
   }
 
+  static void showDialogData(String title, String message, VoidCallback? goTo) {
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('kembali'),
+            ),
+            TextButton(
+              onPressed: goTo,
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static void navigateToScreen(BuildContext context, Widget screen) {
     Navigator.push(
       context,

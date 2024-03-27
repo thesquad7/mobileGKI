@@ -20,21 +20,21 @@ class AppL extends State<App> {
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
+    deviceStorage.writeIfNull("isFirstTime", true);
   }
 
   @override
   Widget build(BuildContext context) {
-    deviceStorage.writeIfNull("isFirstTime", true);
-    final isFirstime = deviceStorage.read("isFristTime");
+    final isFirstime = deviceStorage.read("isFirstTime");
     return GetMaterialApp(
         title: 'Mobile GKI Indramayu',
         themeMode: ThemeMode.system,
         theme: FilemonAppTheme.temaTerang,
         darkTheme: FilemonAppTheme.temaGelap,
         home: isFirstime
-            ? const OnboardingScreen()
+            ? OnboardingScreen()
             : deviceStorage.read('useradmin')
-                ? NavMenuVisitor()
+                ? const NavMenuVisitor()
                 : deviceStorage.read('user_login')
                     ? NavMenu()
                     : LoginUI());

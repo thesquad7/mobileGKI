@@ -2,7 +2,7 @@ import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendetalisting.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,7 +18,8 @@ class Pendeta extends StatelessWidget {
         floatAButton: true,
         onPressed: () {
           GetStorage().write("data", true);
-          Get.to(() => EditJemaat());
+          GetStorage().write("pagetitle", "Tambah Pendeta");
+          Get.to(() => EditPendeta());
         },
         pageTitle: "Pendeta",
         itemCount: PController.jemaat.length,
@@ -89,7 +90,8 @@ class PendetaItem extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     deviceStorage.write("data", true);
-                    Get.to(() => EditJemaat());
+                    GetStorage().write("pagetitle", "Perbaharui Pendeta");
+                    Get.to(() => EditPendeta());
                   },
                   icon: Icon(Icons.edit),
                 ),

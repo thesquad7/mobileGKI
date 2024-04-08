@@ -1,9 +1,12 @@
+import 'package:MobileGKI/app.dart';
 import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jamkerja.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/aa_jemaat_page.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/persona/aa_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_kritiksaran.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/aa_persona.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:flutter/material.dart';
 
 class FMenubuttonConfig {
@@ -21,14 +24,13 @@ class FMenubuttonConfig {
     "Keluar"
   ];
   static final screen = [
-    const Jemaat(),
-    const Jemaat(),
+    Persona(),
+    Jemaat(),
     const Acara(),
     const JadwalAdminArea(),
-    const Jemaat(),
+    Jemaat(),
     const Renungan(),
     const JamKerja(),
-    const KritikSaran(),
   ];
 
   static List<IconData> menuIcon = [
@@ -41,5 +43,26 @@ class FMenubuttonConfig {
     Icons.work_history,
     Icons.feedback,
     Icons.exit_to_app_outlined
+  ];
+}
+
+class FPersona {
+  FPersona._();
+
+  static List<String> menuname = [
+    "Pendeta",
+    "Jemaat",
+    "Kategory",
+  ];
+  static final screen = [
+    Pendeta(),
+    Jemaat(),
+    Jemaat(),
+  ];
+
+  static List<IconData> menuIcon = [
+    Icons.sensor_occupied_sharp,
+    Icons.person,
+    Icons.flag,
   ];
 }

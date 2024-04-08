@@ -1,5 +1,4 @@
 import 'package:MobileGKI/utils/constrains/colors.dart';
-import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 
 class CircleImg extends StatelessWidget {

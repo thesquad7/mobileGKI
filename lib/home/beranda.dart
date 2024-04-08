@@ -4,17 +4,21 @@ import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
+import 'package:MobileGKI/init/onboardingscreen.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/constrains/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final deviceStorage = GetStorage();
+    final userStatus = deviceStorage.read("useradmin");
     List<String> imgberanda;
     imgberanda = [
       Filemonimages.product1,
@@ -33,7 +37,14 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     berandaAppbar(
                       are2line: true,
-                      areAction: false,
+                      areAction: userStatus,
+                      exitbutton: IconButton(
+                          onPressed: () {
+                            deviceStorage.write("isFirstTime", true);
+                            deviceStorage.write("userlogin", false);
+                            Get.offAll(OnboardingScreen());
+                          },
+                          icon: const Icon(Icons.exit_to_app_outlined)),
                       icon: Icon(Icons.calendar_month),
                       textGrettings: FilemonText.homeAppbarTitle,
                       textUser: FilemonText.homeAppbarSubTitle,

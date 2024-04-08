@@ -1,10 +1,12 @@
 import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
+import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class EditJemaat extends StatefulWidget {
   @override
@@ -32,8 +34,10 @@ class JemaatEdit extends State<EditJemaat> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceStorage = GetStorage();
+    final data = deviceStorage.read("data");
     return Scaffold(
-      bottomNavigationBar: FCRUDNavigation(),
+      bottomNavigationBar: data ? FCRUDNavigationEdit() : FCRUDNavigation(),
       body: SingleChildScrollView(
         child: Column(
           children: [

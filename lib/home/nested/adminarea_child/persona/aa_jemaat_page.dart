@@ -1,64 +1,44 @@
+import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
+import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/jemaatlisting.dart';
-import 'package:MobileGKI/data/jemaat/jemaat.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class Jemaat extends StatefulWidget {
-  const Jemaat({super.key});
+class Jemaat extends StatelessWidget {
+  Jemaat({Key? key}) : super(key: key);
 
-  @override
-  State<Jemaat> createState() => _JemaatState();
-}
-
-class _JemaatState extends State<Jemaat> {
-  late final Future<List<JemaatJSON>> fetchdata;
-  @override
-  void initState() {
-    super.initState();
-    fetchdata = fecthJemaat();
-  }
-
+  JemaatController JController = Get.put(JemaatController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Jemaat"),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-      ),
-      body: Center(
-        child: FutureBuilder<List<JemaatJSON>>(
-          future: fetchdata,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<JemaatJSON>? fetchdata = snapshot.data;
-              return ListView.builder(
-                addAutomaticKeepAlives: false,
-                itemCount: fetchdata!.length,
-                itemBuilder: (_, index) {
-                  final d_all = fetchdata[index];
-                  return JemaatItem(
-                    imngUrl: Filemonimages.pendeta1,
-                    noInduk: d_all.jemaatId.toString(),
-                    nama: d_all.name.toString(),
-                    alamat: d_all.alamat.toString(),
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text("Koneksi ke Server Terputus"),
-              );
-            }
-            return CircularProgressIndicator();
-          },
+    //DioService().getMethod('${ConfigBack.apiAdress}/admin/jemaat/');
+    return Obx(() => FManagementPageDesign(
+        floatAButton: true,
+        onPressed: () {
+          GetStorage().write("data", true);
+          Get.to(() => EditJemaat());
+        },
+        pageTitle: "Jemaat",
+        itemCount: JController.jemaat.length,
+        autokeepalive: false,
+        searchbutton: true,
+        search: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {},
         ),
-      ),
-      floatingActionButton: FloatingActionButton.small(
-          child: const Icon(Icons.add), onPressed: () {}),
-    );
+        child: (_, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: JemaatItem(
+              imngUrl: JController.jemaat[index].j_pic.toString(),
+              noInduk: JController.jemaat[index].jemaatId.toString(),
+              nama: JController.jemaat[index].name.toString(),
+              alamat: JController.jemaat[index].alamat.toString(),
+            ),
+          );
+        }));
   }
 }
 
@@ -74,6 +54,7 @@ class JemaatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceStorage = GetStorage();
     return Card(
       elevation: 6,
       child: Container(
@@ -86,7 +67,9 @@ class JemaatItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               RoundedIMG(
-                imageUrl: imngUrl,
+                isNetworkImage: true,
+                imageUrl:
+                    ConfigBack.apiAdress + ConfigBack.imgInternet + imngUrl,
                 height: 80,
               ),
               Container(
@@ -111,7 +94,10 @@ class JemaatItem extends StatelessWidget {
               Container(
                 width: 40,
                 child: IconButton(
-                  onPressed: () => Get.to(() => EditJemaat()),
+                  onPressed: () {
+                    deviceStorage.write("data", true);
+                    Get.to(() => EditJemaat());
+                  },
                   icon: Icon(Icons.edit),
                 ),
               )

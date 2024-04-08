@@ -1,9 +1,8 @@
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 
-class FCRUDNavigation extends StatelessWidget {
-  const FCRUDNavigation({
+class FCRUDNavigationEdit extends StatelessWidget {
+  const FCRUDNavigationEdit({
     super.key,
   });
 
@@ -22,8 +21,14 @@ class FCRUDNavigation extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Container(
-                width: FilemonHelperFunctions.screenWidth() * 0.8,
-                child: ElevatedButton(onPressed: () {}, child: Text("Simpan"))),
+                width: FilemonHelperFunctions.screenWidth() * 0.4,
+                child: ElevatedButton(onPressed: () {}, child: Text("Update"))),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Container(
+                width: FilemonHelperFunctions.screenWidth() * 0.4,
+                child: ElevatedButton(onPressed: () {}, child: Text("Hapus"))),
           ),
         ]),
       ),

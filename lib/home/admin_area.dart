@@ -54,7 +54,7 @@ class AdminArea extends StatelessWidget {
                 itemBuilder: (_, index) => Container(
                       child: GestureDetector(
                         onTap: () {
-                          if (index == 8) {
+                          while (index == 8) {
                             FilemonHelperFunctions.showDialogData(
                                 "Keluar", "Apakah anda yakin ingin keluar", () {
                               deviceStorage.write('user_login', false);
@@ -66,9 +66,11 @@ class AdminArea extends StatelessWidget {
                               NavigationAdmin().toMain();
                             });
                           }
-                          Get.to(() {
-                            return FMenubuttonConfig.screen[index];
-                          });
+                          {
+                            Get.to(() {
+                              return FMenubuttonConfig.screen[index];
+                            });
+                          }
                         },
                         child: icondataAdmin(
                             icon: FMenubuttonConfig.menuIcon[index],

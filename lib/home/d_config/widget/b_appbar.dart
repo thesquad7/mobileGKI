@@ -14,9 +14,11 @@ class berandaAppbar extends StatelessWidget {
       this.icon = const Icon(Icons.abc),
       this.are2line = false,
       this.title = "Title",
-      this.areAction = false});
+      this.areAction = false,
+      this.exitbutton = const SizedBox()});
   final String textGrettings, textUser, Imgurl, title;
   final bool areImage, are2line, areAction;
+  final Widget exitbutton;
   final Icon icon;
   final double? imgH, imgW;
 
@@ -43,6 +45,6 @@ class berandaAppbar extends StatelessWidget {
                     )
                   ]
                 : [IconButton(onPressed: () {}, icon: icon)]
-            : null);
+            : [exitbutton]);
   }
 }

@@ -10,7 +10,7 @@ class NavMenuVisitor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationCon());
+    final controller = Get.put(NavigationConV());
     final darkMode = FilemonHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -38,7 +38,7 @@ class NavMenuVisitor extends StatelessWidget {
   }
 }
 
-class NavigationCon extends GetxController {
+class NavigationConV extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = [const HomeScreen(), const Jadwal()];
 }

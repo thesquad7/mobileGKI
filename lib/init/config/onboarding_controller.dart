@@ -6,7 +6,7 @@ class OnBoardingController extends GetxController {
 
   final pageController = PageController();
   Rx<int> currentPageIndex = 0.obs;
-  void updatePageIndicator(index) => currentPageIndex = index;
+  void updatePageIndicator(index) => currentPageIndex.value = index;
   void dotNavigationClick(index) {
     currentPageIndex.value = index;
     pageController.jumpTo(index);

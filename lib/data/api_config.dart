@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -67,5 +68,15 @@ class APIGetAdminInfo {
         return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
       }
     }
+  }
+}
+
+class DioService {
+  Future<dynamic> getMethod(String url) async {
+    Dio dio = Dio();
+    Options options = Options(headers: HeadersCode().data(), method: "GET");
+    return await dio.get(url, options: options).then((response) {
+      return response;
+    });
   }
 }

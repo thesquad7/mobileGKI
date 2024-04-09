@@ -54,7 +54,7 @@ class AdminArea extends StatelessWidget {
                 itemBuilder: (_, index) => Container(
                       child: GestureDetector(
                         onTap: () {
-                          while (index == 8) {
+                          while (index > 7) {
                             FilemonHelperFunctions.showDialogData(
                                 "Keluar", "Apakah anda yakin ingin keluar", () {
                               deviceStorage.write('user_login', false);

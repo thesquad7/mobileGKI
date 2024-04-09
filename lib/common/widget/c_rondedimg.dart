@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/constrains/image_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -7,6 +9,7 @@ class RoundedIMG extends StatelessWidget {
   const RoundedIMG({
     super.key,
     this.width,
+    this.isFile = false,
     this.height,
     this.imageUrl = Filemonimages.product1,
     this.applyImgRadius = true,
@@ -19,8 +22,8 @@ class RoundedIMG extends StatelessWidget {
     this.borderRadius = FilemonSized.md,
   });
   final double? width, height;
-  final String imageUrl;
-  final bool applyImgRadius;
+  final imageUrl;
+  final bool applyImgRadius, isFile;
   final BoxBorder? border;
   final Color backgroundColor;
   final BoxFit? fit;
@@ -43,15 +46,14 @@ class RoundedIMG extends StatelessWidget {
               color: backgroundColor,
               borderRadius: BorderRadius.circular(borderRadius)),
           child: ClipRRect(
-            borderRadius: applyImgRadius
-                ? BorderRadius.circular(borderRadius)
-                : BorderRadius.zero,
-            child: Image(
-                fit: fit,
-                image: isNetworkImage
-                    ? NetworkImage(imageUrl)
-                    : AssetImage(imageUrl) as ImageProvider),
-          ),
+              borderRadius: applyImgRadius
+                  ? BorderRadius.circular(borderRadius)
+                  : BorderRadius.zero,
+              child: isNetworkImage
+                  ? Image.network(imageUrl)
+                  : isFile
+                      ? Image.file(File(imageUrl))
+                      : Image.asset(imageUrl)),
         ),
       ),
     );

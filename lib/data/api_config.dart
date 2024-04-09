@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';

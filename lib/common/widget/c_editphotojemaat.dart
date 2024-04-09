@@ -15,9 +15,9 @@ import 'package:image_picker/image_picker.dart';
 enum AppState { free, picked, cropped }
 
 class EditPhotoJemaat extends StatefulWidget {
-  const EditPhotoJemaat({
-    super.key,
-  });
+  final bool isNetImg;
+  final String url;
+  const EditPhotoJemaat({super.key, this.isNetImg = false, this.url = ""});
 
   @override
   State<EditPhotoJemaat> createState() => _EditPhotoJemaatState();
@@ -51,12 +51,15 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
         child: Stack(children: [
           RoundedIMG(
               height: 100,
+              isNetworkImage: widget.isNetImg,
               isFile: contiditon,
-              imageUrl: _croppedFile != null
-                  ? _croppedFile!.path
-                  : _pickedFile != null
-                      ? _pickedFile!.path
-                      : Filemonimages.pendeta1),
+              imageUrl: widget.isNetImg
+                  ? widget.url
+                  : _croppedFile != null
+                      ? _croppedFile!.path
+                      : _pickedFile != null
+                          ? _pickedFile!.path
+                          : Filemonimages.pendeta1),
           Positioned(
             top: 2,
             left: 2,

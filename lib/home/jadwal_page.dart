@@ -2,7 +2,7 @@ import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
 import 'package:MobileGKI/home/nested/j_detail.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

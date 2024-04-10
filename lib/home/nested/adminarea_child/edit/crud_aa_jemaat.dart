@@ -37,7 +37,12 @@ class JemaatEdit extends State<EditJemaat> {
     final deviceStorage = GetStorage();
     final data = deviceStorage.read("data");
     return Scaffold(
-      bottomNavigationBar: data ? FCRUDNavigationEdit() : FCRUDNavigation(),
+      bottomNavigationBar: data
+          ? FCRUDNavigationEdit(
+              edit: () {},
+              delete: () {},
+            )
+          : FCRUDNavigation(),
       body: SingleChildScrollView(
         child: Column(
           children: [

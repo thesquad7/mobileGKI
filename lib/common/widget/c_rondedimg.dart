@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:MobileGKI/utils/constrains/colors.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 

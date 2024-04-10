@@ -5,7 +5,7 @@ import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
 import 'package:MobileGKI/init/onboardingscreen.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/constrains/text.dart';
 import 'package:flutter/material.dart';

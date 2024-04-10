@@ -1,5 +1,5 @@
 import 'package:MobileGKI/common/widget/d_imgview.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_ltexfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:flutter/material.dart';

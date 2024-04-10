@@ -2,22 +2,22 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 enum AppState { free, picked, cropped }
 
 class EditPhotoJemaat extends StatefulWidget {
-  final bool isNetImg;
+  late bool isNetImg;
   final String url;
-  const EditPhotoJemaat({super.key, this.isNetImg = false, this.url = ""});
+  EditPhotoJemaat({super.key, this.isNetImg = false, this.url = ""});
 
   @override
   State<EditPhotoJemaat> createState() => _EditPhotoJemaatState();
@@ -38,6 +38,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
   void dispose() {
     super.dispose();
     contiditon = false;
+    widget.isNetImg = true;
   }
 
   @override
@@ -109,6 +110,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
     _pickedFile = pickedImg != null ? XFile(pickedImg.path) : null;
     if (_pickedFile != null) {
       setState(() {
+        widget.isNetImg = false;
         state = AppState.picked;
         contiditon = true;
       });
@@ -135,6 +137,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
           state = AppState.cropped;
           _croppedFile = croppedFile;
           contiditon = true;
+          GetStorage().write("pic", _croppedFile!.path.toString());
         });
       }
     }
@@ -143,6 +146,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
   void _clear() {
     setState(() {
       state = AppState.free;
+      widget.isNetImg = true;
       _pickedFile = null;
       _croppedFile = null;
       contiditon = false;

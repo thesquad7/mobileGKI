@@ -54,6 +54,7 @@ class FManagementPageDesign extends StatelessWidget {
           : null,
       body: Center(
         child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
             addAutomaticKeepAlives: autokeepalive,
             itemCount: itemCount,
             itemBuilder: child),

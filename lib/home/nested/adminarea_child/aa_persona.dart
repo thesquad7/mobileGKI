@@ -22,7 +22,7 @@ class Persona extends StatelessWidget {
             height: FilemonSized.appBarHeight * 2,
             child: Column(children: [
               berandaAppbar(
-                title: "Menu Pesona",
+                title: "Menu Persona",
                 areImage: false,
                 are2line: false,
                 areAction: false,
@@ -43,7 +43,9 @@ class Persona extends StatelessWidget {
                 itemBuilder: (_, index) => Container(
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(FPersona.screen[index]);
+                          Get.to(() {
+                            return FPersona.screen[index];
+                          });
                           log(index.toString());
                         },
                         child: icondataAdmin(

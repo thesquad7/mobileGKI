@@ -16,3 +16,7 @@ class Filemonimages {
   static const String visitor = "assets/animated/visitor.json";
   static const String admin = "assets/animated/admin.json";
 }
+
+class FilemonAnime {
+  static const String listloading = "assets/animated/listloading.json";
+}

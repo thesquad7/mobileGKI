@@ -2,8 +2,11 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 
 class FCRUDNavigationEdit extends StatelessWidget {
+  final VoidCallback edit, delete;
   const FCRUDNavigationEdit({
     super.key,
+    required this.edit,
+    required this.delete,
   });
 
   @override
@@ -22,13 +25,13 @@ class FCRUDNavigationEdit extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Container(
                 width: FilemonHelperFunctions.screenWidth() * 0.4,
-                child: ElevatedButton(onPressed: () {}, child: Text("Update"))),
+                child: ElevatedButton(onPressed: edit, child: Text("Update"))),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Container(
                 width: FilemonHelperFunctions.screenWidth() * 0.4,
-                child: ElevatedButton(onPressed: () {}, child: Text("Hapus"))),
+                child: ElevatedButton(onPressed: delete, child: Text("Hapus"))),
           ),
         ]),
       ),

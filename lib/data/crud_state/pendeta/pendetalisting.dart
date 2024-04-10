@@ -5,15 +5,17 @@ import 'package:get/get.dart';
 
 class PendetaController extends GetxController {
   RxList<PendetaJSON> jemaat = RxList();
-
+  RxBool isLoading = true.obs;
   var url = "${ConfigBack.apiAdress}/admin/pendeta/";
 
   getPendeta() async {
+    isLoading = true.obs;
     var response = await DioService().getMethod(url);
     if (response.statusCode == 200) {
       response.data.forEach((element) {
         jemaat.add(PendetaJSON.fromJson(element));
       });
+      isLoading = false.obs;
     }
   }
 

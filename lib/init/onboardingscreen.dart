@@ -1,7 +1,7 @@
 import 'package:MobileGKI/home/navigation_ui/nav_menuvisitor.dart';
 import 'package:MobileGKI/init/adminloginscreen.dart';
 import 'package:MobileGKI/init/config/onboarding_controller.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';

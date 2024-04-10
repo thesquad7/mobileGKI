@@ -1,6 +1,6 @@
 import 'package:MobileGKI/common/widget/c_fhorizontalcardImgbg.dart';
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
-import 'package:MobileGKI/utils/constrains/image_string.dart';
+import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:flutter/material.dart';
 
 class RenunganBeranda extends StatelessWidget {

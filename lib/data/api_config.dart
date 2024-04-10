@@ -78,4 +78,14 @@ class DioService {
       return response;
     });
   }
+
+  Future<dynamic> postMethod(String url, Object datafile) async {
+    Dio dio = Dio();
+    Options options = Options(headers: HeadersCode().data(), method: "POST");
+    return await dio
+        .post(url, data: datafile, options: options)
+        .then((response) {
+      return response;
+    });
+  }
 }

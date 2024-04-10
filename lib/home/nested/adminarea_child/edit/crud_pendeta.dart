@@ -1,9 +1,13 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/data/configVar.dart';
+import 'package:MobileGKI/data/crud_state/pendeta/pendetaCreateUpdate.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
 import 'package:MobileGKI/home/d_config/base_pendeta.dart';
 
@@ -26,6 +30,14 @@ class PendetaEdit extends State<EditPendeta> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    GetStorage().remove("P_name");
+    GetStorage().remove("P_status");
+    GetStorage().remove("P_pic");
+  }
+
+  @override
   Widget build(BuildContext context) {
     final deviceStorage = GetStorage();
     final title = deviceStorage.read("pagetitle");
@@ -34,7 +46,22 @@ class PendetaEdit extends State<EditPendeta> {
     status?.value = TextEditingValue(text: deviceStorage.read('P_status'));
     final _url = deviceStorage.read('P_pic');
     return Scaffold(
-      bottomNavigationBar: data ? FCRUDNavigationEdit() : FCRUDNavigation(),
+      bottomNavigationBar: data
+          ? FCRUDNavigationEdit(
+              edit: () {
+                final pic_local = deviceStorage.read("pic");
+                log(nama!.text.toString());
+                log(status!.text.toString());
+                log(pic_local);
+                APIPendetaCreate(
+                        name: nama!.text.toString(),
+                        status: status!.text.toString(),
+                        file: pic_local)
+                    .requestUpdate();
+              },
+              delete: () {},
+            )
+          : FCRUDNavigation(),
       body: SingleChildScrollView(
         child: Column(
           children: [

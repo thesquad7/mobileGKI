@@ -31,8 +31,10 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
 
   void initState() {
     super.initState();
+    GetStorage.init();
     contiditon = false;
     state = AppState.free;
+    GetStorage().writeIfNull("pic", "Empty");
   }
 
   void dispose() {
@@ -41,6 +43,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
     widget.isNetImg = true;
   }
 
+  final data = GetStorage().read("data");
   @override
   Widget build(BuildContext context) {
     final dark = FilemonHelperFunctions.isDarkMode(context);
@@ -110,6 +113,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
     _pickedFile = pickedImg != null ? XFile(pickedImg.path) : null;
     if (_pickedFile != null) {
       setState(() {
+        GetStorage().write("pic", _pickedFile!.path.toString());
         widget.isNetImg = false;
         state = AppState.picked;
         contiditon = true;
@@ -144,12 +148,20 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
   }
 
   void _clear() {
-    setState(() {
-      state = AppState.free;
-      widget.isNetImg = true;
-      _pickedFile = null;
-      _croppedFile = null;
-      contiditon = false;
-    });
+    data
+        ? setState(() {
+            state = AppState.free;
+            widget.isNetImg = true;
+            _pickedFile = null;
+            _croppedFile = null;
+            contiditon = false;
+          })
+        : setState(() {
+            state = AppState.free;
+            widget.isNetImg = false;
+            _pickedFile = null;
+            _croppedFile = null;
+            contiditon = false;
+          });
   }
 }

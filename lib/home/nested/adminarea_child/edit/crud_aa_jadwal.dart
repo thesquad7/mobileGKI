@@ -23,7 +23,9 @@ class _JadwalCRUDState extends State<JadwalCRUD> {
   Widget build(BuildContext context) {
     final pendetaSize = FilemonHelperFunctions.screenWidthtoPendeta();
     return Scaffold(
-      bottomNavigationBar: FCRUDNavigation(),
+      bottomNavigationBar: FCRUDNavigation(
+        create: () {},
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           FDetailImgView(

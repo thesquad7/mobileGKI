@@ -10,8 +10,10 @@ import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaCreateUpdate.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
 import 'package:MobileGKI/home/d_config/base_pendeta.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class EditPendeta extends StatefulWidget {
@@ -45,6 +47,7 @@ class PendetaEdit extends State<EditPendeta> {
     final deviceStorage = GetStorage();
     final title = deviceStorage.read("pagetitle");
     final data = deviceStorage.read("data");
+    final pic_local = deviceStorage.read("pic");
     if (widget.isNImg == true) {
       nama?.value = TextEditingValue(text: deviceStorage.read('P_name'));
       status?.value = TextEditingValue(text: deviceStorage.read('P_status'));
@@ -54,19 +57,42 @@ class PendetaEdit extends State<EditPendeta> {
       bottomNavigationBar: data
           ? FCRUDNavigationEdit(
               edit: () {
-                final pic_local = deviceStorage.read("pic");
                 log(nama!.text.toString());
                 log(status!.text.toString());
                 log(pic_local);
-                APIPendetaCreate(
-                        name: nama!.text.toString(),
-                        status: status!.text.toString(),
-                        file: pic_local)
-                    .requestUpdate();
+                // APIPendetaCreate(
+                //         name: nama!.text.toString(),
+                //         status: status!.text.toString(),
+                //         file: pic_local)
+                //     .requestUpdate();
               },
               delete: () {},
             )
-          : FCRUDNavigation(),
+          : FCRUDNavigation(
+              create: () {
+                FilemonHelperFunctions.showDialogData("Menambahkan Data",
+                    "Apakah data yang di input telah tepat?", () {
+                  if (pic_local == null) {
+                    FilemonHelperFunctions.showAlert(
+                        "Info", "Terjadi Kesalahan Sistem, Mohon Ulangi");
+                  } else {
+                    APIPendetaCreate(
+                            name: nama!.text.toString(),
+                            status: status!.text.toString(),
+                            file: pic_local)
+                        .requestCreate();
+                    if (deviceStorage.read("created") == true) {
+                      FilemonHelperFunctions.showSnackBar(
+                          deviceStorage.read("message"));
+                      deviceStorage.remove("message");
+                      deviceStorage.remove("pic");
+                      Navigator.of(context).pop();
+                      Get.back();
+                    }
+                  }
+                });
+              },
+            ),
       body: SingleChildScrollView(
         child: Column(
           children: [

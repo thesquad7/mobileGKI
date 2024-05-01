@@ -2,10 +2,11 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 
 class FCRUDNavigation extends StatelessWidget {
-  const FCRUDNavigation({
+  FCRUDNavigation({
     super.key,
+    required this.create,
   });
-
+  final VoidCallback create;
   @override
   Widget build(BuildContext context) {
     final dark = FilemonHelperFunctions.isDarkMode(context);
@@ -22,7 +23,8 @@ class FCRUDNavigation extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Container(
                 width: FilemonHelperFunctions.screenWidth() * 0.8,
-                child: ElevatedButton(onPressed: () {}, child: Text("Simpan"))),
+                child:
+                    ElevatedButton(onPressed: create, child: Text("Simpan"))),
           ),
         ]),
       ),

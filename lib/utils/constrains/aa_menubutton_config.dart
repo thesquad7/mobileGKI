@@ -14,7 +14,7 @@ class FMenubuttonConfig {
   FMenubuttonConfig._();
 
   static List<String> menuname = [
-    "Jemaat",
+    "Persona",
     "Keuangan",
     "Acara",
     "Jadwal",

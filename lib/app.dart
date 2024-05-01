@@ -6,6 +6,7 @@ import 'package:MobileGKI/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/observers/route_observer.dart';
 import 'package:get_storage/get_storage.dart';
 
 class App extends StatefulWidget {
@@ -21,12 +22,14 @@ class AppL extends State<App> {
     super.initState();
     FlutterNativeSplash.remove();
     deviceStorage.writeIfNull("isFirstTime", true);
+    deviceStorage.writeIfNull("created", false);
   }
 
   @override
   Widget build(BuildContext context) {
     final isFirstime = deviceStorage.read("isFirstTime");
     return GetMaterialApp(
+        navigatorObservers: [GetObserver()],
         title: 'Mobile GKI Indramayu',
         themeMode: ThemeMode.system,
         theme: FilemonAppTheme.temaTerang,

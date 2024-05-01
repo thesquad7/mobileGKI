@@ -42,7 +42,9 @@ class JemaatEdit extends State<EditJemaat> {
               edit: () {},
               delete: () {},
             )
-          : FCRUDNavigation(),
+          : FCRUDNavigation(
+              create: () {},
+            ),
       body: SingleChildScrollView(
         child: Column(
           children: [

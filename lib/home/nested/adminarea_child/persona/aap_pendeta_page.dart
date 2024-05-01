@@ -1,75 +1,146 @@
 import 'dart:developer';
-
-import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
-import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../../utils/constrains/colors.dart';
 
 class Pendeta extends StatelessWidget {
-  Pendeta({Key? key}) : super(key: key);
+  Pendeta({
+    Key? key,
+  }) : super(key: key);
 
-  PendetaController PController = Get.put(PendetaController());
+  final PendetaController PController = Get.put(PendetaController());
+
   @override
   Widget build(BuildContext context) {
-    final pendeta = GetStorage().read("P_name");
-    return Obx(() => PController.isLoading.value
-        ? Center(
-            child: SizedBox(
-              height: FilemonHelperFunctions.screenHeight(),
-              width: FilemonHelperFunctions.screenWidth(),
-              child: Lottie.asset(FilemonAnime.listloading),
+    final dark = FilemonHelperFunctions.isDarkMode(context);
+    return Scaffold(
+      extendBody: true,
+      appBar: _buildAppbar(dark),
+      floatingActionButton: FloatingActionButton.small(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            GetStorage().write("data", false);
+            Get.to(() => EditPendeta());
+          }),
+      body: Obx(
+        () => SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: PController.isInternetConnect.value
+              ? PController.isLoading.value
+                  ? _buildLoading(context)
+                  : _buildBody()
+              : _buildNoInternetConnection(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNoInternetConnection(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 180,
+            height: 180,
+            child: Lottie.asset('assets/b.json'),
+          ),
+          MaterialButton(
+            minWidth: 130,
+            height: 45,
+            onPressed: () => _materialOnTapButton(context),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            color: FilemonColor.primary,
+            child: const Text(
+              "Try Again",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
             ),
           )
-        : RefreshIndicator(
-            color: Colors.cyan,
-            onRefresh: () {
-              return PController.getPendeta();
-            },
-            child: FManagementPageDesign(
-                floatAButton: true,
-                onPressed: () {
-                  GetStorage().write("data", true);
-                  GetStorage().write("pagetitle", "Tambah Pendeta");
-                  Get.to(() => EditPendeta());
-                },
-                pageTitle: "Pendeta",
-                itemCount: PController.jemaat.length,
-                autokeepalive: false,
-                searchbutton: false,
-                child: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: PendetaItem(
-                      Edit: () {
-                        GetStorage().write("data", true);
-                        GetStorage().write("pagetitle", "Perbaharui Pendeta");
-                        APIGetPendetaInfo(
-                                pendetaId:
-                                    PController.jemaat[index].id.toString())
-                            .getPendeta();
-                        log(pendeta);
-                        if (pendeta != null) {
-                          Get.to(() => EditPendeta(
-                                isNImg: true,
-                              ));
-                        }
-                        ;
-                      },
-                      imngUrl: PController.jemaat[index].pic.toString(),
-                      status: PController.jemaat[index].status.toString(),
-                      nama: PController.jemaat[index].name.toString(),
-                    ),
-                  );
-                }),
-          ));
+        ],
+      ),
+    );
+  }
+
+  Center _buildLoading(context) {
+    final dark = FilemonHelperFunctions.isDarkMode(context);
+    return Center(
+      child: SizedBox(
+        height: FilemonHelperFunctions.screenHeight(),
+        width: FilemonHelperFunctions.screenWidth(),
+        child: dark
+            ? Lottie.asset(FilemonAnime.listloading_dark)
+            : Lottie.asset(FilemonAnime.listloading),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return LiquidPullToRefresh(
+      color: Colors.redAccent,
+      showChildOpacityTransition: true,
+      onRefresh: () {
+        return PController.getPendeta();
+      },
+      child: ScrollablePositionedList.builder(
+          itemScrollController: PController.itemController,
+          physics: const BouncingScrollPhysics(),
+          itemCount: PController.pendeta.length,
+          itemBuilder: (_, index) {
+            return PendetaItem(
+                nama: PController.pendeta[index].name,
+                status: PController.pendeta[index].status,
+                imngUrl: PController.pendeta[index].pic,
+                Edit: () {});
+          }),
+    );
+  }
+
+  AppBar _buildAppbar(bool dark) {
+    return AppBar(
+      leading: Center(
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+              color: dark
+                  ? FilemonColor.white.withOpacity(0.3)
+                  : FilemonColor.dark.withOpacity(0.7),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                Icons.arrow_back,
+                size: 20,
+                color: dark ? Colors.black : Colors.white,
+              )),
+        ),
+      ),
+      title: Text("Pendeta"),
+    );
+  }
+
+  void _materialOnTapButton(BuildContext context) async {
+    if (await InternetConnectionChecker().hasConnection == true) {
+      PController.getPendeta();
+    } else {
+      FilemonHelperFunctions.showSnackBar(context.toString());
+    }
   }
 }
 

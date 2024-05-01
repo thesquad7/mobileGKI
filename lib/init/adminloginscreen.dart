@@ -21,7 +21,7 @@ class LoginAdmin extends State<LoginUI> {
     super.initState();
     username = TextEditingController();
     password = TextEditingController();
-    _passwordVisible = false;
+    _passwordVisible = true;
   }
 
   @override

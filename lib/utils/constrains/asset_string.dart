@@ -18,5 +18,7 @@ class Filemonimages {
 }
 
 class FilemonAnime {
+  static const String listloading_dark =
+      "assets/animated/list_loading_dark.json";
   static const String listloading = "assets/animated/listloading.json";
 }

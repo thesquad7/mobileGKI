@@ -17,7 +17,7 @@ class Jemaat extends StatelessWidget {
     return Obx(() => FManagementPageDesign(
         floatAButton: true,
         onPressed: () {
-          GetStorage().write("data", true);
+          GetStorage().write("data", false);
           Get.to(() => EditJemaat());
         },
         pageTitle: "Jemaat",

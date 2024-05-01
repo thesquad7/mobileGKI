@@ -1,5 +1,5 @@
 class PendetaJSON {
-  late final String nama, status, name, pic, id;
+  late final String status, name, pic, id;
 
   PendetaJSON(
       {required this.status,

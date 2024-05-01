@@ -23,8 +23,11 @@ class EditPendeta extends StatefulWidget {
 
 class PendetaEdit extends State<EditPendeta> {
   late TextEditingController? nama, status;
+  late String url;
   void initState() {
+    log(widget.isNImg.toString());
     super.initState();
+    url = "";
     nama = TextEditingController();
     status = TextEditingController();
   }
@@ -42,9 +45,11 @@ class PendetaEdit extends State<EditPendeta> {
     final deviceStorage = GetStorage();
     final title = deviceStorage.read("pagetitle");
     final data = deviceStorage.read("data");
-    nama?.value = TextEditingValue(text: deviceStorage.read('P_name'));
-    status?.value = TextEditingValue(text: deviceStorage.read('P_status'));
-    final _url = deviceStorage.read('P_pic');
+    if (widget.isNImg == true) {
+      nama?.value = TextEditingValue(text: deviceStorage.read('P_name'));
+      status?.value = TextEditingValue(text: deviceStorage.read('P_status'));
+      url = deviceStorage.read('P_pic');
+    }
     return Scaffold(
       bottomNavigationBar: data
           ? FCRUDNavigationEdit(
@@ -78,7 +83,7 @@ class PendetaEdit extends State<EditPendeta> {
                     color: Colors.blue),
                 EditPhotoJemaat(
                     isNetImg: widget.isNImg,
-                    url: ConfigBack.apiAdress + ConfigBack.imgInternet + _url),
+                    url: ConfigBack.apiAdress + ConfigBack.imgInternet + url),
               ],
             ),
             SizedBox(height: 80),

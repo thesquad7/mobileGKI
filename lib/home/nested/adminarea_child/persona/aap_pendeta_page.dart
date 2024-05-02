@@ -95,6 +95,7 @@ class Pendeta extends StatelessWidget {
       color: Colors.redAccent,
       showChildOpacityTransition: true,
       onRefresh: () {
+        PController.remPendeta();
         return PController.getPendeta();
       },
       child: ScrollablePositionedList.builder(

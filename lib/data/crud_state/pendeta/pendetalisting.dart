@@ -11,6 +11,7 @@ class PendetaController extends GetxController {
   RxBool isListViewScrollToTheDown = false.obs;
   RxBool isLoading = true.obs;
   RxBool isInternetConnect = true.obs;
+
   var url = "${ConfigBack.apiAdress}/admin/pendeta/";
   var itemController = ItemScrollController();
 
@@ -20,6 +21,7 @@ class PendetaController extends GetxController {
 
   getPendeta() async {
     var response = await DioService().getMethod(url);
+    isInternatConnect();
     isLoading.value = true;
     if (response.statusCode == 200) {
       response.data.forEach((element) {
@@ -27,6 +29,10 @@ class PendetaController extends GetxController {
       });
       isLoading = false.obs;
     }
+  }
+
+  remPendeta() async {
+    pendeta.clear();
   }
 
   scrollListViewDownward() {

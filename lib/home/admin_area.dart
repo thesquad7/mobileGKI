@@ -2,6 +2,7 @@ import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/aa_persona.dart';
 import 'package:MobileGKI/utils/constrains/aa_menubutton_config.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -42,19 +43,70 @@ class AdminArea extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           )),
           Padding(
-            padding: EdgeInsets.all(FilemonSized.borderRadiusMd),
-            child: GridView.builder(
-                itemCount: 9,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisSpacing: FilemonSized.gridViewSpacing,
-                    crossAxisSpacing: FilemonSized.gridViewSpacing,
-                    crossAxisCount: 3,
-                    mainAxisExtent: 120),
-                itemBuilder: (_, index) => Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          while (index > 7) {
+              padding: EdgeInsets.all(0),
+              child: SizedBox(
+                height: FilemonHelperFunctions.screenHeight() * 0.8,
+                width: FilemonHelperFunctions.screenWidth(),
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: FilemonSized.borderRadiusMd),
+                    child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 30,
+                      crossAxisCount: 3,
+                      children: <Widget>[
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[0]),
+                          icon: FMenubuttonConfig.menuIcon[0],
+                          b_title: FMenubuttonConfig.menuname[0],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[1]),
+                          icon: FMenubuttonConfig.menuIcon[1],
+                          b_title: FMenubuttonConfig.menuname[1],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[2]),
+                          icon: FMenubuttonConfig.menuIcon[2],
+                          b_title: FMenubuttonConfig.menuname[2],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[3]),
+                          icon: FMenubuttonConfig.menuIcon[3],
+                          b_title: FMenubuttonConfig.menuname[3],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[4]),
+                          icon: FMenubuttonConfig.menuIcon[4],
+                          b_title: FMenubuttonConfig.menuname[4],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[5]),
+                          icon: FMenubuttonConfig.menuIcon[5],
+                          b_title: FMenubuttonConfig.menuname[5],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[6]),
+                          icon: FMenubuttonConfig.menuIcon[6],
+                          b_title: FMenubuttonConfig.menuname[6],
+                        ),
+                        SubMenuButton(
+                          onPressed: () =>
+                              Get.to(() => FMenubuttonConfig.screen[7]),
+                          icon: FMenubuttonConfig.menuIcon[7],
+                          b_title: FMenubuttonConfig.menuname[7],
+                        ),
+                        SubMenuButton(
+                          onPressed: () {
                             FilemonHelperFunctions.showDialogData(
                                 "Keluar", "Apakah anda yakin ingin keluar", () {
                               deviceStorage.write('user_login', false);
@@ -65,19 +117,13 @@ class AdminArea extends StatelessWidget {
                               deviceStorage.remove('userC');
                               NavigationAdmin().toMain();
                             });
-                          }
-                          {
-                            Get.to(() {
-                              return FMenubuttonConfig.screen[index];
-                            });
-                          }
-                        },
-                        child: icondataAdmin(
-                            icon: FMenubuttonConfig.menuIcon[index],
-                            name: FMenubuttonConfig.menuname[index]),
-                      ),
+                          },
+                          icon: FMenubuttonConfig.menuIcon[8],
+                          b_title: FMenubuttonConfig.menuname[8],
+                        ),
+                      ],
                     )),
-          ),
+              )),
         ]),
       ),
     );

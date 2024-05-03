@@ -59,7 +59,7 @@ class JemaatEdit extends State<EditJemaat> {
                       title: Text("Edit Jemaat"),
                     ),
                     color: Colors.blue),
-                EditPhotoJemaat(),
+                EditPhotoCRUD(),
               ],
             ),
             SizedBox(height: 80),

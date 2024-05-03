@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,16 +15,21 @@ import 'package:image_picker/image_picker.dart';
 
 enum AppState { free, picked, cropped }
 
-class EditPhotoJemaat extends StatefulWidget {
+class EditPhotoCRUD extends StatefulWidget {
   late bool isNetImg;
   final String url;
-  EditPhotoJemaat({super.key, this.isNetImg = false, this.url = ""});
+
+  EditPhotoCRUD({
+    super.key,
+    this.isNetImg = false,
+    this.url = "",
+  });
 
   @override
-  State<EditPhotoJemaat> createState() => _EditPhotoJemaatState();
+  State<EditPhotoCRUD> createState() => _EditPhotoCRUD();
 }
 
-class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
+class _EditPhotoCRUD extends State<EditPhotoCRUD> {
   late AppState state;
   XFile? _pickedFile;
   CroppedFile? _croppedFile;
@@ -37,10 +43,17 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
     GetStorage().writeIfNull("pic", "Empty");
   }
 
+  String get croppedFileName => _croppedFile!.path.toString();
+
   void dispose() {
-    super.dispose();
     contiditon = false;
     widget.isNetImg = true;
+    GetStorage().writeIfNull("pic", "");
+    if (Get.currentRoute != '/EditPendeta') {
+      // Delete the variable from GetStorage cache
+      GetStorage().remove('pic');
+    }
+    super.dispose();
   }
 
   final data = GetStorage().read("data");
@@ -73,6 +86,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
                   _pickedImg();
                 } else if (state == AppState.picked) {
                   _cropImage();
+                  log(GetStorage().read("pic"));
                 } else if (state == AppState.cropped) {
                   _clear();
                 }
@@ -138,10 +152,12 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
       );
       if (croppedFile != null) {
         setState(() {
+          GetStorage().write("pic", "");
           state = AppState.cropped;
           _croppedFile = croppedFile;
           contiditon = true;
           GetStorage().write("pic", _croppedFile!.path.toString());
+          log(GetStorage().read("pic"));
         });
       }
     }
@@ -155,6 +171,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
             _pickedFile = null;
             _croppedFile = null;
             contiditon = false;
+            GetStorage().remove("pic");
           })
         : setState(() {
             state = AppState.free;
@@ -162,6 +179,7 @@ class _EditPhotoJemaatState extends State<EditPhotoJemaat> {
             _pickedFile = null;
             _croppedFile = null;
             contiditon = false;
+            GetStorage().remove("pic");
           });
   }
 }

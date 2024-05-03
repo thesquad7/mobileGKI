@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
@@ -15,6 +14,7 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class EditPendeta extends StatefulWidget {
   bool isNImg;
@@ -26,12 +26,18 @@ class EditPendeta extends StatefulWidget {
 class PendetaEdit extends State<EditPendeta> {
   late TextEditingController? nama, status;
   late String url;
+  CroppedFile? _croppedFile;
+
   void initState() {
     log(widget.isNImg.toString());
     super.initState();
     url = "";
     nama = TextEditingController();
     status = TextEditingController();
+  }
+
+  void setPhotoLocation(CroppedFile? croppedFile) {
+    _croppedFile = croppedFile;
   }
 
   @override
@@ -47,7 +53,6 @@ class PendetaEdit extends State<EditPendeta> {
     final deviceStorage = GetStorage();
     final title = deviceStorage.read("pagetitle");
     final data = deviceStorage.read("data");
-    final pic_local = deviceStorage.read("pic");
     if (widget.isNImg == true) {
       nama?.value = TextEditingValue(text: deviceStorage.read('P_name'));
       status?.value = TextEditingValue(text: deviceStorage.read('P_status'));
@@ -59,7 +64,7 @@ class PendetaEdit extends State<EditPendeta> {
               edit: () {
                 log(nama!.text.toString());
                 log(status!.text.toString());
-                log(pic_local);
+                log(deviceStorage.read("pic"));
                 // APIPendetaCreate(
                 //         name: nama!.text.toString(),
                 //         status: status!.text.toString(),
@@ -70,24 +75,34 @@ class PendetaEdit extends State<EditPendeta> {
             )
           : FCRUDNavigation(
               create: () {
+                String? pic = deviceStorage.read("pic");
+
                 FilemonHelperFunctions.showDialogData("Menambahkan Data",
                     "Apakah data yang di input telah tepat?", () {
-                  if (pic_local == null) {
-                    FilemonHelperFunctions.showAlert(
-                        "Info", "Terjadi Kesalahan Sistem, Mohon Ulangi");
+                  log(pic.toString());
+                  if (pic == null) {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
+                  } else if (pic == 'Empty') {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
+                  } else if (pic == '') {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
                   } else {
                     APIPendetaCreate(
                             name: nama!.text.toString(),
                             status: status!.text.toString(),
-                            file: pic_local)
+                            file: pic!)
                         .requestCreate();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
                           deviceStorage.read("message"));
                       deviceStorage.remove("message");
                       deviceStorage.remove("pic");
+                      deviceStorage.write("created", false);
                       Navigator.of(context).pop();
-                      Get.back();
+                      Get.back(result: "refresh");
                     }
                   }
                 });
@@ -107,7 +122,7 @@ class PendetaEdit extends State<EditPendeta> {
                       title: Text(title),
                     ),
                     color: Colors.blue),
-                EditPhotoJemaat(
+                EditPhotoCRUD(
                     isNetImg: widget.isNImg,
                     url: ConfigBack.apiAdress + ConfigBack.imgInternet + url),
               ],

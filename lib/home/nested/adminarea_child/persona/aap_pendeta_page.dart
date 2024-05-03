@@ -31,6 +31,7 @@ class Pendeta extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
+            GetStorage().write("pagetitle", "Tambah Pendeta");
             Get.to(() => EditPendeta());
           }),
       body: Obx(
@@ -92,15 +93,16 @@ class Pendeta extends StatelessWidget {
 
   Widget _buildBody() {
     return LiquidPullToRefresh(
-      color: Colors.redAccent,
-      showChildOpacityTransition: true,
+      color: Colors.blue,
+      showChildOpacityTransition: false,
+      animSpeedFactor: 2.1,
       onRefresh: () {
         PController.remPendeta();
         return PController.getPendeta();
       },
       child: ScrollablePositionedList.builder(
           itemScrollController: PController.itemController,
-          physics: const BouncingScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           itemCount: PController.pendeta.length,
           itemBuilder: (_, index) {
             return PendetaItem(

@@ -27,6 +27,7 @@ class PendetaEdit extends State<EditPendeta> {
   late TextEditingController? nama, status;
   late String url;
   CroppedFile? _croppedFile;
+  late bool isCreated;
 
   void initState() {
     log(widget.isNImg.toString());
@@ -34,6 +35,7 @@ class PendetaEdit extends State<EditPendeta> {
     url = "";
     nama = TextEditingController();
     status = TextEditingController();
+    isCreated = true;
   }
 
   void setPhotoLocation(CroppedFile? croppedFile) {
@@ -78,7 +80,7 @@ class PendetaEdit extends State<EditPendeta> {
                 String? pic = deviceStorage.read("pic");
 
                 FilemonHelperFunctions.showDialogData("Menambahkan Data",
-                    "Apakah data yang di input telah tepat?", () {
+                    "Apakah data yang di input telah tepat?", () async {
                   log(pic.toString());
                   if (pic == null) {
                     FilemonHelperFunctions.showAlertErorr(
@@ -90,7 +92,29 @@ class PendetaEdit extends State<EditPendeta> {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");
                   } else {
-                    APIPendetaCreate(
+                    showDialog(
+                      context: context,
+                      barrierDismissible:
+                          false, // Prevent dialog dismissal on tap outside
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(), // Show a loading indicator
+                              SizedBox(height: 16),
+                              Text('Memuat data...'),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                    FilemonHelperFunctions.showSnackBar(
+                        "Sedang Melakukan Input Data");
+                    setState(() {
+                      isCreated = false;
+                    });
+                    await APIPendetaCreate(
                             name: nama!.text.toString(),
                             status: status!.text.toString(),
                             file: pic!)
@@ -101,9 +125,10 @@ class PendetaEdit extends State<EditPendeta> {
                       deviceStorage.remove("message");
                       deviceStorage.remove("pic");
                       deviceStorage.write("created", false);
-                      Navigator.of(context).pop();
-                      Get.back(result: "refresh");
                     }
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Get.back(result: "refresh");
                   }
                 });
               },

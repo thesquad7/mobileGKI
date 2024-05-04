@@ -4,6 +4,7 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -14,14 +15,18 @@ class LoginUI extends StatefulWidget {
 
 class LoginAdmin extends State<LoginUI> {
   late TextEditingController? username, password;
-  late bool _passwordVisible;
+  late bool _passwordVisible, LoginLoading, enableButton;
   final deviceStorage = GetStorage();
+  late String info;
   @override
   void initState() {
     super.initState();
     username = TextEditingController();
     password = TextEditingController();
     _passwordVisible = true;
+    LoginLoading = false;
+    enableButton = true;
+    info = "";
   }
 
   @override
@@ -101,33 +106,59 @@ class LoginAdmin extends State<LoginUI> {
                   child: Container(
                       width: FilemonHelperFunctions.screenWidth() * 0.5,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (username!.text == "" && username!.text == "") {
-                            return FilemonHelperFunctions.showSnackBar(
-                                "Harap Isi Usernama & Password");
-                          }
-                          if (username!.text == "") {
-                            return FilemonHelperFunctions.showSnackBar(
-                                "Harap Isi Username");
-                          }
-                          if (password!.text == "") {
-                            return FilemonHelperFunctions.showSnackBar(
-                                "Harap Isi Password");
-                          }
-                          deviceStorage.write('user_login', true);
-                          APILogin(
-                                  userCred: username!.text,
-                                  userCredPw: password!.text)
-                              .requestLogin();
-                        },
-                        child: Text("Masuk"),
+                        onPressed: enableButton
+                            ? () async {
+                                if (username!.text == "" &&
+                                    username!.text == "") {
+                                  return FilemonHelperFunctions.showSnackBar(
+                                      "Harap Isi Usernama & Password");
+                                }
+                                if (username!.text == "") {
+                                  return FilemonHelperFunctions.showSnackBar(
+                                      "Harap Isi Username");
+                                }
+                                if (password!.text == "") {
+                                  return FilemonHelperFunctions.showSnackBar(
+                                      "Harap Isi Password");
+                                }
+                                deviceStorage.write('user_login', true);
+                                setState(() {
+                                  LoginLoading = true;
+                                });
+                                await APILogin(
+                                        userCred: username!.text,
+                                        userCredPw: password!.text)
+                                    .requestLogin();
+                                setState(() {
+                                  LoginLoading = false;
+                                  enableButton = false;
+                                  info =
+                                      "Harap Menunggu, ada akan memasuki halaman utama";
+                                });
+                              }
+                            : null,
+                        child: LoginCondition(),
                       )),
                 ),
-              )
+              ),
+              Center(
+                child: Text(
+                  textAlign: TextAlign.center,
+                  info,
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget LoginCondition() {
+    if (LoginLoading == false) {
+      return Text("Masuk");
+    } else {
+      return CircularProgressIndicator();
+    }
   }
 }

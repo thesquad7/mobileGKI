@@ -87,6 +87,30 @@ class FilemonHelperFunctions {
     );
   }
 
+  static void showAlertLoading(String title, String message) {
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.red),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Get.back();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static void showDialogData(String title, String message, VoidCallback? goTo) {
     showDialog(
       context: Get.context!,

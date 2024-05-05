@@ -88,4 +88,22 @@ class DioService {
       return response;
     });
   }
+
+  Future<dynamic> putMethod(String url, Object datafile) async {
+    Dio dio = Dio();
+    Options options = Options(headers: HeadersCode().data(), method: "PUT");
+    return await dio
+        .put(url, data: datafile, options: options)
+        .then((response) {
+      return response;
+    });
+  }
+
+  Future<dynamic> deleteMethod(String url) async {
+    Dio dio = Dio();
+    Options options = Options(headers: HeadersCode().data(), method: "DELETE");
+    return await dio.delete(url, options: options).then((response) {
+      return response;
+    });
+  }
 }

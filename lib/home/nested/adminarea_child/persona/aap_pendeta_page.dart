@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
+import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -109,7 +110,22 @@ class Pendeta extends StatelessWidget {
                 nama: PController.pendeta[index].name,
                 status: PController.pendeta[index].status,
                 imngUrl: PController.pendeta[index].pic,
-                Edit: () {});
+                Edit: () async {
+                  GetStorage().write("data", true);
+                  GetStorage().write("pagetitle", "Perbaharui Pendeta");
+                  GetStorage().write(
+                      "pdt_id", PController.pendeta[index].id.toString());
+                  await APIGetPendetaInfo(
+                          pendetaId: PController.pendeta[index].id.toString())
+                      .getPendeta();
+                  final pendeta = GetStorage().read("P_name");
+                  log(pendeta);
+                  if (pendeta != null) {
+                    Get.to(() => EditPendeta(
+                          isNImg: true,
+                        ));
+                  }
+                });
           }),
     );
   }

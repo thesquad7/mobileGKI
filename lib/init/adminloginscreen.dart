@@ -1,5 +1,6 @@
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/init/onboardingscreen.dart';
+import 'package:MobileGKI/provider/loginProvider.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -15,18 +16,19 @@ class LoginUI extends StatefulWidget {
 
 class LoginAdmin extends State<LoginUI> {
   late TextEditingController? username, password;
-  late bool _passwordVisible, LoginLoading, enableButton;
+  late bool _passwordVisible;
   final deviceStorage = GetStorage();
-  late String info;
+
+  final LoginProvider loginStateProvider = Get.put(LoginProvider());
   @override
   void initState() {
     super.initState();
     username = TextEditingController();
     password = TextEditingController();
     _passwordVisible = true;
-    LoginLoading = false;
-    enableButton = true;
-    info = "";
+    loginStateProvider.enableButton.value = true;
+    loginStateProvider.loadingState.value = false;
+    loginStateProvider.info.value = "";
   }
 
   @override
@@ -106,7 +108,7 @@ class LoginAdmin extends State<LoginUI> {
                   child: Container(
                       width: FilemonHelperFunctions.screenWidth() * 0.5,
                       child: ElevatedButton(
-                        onPressed: enableButton
+                        onPressed: loginStateProvider.enableButton.value
                             ? () async {
                                 if (username!.text == "" &&
                                     username!.text == "") {
@@ -123,17 +125,17 @@ class LoginAdmin extends State<LoginUI> {
                                 }
                                 deviceStorage.write('user_login', true);
                                 setState(() {
-                                  LoginLoading = true;
+                                  loginStateProvider.setLoadingstate(true);
                                 });
                                 await APILogin(
                                         userCred: username!.text,
                                         userCredPw: password!.text)
                                     .requestLogin();
                                 setState(() {
-                                  LoginLoading = false;
-                                  enableButton = false;
-                                  info =
-                                      "Harap Menunggu, ada akan memasuki halaman utama";
+                                  loginStateProvider.setLoadingstate(false);
+                                  loginStateProvider.setEnableButton(false);
+                                  loginStateProvider.setInfo(
+                                      "Harap Menunggu, ada akan memasuki halaman utama");
                                 });
                               }
                             : null,
@@ -144,7 +146,7 @@ class LoginAdmin extends State<LoginUI> {
               Center(
                 child: Text(
                   textAlign: TextAlign.center,
-                  info,
+                  loginStateProvider.info.value,
                 ),
               ),
             ],
@@ -155,7 +157,7 @@ class LoginAdmin extends State<LoginUI> {
   }
 
   Widget LoginCondition() {
-    if (LoginLoading == false) {
+    if (loginStateProvider.loadingState.value == false) {
       return Text("Masuk");
     } else {
       return CircularProgressIndicator();

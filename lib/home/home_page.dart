@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Flutter code sample for [NavigationBar].
-
 class NavigationExample extends StatefulWidget {
   const NavigationExample({super.key});
 

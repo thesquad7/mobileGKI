@@ -1,24 +1,26 @@
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
+import 'package:MobileGKI/provider/loginProvider.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dioUpers;
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class APILogin {
   APILogin({required this.userCred, required this.userCredPw});
   final String userCred, userCredPw;
   final deviceStorage = GetStorage();
-
-  final dio = Dio();
+  final LoginProvider loginStateProvider = Get.find();
+  final dio = dioUpers.Dio();
 
   requestLogin() async {
-    final formData = FormData.fromMap({
+    final formData = dioUpers.FormData.fromMap({
       'username': userCred,
       'password': userCredPw,
     });
 
     try {
-      Response response;
+      dioUpers.Response response;
       response = await dio.post('${ConfigBack.apiAdress}/api/v1/token',
           data: formData);
       if (response.statusCode == 200) {
@@ -35,9 +37,15 @@ class APILogin {
           FilemonHelperFunctions.showSnackBar("Hi,Kamu Berhasi Masuk");
           NavigationAdmin().toMainScreen();
         });
-      } else {}
+      } else {
+        loginStateProvider
+            .setInfo("Terjadi kesalahan koneksi, harap masuk kembali");
+        Future.delayed(const Duration(seconds: 2), () {
+          loginStateProvider.setInfo('');
+        });
+      }
     } catch (e) {
-      if (e is DioException) {
+      if (e is dioUpers.DioException) {
         return FilemonHelperFunctions.showSnackBar("Informasi Akun Salah");
       }
     }
@@ -47,13 +55,14 @@ class APILogin {
 class APIGetAdminInfo {
   APIGetAdminInfo({this.userid});
   final String? userid;
-  final dio = Dio();
+  final dio = dioUpers.Dio();
   final deviceStorage = GetStorage();
 
   get() async {
     try {
-      Response response;
-      Options options = Options(headers: HeadersCode().data());
+      dioUpers.Response response;
+      dioUpers.Options options =
+          dioUpers.Options(headers: HeadersCode().data());
       response = await dio.get(
           '${ConfigBack.apiAdress}/api/v1/user/{user_id}?api_id=$userid',
           options: options);
@@ -62,7 +71,7 @@ class APIGetAdminInfo {
         deviceStorage.write("A_pic", response.data['pic'].toString());
       } else {}
     } catch (e) {
-      if (e is DioException) {
+      if (e is dioUpers.DioException) {
         print(e);
         return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
       }
@@ -72,16 +81,18 @@ class APIGetAdminInfo {
 
 class DioService {
   Future<dynamic> getMethod(String url) async {
-    Dio dio = Dio();
-    Options options = Options(headers: HeadersCode().data(), method: "GET");
+    dioUpers.Dio dio = dioUpers.Dio();
+    dioUpers.Options options =
+        dioUpers.Options(headers: HeadersCode().data(), method: "GET");
     return await dio.get(url, options: options).then((response) {
       return response;
     });
   }
 
   Future<dynamic> postMethod(String url, Object datafile) async {
-    Dio dio = Dio();
-    Options options = Options(headers: HeadersCode().data(), method: "POST");
+    dioUpers.Dio dio = dioUpers.Dio();
+    dioUpers.Options options =
+        dioUpers.Options(headers: HeadersCode().data(), method: "POST");
     return await dio
         .post(url, data: datafile, options: options)
         .then((response) {
@@ -90,8 +101,9 @@ class DioService {
   }
 
   Future<dynamic> putMethod(String url, Object datafile) async {
-    Dio dio = Dio();
-    Options options = Options(headers: HeadersCode().data(), method: "PUT");
+    dioUpers.Dio dio = dioUpers.Dio();
+    dioUpers.Options options =
+        dioUpers.Options(headers: HeadersCode().data(), method: "PUT");
     return await dio
         .put(url, data: datafile, options: options)
         .then((response) {
@@ -100,8 +112,9 @@ class DioService {
   }
 
   Future<dynamic> deleteMethod(String url) async {
-    Dio dio = Dio();
-    Options options = Options(headers: HeadersCode().data(), method: "DELETE");
+    dioUpers.Dio dio = dioUpers.Dio();
+    dioUpers.Options options =
+        dioUpers.Options(headers: HeadersCode().data(), method: "DELETE");
     return await dio.delete(url, options: options).then((response) {
       return response;
     });

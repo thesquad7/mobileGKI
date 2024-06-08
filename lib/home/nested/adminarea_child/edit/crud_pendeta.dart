@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, must_be_immutable, use_key_in_widget_constructors
+
 import 'dart:developer';
 
 import 'package:MobileGKI/common/widget/c_appabar.dart';
@@ -7,6 +9,7 @@ import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaCreateUpdate.dart';
+import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/home/d_config/base_pendeta.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -26,7 +29,8 @@ class PendetaEdit extends State<EditPendeta> {
   late TextEditingController? nama, status;
   late String url;
   late bool isCreated;
-
+  final PendetaController PController = Get.find();
+  @override
   void initState() {
     log(widget.isNImg.toString());
     super.initState();
@@ -99,9 +103,8 @@ class PendetaEdit extends State<EditPendeta> {
                     deviceStorage.write("created", false);
                   }
                   Get.close(3);
-                  Future.delayed(const Duration(seconds: 2), () {
-                    Get.to(Pendeta());
-                  });
+                  PController.remPendeta();
+                  PController.getPendeta();
                 } else {
                   showDialog(
                     context: context,

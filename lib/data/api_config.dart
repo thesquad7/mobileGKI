@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/provider/loginProvider.dart';
@@ -20,6 +22,7 @@ class APILogin {
     });
 
     try {
+      loginStateProvider.setEnableButton(false);
       dioUpers.Response response;
       response = await dio.post('${ConfigBack.apiAdress}/api/v1/token',
           data: formData);
@@ -33,20 +36,32 @@ class APILogin {
         String credString = cred.toString();
         APIGetAdminInfo(userid: credString).get();
         deviceStorage.write("userC", credString);
+        loginStateProvider.setLoadingstate(false);
+        loginStateProvider.setEnableButton(false);
+        loginStateProvider
+            .setInfo("Harap Menunggu, anda akan memasuki halaman utama");
         Future.delayed(const Duration(seconds: 1), () {
           FilemonHelperFunctions.showSnackBar("Hi,Kamu Berhasi Masuk");
           NavigationAdmin().toMainScreen();
         });
-      } else {
-        loginStateProvider
-            .setInfo("Terjadi kesalahan koneksi, harap masuk kembali");
-        Future.delayed(const Duration(seconds: 2), () {
-          loginStateProvider.setInfo('');
-        });
       }
-    } catch (e) {
-      if (e is dioUpers.DioException) {
-        return FilemonHelperFunctions.showSnackBar("Informasi Akun Salah");
+    } on dioUpers.DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            loginStateProvider.setLoadingstate(false);
+            loginStateProvider.setEnableButton(true);
+            FilemonHelperFunctions.showSnackBar("Informasi akun salah");
+            break;
+          case 500:
+            log(e.toString());
+            loginStateProvider.setLoadingstate(false);
+            loginStateProvider.setEnableButton(true);
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, harap coba kembali");
+            break;
+        }
       }
     }
   }

@@ -35,7 +35,7 @@ class OnboardingScreen extends StatelessWidget {
             onPageChanged: controller.updatePageIndicator,
             children: [
               OnboardingPage(
-                title: "Pengunjung Umum",
+                title: "Jemaat",
                 animated_asset: Filemonimages.visitor,
                 navigasi: () {
                   deviceStorage.write("useradmin", false);

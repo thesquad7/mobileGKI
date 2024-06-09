@@ -1,10 +1,8 @@
-import 'package:MobileGKI/app.dart';
 import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jamkerja.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/persona/aa_jemaat_page.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/aa_kritiksaran.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/utils/helper/img_cropper.dart';

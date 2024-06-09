@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
-import 'package:MobileGKI/provider/loginProvider.dart';
+import 'package:MobileGKI/provider/InitialProvider/loginProvider.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart' as dioUpers;
 import 'package:get/get.dart';

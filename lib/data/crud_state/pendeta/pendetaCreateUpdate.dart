@@ -19,7 +19,7 @@ class APIPendetaCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'name': name,
+      'name': 'Pdt. $name',
       'status': status,
       'file': await MultipartFile.fromFile(file!)
     });
@@ -42,7 +42,7 @@ class APIPendetaCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'name': name,
+      'name': 'Pdt. $name',
       'status': status,
       'file': await MultipartFile.fromFile(file!)
     });
@@ -65,7 +65,7 @@ class APIPendetaCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'name': name,
+      'name': 'Pdt. $name',
       'status': status,
     });
 

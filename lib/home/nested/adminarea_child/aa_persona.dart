@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
 import 'package:MobileGKI/utils/constrains/aa_menubutton_config.dart';
@@ -19,13 +20,6 @@ class Persona extends StatelessWidget {
   final deviceStorage = GetStorage();
   @override
   Widget build(BuildContext context) {
-    List<String> imgberanda;
-    imgberanda = [
-      Filemonimages.product1,
-      Filemonimages.product2,
-      Filemonimages.product3,
-      Filemonimages.product4,
-    ];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
@@ -60,7 +54,7 @@ class Persona extends StatelessWidget {
                       b_title: FPersona.menuname[0],
                     ),
                     SubMenuButton(
-                      onPressed: () {},
+                      onPressed: () => Get.to(() => Jemaat()),
                       icon: FPersona.menuIcon[1],
                       b_title: FPersona.menuname[1],
                     ),

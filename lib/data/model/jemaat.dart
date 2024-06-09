@@ -1,10 +1,11 @@
 class JemaatJSON {
-  late final String alamat, jemaatId, name, j_pic;
+  late final String alamat, jemaatId, id, name, j_pic;
 
   JemaatJSON(
       {required this.alamat,
       required this.jemaatId,
       required this.name,
+      required this.id,
       required this.j_pic});
 
   JemaatJSON.fromJson(Map<String, dynamic> json) {
@@ -12,5 +13,6 @@ class JemaatJSON {
     alamat = json['alamat'];
     name = json['name'];
     j_pic = json['j_pic'];
+    id = json['id'].toString();
   }
 }

@@ -15,7 +15,7 @@ class JemaatController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool isInternetConnect = true.obs;
   final deviceStorage = GetStorage();
-  var url = "${ConfigBack.apiAdress}/admin/pendeta/";
+  var url = "${ConfigBack.apiAdress}/admin/jemaat/";
   var itemController = ItemScrollController();
 
   isInternatConnect() async {
@@ -49,7 +49,9 @@ class JemaatController extends GetxController {
       deviceStorage.remove('userC');
       NavigationAdmin().toMain();
     }
-    isLoading = false.obs;
+    Future.delayed(const Duration(seconds: 1), () {
+      isLoading.value = false;
+    });
   }
 
   remJemaat() async {

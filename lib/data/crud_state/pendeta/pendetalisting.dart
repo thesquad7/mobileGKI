@@ -49,7 +49,9 @@ class PendetaController extends GetxController {
       deviceStorage.remove('userC');
       NavigationAdmin().toMain();
     }
-    isLoading = false.obs;
+    Future.delayed(const Duration(seconds: 1), () {
+      isLoading.value = false;
+    });
   }
 
   remPendeta() async {

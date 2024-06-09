@@ -11,9 +11,7 @@ import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/home/d_config/base_pendeta.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -51,6 +49,7 @@ class PendetaEdit extends State<EditPendeta> {
   @override
   Widget build(BuildContext context) {
     final deviceStorage = GetStorage();
+
     final title = deviceStorage.read("pagetitle");
     final data = deviceStorage.read("data");
 
@@ -142,9 +141,8 @@ class PendetaEdit extends State<EditPendeta> {
                     deviceStorage.write("created", false);
                   }
                   Get.close(3);
-                  Future.delayed(const Duration(seconds: 2), () {
-                    Get.to(Pendeta());
-                  });
+                  PController.remPendeta();
+                  PController.getPendeta();
                 }
               });
             }, delete: () {
@@ -184,9 +182,8 @@ class PendetaEdit extends State<EditPendeta> {
                     deviceStorage.write("created", false);
                   }
                   Get.close(3);
-                  Future.delayed(const Duration(seconds: 1), () {
-                    Get.to(() => Pendeta());
-                  });
+                  PController.remPendeta();
+                  PController.getPendeta();
                 },
               );
             })
@@ -241,9 +238,8 @@ class PendetaEdit extends State<EditPendeta> {
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
-                    Future.delayed(const Duration(milliseconds: 1), () {
-                      Get.to(() => Pendeta());
-                    });
+                    PController.remPendeta();
+                    PController.getPendeta();
                   }
                 });
               },

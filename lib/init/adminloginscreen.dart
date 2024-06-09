@@ -1,6 +1,6 @@
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/init/onboardingscreen.dart';
-import 'package:MobileGKI/provider/loginProvider.dart';
+import 'package:MobileGKI/provider/InitialProvider/loginProvider.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';

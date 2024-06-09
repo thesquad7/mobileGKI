@@ -7,9 +7,19 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
 class APIJemaatCRUD {
-  APIJemaatCRUD({this.name, this.status, this.file, this.jemaatId});
-  final String? name, status;
-  final String? jemaatId, file;
+  APIJemaatCRUD(
+      {this.dateborn,
+      this.pendetaId,
+      this.n_mother,
+      this.n_father,
+      this.n_babtism,
+      this.placeborn,
+      this.address,
+      this.name,
+      this.file,
+      this.jemaatId});
+  final String? name, n_mother, n_father, n_babtism;
+  final String? jemaatId, pendetaId, file, placeborn, address, dateborn;
 
   var url = "${ConfigBack.apiAdress}/admin/jemaat/";
   var urlNoImg = "${ConfigBack.apiAdress}/admin/jemaat_no_img/";
@@ -19,8 +29,15 @@ class APIJemaatCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
+      'pendeta_id': pendetaId,
+      'jemaat_id': jemaatId,
       'name': name,
-      'status': status,
+      'tempat_lahir': placeborn,
+      'tanggal_lahir': dateborn,
+      'n_bapak': n_father,
+      'n_ibu': n_mother,
+      'n_baptis': n_babtism,
+      'status': address,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -42,8 +59,15 @@ class APIJemaatCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
+      'pendeta_id': pendetaId,
+      'jemaat_id': jemaatId,
       'name': name,
-      'status': status,
+      'tempat_lahir': placeborn,
+      'tanggal_lahir': dateborn,
+      'n_bapak': n_father,
+      'n_ibu': n_mother,
+      'n_baptis': n_babtism,
+      'status': address,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -65,8 +89,16 @@ class APIJemaatCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
+      'pendeta_id': pendetaId,
+      'jemaat_id': jemaatId,
       'name': name,
-      'status': status,
+      'tempat_lahir': placeborn,
+      'tanggal_lahir': dateborn,
+      'n_bapak': n_father,
+      'n_ibu': n_mother,
+      'n_baptis': n_babtism,
+      'status': address,
+      'file': await MultipartFile.fromFile(file!)
     });
 
     try {

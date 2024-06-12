@@ -16,13 +16,13 @@ class APIGetJemaatInfo {
   final String? jemaatId;
   final dio = Dio();
   final deviceStorage = GetStorage();
+  final JemaatProvider infoJemaat = Get.put(JemaatProvider());
   var url = "${ConfigBack.apiAdress}/admin/jemaat/";
 
   getJemaat() async {
     try {
       var response = await DioService().getMethod('$url$jemaatId');
       if (response.statusCode == 200) {
-        final JemaatProvider infoJemaat = Get.put(JemaatProvider());
         infoJemaat.setInfo(
             response.data['name'].toString(),
             response.data['id'].toString(),
@@ -34,7 +34,10 @@ class APIGetJemaatInfo {
             response.data['alamat'].toString(),
             response.data['jemaat_img'].toString(),
             response.data['pendeta_id'].toString(),
+            response.data['baptis'],
+            response.data['pendeta_id'].toString(),
             response.data['jemaat_id'].toString());
+        log(infoJemaat.pdt_id.value.toString());
         Get.to(() => EditJemaat(
               isNImg: true,
             ));

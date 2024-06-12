@@ -1,8 +1,13 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class JemaatProvider extends GetxController {
   var name = "".obs;
   var id = "".obs;
+  var baptis = false.obs;
+  var pdt_id = "".obs;
   var dateborn = "".obs;
   var placeborn = "".obs;
   var n_baptis = "".obs;
@@ -24,6 +29,8 @@ class JemaatProvider extends GetxController {
       String _address,
       String _file,
       String _p_id,
+      bool _baptis,
+      String _pdt_id,
       String _j_id) {
     name.value = _name;
     id.value = _id;
@@ -36,5 +43,7 @@ class JemaatProvider extends GetxController {
     file.value = _file;
     j_id.value = _j_id;
     p_id.value = _p_id;
+    baptis.value = _baptis;
+    pdt_id.value = _pdt_id;
   }
 }

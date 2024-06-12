@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/data/model/pendeta.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,32 +30,56 @@ class PendetaController extends GetxController {
     var response = await DioService().getMethod(url);
     isInternatConnect();
     isLoading.value = true;
-    if (response.statusCode == 200) {
-      response.data.forEach((element) {
-        pendeta.add(PendetaJSON.fromJson(element));
+    try {
+      if (response.statusCode == 200) {
+        response.data.forEach((element) {
+          pendeta.add(PendetaJSON.fromJson(element));
+        });
+      } else if (response.statusCode == 401) {
+        AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(), // Show a loading indicator
+              SizedBox(height: 16),
+              Text('Sesi login telah habis, kembali kehalaman Login'),
+            ],
+          ),
+        );
+        deviceStorage.write('user_login', false);
+        deviceStorage.write('IsFirstTime', false);
+        print(deviceStorage.read('user_login'));
+        print(deviceStorage.read('IsFirstTime'));
+        deviceStorage.remove('usertoken');
+        deviceStorage.remove('userC');
+        NavigationAdmin().toMain();
+      }
+      Future.delayed(const Duration(seconds: 1), () {
+        isLoading.value = false;
       });
-    } else if (response.statusCode == 401) {
-      AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(), // Show a loading indicator
-            SizedBox(height: 16),
-            Text('Sesi login telah habis, kembali kehalaman Login'),
-          ],
-        ),
-      );
-      deviceStorage.write('user_login', false);
-      deviceStorage.write('IsFirstTime', false);
-      print(deviceStorage.read('user_login'));
-      print(deviceStorage.read('IsFirstTime'));
-      deviceStorage.remove('usertoken');
-      deviceStorage.remove('userC');
-      NavigationAdmin().toMain();
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
+      }
     }
-    Future.delayed(const Duration(seconds: 1), () {
-      isLoading.value = false;
-    });
   }
 
   remPendeta() async {
@@ -80,5 +108,62 @@ class PendetaController extends GetxController {
     getPendeta();
     isInternatConnect();
     super.onInit();
+  }
+}
+
+class PendetaEntity extends GetxController {
+  var items = <PendetaJSONForEntity>[].obs;
+  var selectedItem = Rx<PendetaJSONForEntity?>(null);
+  var url = "${ConfigBack.apiAdress}/admin/pendeta_entity/";
+  final deviceStorage = GetStorage();
+  @override
+  void onInit() {
+    getData();
+    super.onInit();
+  }
+
+  void getData() async {
+    try {
+      // Simulating network call with provided data
+      var response = await DioService().getMethod(url);
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data as List;
+        items.value = jsonResponse
+            .map((item) => PendetaJSONForEntity.fromJson(item))
+            .toList();
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
+      }
+    }
+  }
+
+  void setDefaultSelectedItem(int relatedId) {
+    var item = items.firstWhere((item) => item.id == relatedId,
+        orElse: () => items.first);
+    selectedItem.value = item;
+  }
+
+  void setSelectedItem(PendetaJSONForEntity? item) {
+    selectedItem.value = item;
   }
 }

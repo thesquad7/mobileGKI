@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
+import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
@@ -31,9 +32,27 @@ class APIPendetaCRUD {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
       } else {}
-    } catch (e) {
-      if (e is DioException) {
-        return FilemonHelperFunctions.showSnackBar("Terjadi Masalah System");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
       }
     }
   }
@@ -53,10 +72,27 @@ class APIPendetaCRUD {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
       }
-    } catch (e) {
-      if (e is DioException) {
-        print(e);
-        return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
       }
     }
   }
@@ -76,10 +112,27 @@ class APIPendetaCRUD {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
       }
-    } catch (e) {
-      if (e is DioException) {
-        print(e);
-        return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
       }
     }
   }
@@ -94,10 +147,27 @@ class APIPendetaCRUD {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
       }
-    } catch (e) {
-      if (e is DioException) {
-        print(e);
-        return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
+    } on DioException catch (e) {
+      if (e.response != null) {
+        switch (e.response!.statusCode) {
+          case 401:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Waktu sesi telah berakhir silahkan Re-Log");
+            deviceStorage.write('user_login', false);
+            deviceStorage.write('IsFirstTime', false);
+            print(deviceStorage.read('user_login'));
+            print(deviceStorage.read('IsFirstTime'));
+            deviceStorage.remove('usertoken');
+            deviceStorage.remove('userC');
+            NavigationAdmin().toMain();
+            break;
+          case 500:
+            log(e.toString());
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+            break;
+        }
       }
     }
   }

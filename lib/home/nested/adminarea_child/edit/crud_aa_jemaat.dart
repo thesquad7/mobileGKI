@@ -8,6 +8,7 @@ import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/c_editphotojemaat.dart';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/data/configVar.dart';
+import 'package:MobileGKI/data/crud_state/jemaat/jemaatCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatlisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/home/d_config/base_page.dart';
@@ -27,13 +28,14 @@ class EditJemaat extends StatefulWidget {
 }
 
 class JemaatEdit extends State<EditJemaat> {
-  final JemaatProvider infoJemaat = Get.put(JemaatProvider());
+  final JemaatProvider infoJemaat = Get.find();
   final PendetaEntity controller = Get.put(PendetaEntity());
   final CheckboxController controllerCheck = Get.put(CheckboxController());
   final JemaatController JController = Get.find();
   late String url;
   late bool isCreated;
   late TextEditingController? nama,
+      _num_jemaat,
       tempatlahir,
       tanggallahir,
       _nbapak,
@@ -43,11 +45,11 @@ class JemaatEdit extends State<EditJemaat> {
 
   @override
   void initState() {
-    log(widget.isNImg.toString());
     super.initState();
     url = "";
     isCreated = true;
     nama = TextEditingController();
+    _num_jemaat = TextEditingController();
     tempatlahir = TextEditingController();
     tanggallahir = TextEditingController();
     _alamat = TextEditingController();
@@ -60,6 +62,7 @@ class JemaatEdit extends State<EditJemaat> {
   @override
   void dispose() {
     super.dispose();
+    infoJemaat.clearData;
     GetStorage().remove("data");
   }
 
@@ -70,6 +73,7 @@ class JemaatEdit extends State<EditJemaat> {
     final title = deviceStorage.read("pagetitle");
     final data = deviceStorage.read("data");
     if (widget.isNImg == true) {
+      _num_jemaat?.value = TextEditingValue(text: infoJemaat.j_id.value);
       nama?.value = TextEditingValue(text: infoJemaat.name.value);
       tempatlahir?.value = TextEditingValue(text: infoJemaat.placeborn.value);
       tanggallahir?.value = TextEditingValue(text: infoJemaat.dateborn.value);
@@ -81,11 +85,203 @@ class JemaatEdit extends State<EditJemaat> {
     return Scaffold(
       bottomNavigationBar: data
           ? FCRUDNavigationEdit(
-              edit: () {},
-              delete: () {},
+              edit: () async {
+                String? pic = deviceStorage.read("pic");
+                String? Pic2Up;
+
+                FilemonHelperFunctions.showDialogData(
+                    "Merubah Data", "Apakah data yang di input telah tepat?",
+                    () async {
+                  showDialog(
+                    context: context,
+                    barrierDismissible:
+                        false, // Prevent dialog dismissal on tap outside
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircularProgressIndicator(), // Show a loading indicator
+                            SizedBox(height: 16),
+                            Text('Merubah data...'),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                  FilemonHelperFunctions.showSnackBar(
+                      "Sedang Melakukan Input Data");
+                  setState(() {
+                    isCreated = false;
+                  });
+                  if (pic == null) {
+                    Pic2Up = infoJemaat.file.value;
+                    await APIJemaatCRUD(
+                            id: infoJemaat.id.value,
+                            dateborn: tanggallahir!.text.toString(),
+                            baptis: controllerCheck.isChecked.value,
+                            pendetaId: controller.selectedItem.value.toString(),
+                            n_mother: _nibu!.text.toString(),
+                            n_father: _nbapak!.text.toString(),
+                            n_babtism: _nbabptis!.text.toString(),
+                            placeborn: tempatlahir!.text.toString(),
+                            address: _alamat!.text.toString(),
+                            name: nama!.text.toString(),
+                            file: Pic2Up,
+                            jemaatId: infoJemaat.j_id.value)
+                        .requestUpdate();
+                  } else {
+                    Pic2Up = pic;
+                    await APIJemaatCRUD(
+                            id: infoJemaat.id.value,
+                            dateborn: tanggallahir!.text.toString(),
+                            baptis: controllerCheck.isChecked.value,
+                            pendetaId:
+                                controller.selectedItem.value!.id.toString(),
+                            n_mother: _nibu!.text.toString(),
+                            n_father: _nbapak!.text.toString(),
+                            n_babtism: _nbabptis!.text.toString(),
+                            placeborn: tempatlahir!.text.toString(),
+                            address: _alamat!.text.toString(),
+                            name: nama!.text.toString(),
+                            file: Pic2Up,
+                            jemaatId: infoJemaat.j_id.value)
+                        .requestUpdateSameIMG();
+                  }
+                  if (deviceStorage.read("created") == true) {
+                    FilemonHelperFunctions.showSnackBar(
+                        deviceStorage.read("message"));
+                    deviceStorage.remove("message");
+                    deviceStorage.remove("pic");
+                    deviceStorage.write("created", false);
+                  }
+                  Get.close(3);
+                  JController.remJemaat();
+                  JController.getJemaat();
+                });
+              },
+              delete: () {
+                FilemonHelperFunctions.showDialogData(
+                  "Menghapus Data",
+                  "Apakah anda yakin?",
+                  () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible:
+                          false, // Prevent dialog dismissal on tap outside
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(), // Show a loading indicator
+                              SizedBox(height: 16),
+                              Text('Memproses...'),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                    FilemonHelperFunctions.showSnackBar("Data sedang dihapus");
+                    setState(() {
+                      isCreated = false;
+                    });
+                    await APIJemaatCRUD(
+                      id: infoJemaat.id.value,
+                    ).requestDelete();
+                    if (deviceStorage.read("created") == true) {
+                      FilemonHelperFunctions.showSnackBar(
+                          deviceStorage.read("message"));
+                      deviceStorage.remove("message");
+                      deviceStorage.remove("pic");
+                      deviceStorage.write("created", false);
+                    }
+                    Get.close(3);
+                    JController.remJemaat();
+                    JController.getJemaat();
+                  },
+                );
+              },
             )
           : FCRUDNavigation(
-              create: () {},
+              create: () {
+                String? pic = deviceStorage.read("pic");
+                FilemonHelperFunctions.showDialogData("Menambahkan Data",
+                    "Apakah data yang di input telah tepat?", () async {
+                  log(pic.toString());
+                  if (pic == null) {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
+                  } else if (pic == 'Empty') {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
+                  } else if (pic == '') {
+                    FilemonHelperFunctions.showAlertErorr(
+                        "Info", "Anda Belum Menambahkan Gambar");
+                  } else {
+                    showDialog(
+                      context: context,
+                      barrierDismissible:
+                          false, // Prevent dialog dismissal on tap outside
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircularProgressIndicator(), // Show a loading indicator
+                              SizedBox(height: 16),
+                              Text('Memuat data...'),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                    FilemonHelperFunctions.showSnackBar(
+                        "Sedang Melakukan Input Data");
+                    setState(() {
+                      isCreated = false;
+                    });
+                    controllerCheck.isChecked.value
+                        ? await APIJemaatCRUD(
+                            id: infoJemaat.id.value,
+                            jemaatId: _num_jemaat!.text.toString(),
+                            dateborn: tanggallahir!.text.toString(),
+                            baptis: controllerCheck.isChecked.value,
+                            pendetaId:
+                                controller.selectedItem.value!.id.toString(),
+                            n_mother: _nibu!.text.toString(),
+                            n_father: _nbapak!.text.toString(),
+                            n_babtism: _nbabptis!.text.toString(),
+                            placeborn: tempatlahir!.text.toString(),
+                            address: _alamat!.text.toString(),
+                            name: nama!.text.toString(),
+                            file: pic,
+                          ).requestCreate()
+                        : await APIJemaatCRUD(
+                            id: infoJemaat.id.value,
+                            jemaatId: _num_jemaat!.text.toString(),
+                            dateborn: tanggallahir!.text.toString(),
+                            baptis: controllerCheck.isChecked.value,
+                            n_mother: _nibu!.text.toString(),
+                            n_father: _nbapak!.text.toString(),
+                            placeborn: tempatlahir!.text.toString(),
+                            address: _alamat!.text.toString(),
+                            name: nama!.text.toString(),
+                            file: pic,
+                          ).requestCreateNobaptis();
+                    if (deviceStorage.read("created") == true) {
+                      FilemonHelperFunctions.showSnackBar(
+                          deviceStorage.read("message"));
+                      deviceStorage.remove("message");
+                      deviceStorage.remove("pic");
+                      deviceStorage.write("created", false);
+                    }
+                    Get.close(3);
+                    JController.remJemaat();
+                    JController.getJemaat();
+                  }
+                });
+              },
             ),
       body: SingleChildScrollView(
         child: Column(
@@ -136,9 +332,10 @@ class JemaatEdit extends State<EditJemaat> {
                             return CircularProgressIndicator();
                           }
                           if (controller.selectedItem.value == null &&
-                              controller.items.isNotEmpty) {
+                              controller.items.isNotEmpty &&
+                              infoJemaat.pdt_id.value != 0) {
                             controller.setDefaultSelectedItem(
-                                int.parse(infoJemaat.pdt_id.value));
+                                infoJemaat.pdt_id.value);
                           }
                           return DropdownButton<PendetaJSONForEntity>(
                             hint: Text('Pendeta Pembabtis'),
@@ -155,11 +352,13 @@ class JemaatEdit extends State<EditJemaat> {
                             }).toList(),
                           );
                         })
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               ),
             ),
             FTextFieldJemaat(
+                babtis: controllerCheck.isChecked.value,
+                num_jemaat: _num_jemaat!,
                 nama: nama!,
                 tempatlahir: tempatlahir!,
                 tanggallahir: tanggallahir!,

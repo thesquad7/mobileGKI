@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/data/model/jemaat.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,32 +30,34 @@ class JemaatController extends GetxController {
     var response = await DioService().getMethod(url);
     isInternatConnect();
     isLoading.value = true;
-    if (response.statusCode == 200) {
-      response.data.forEach((element) {
-        jemaat.add(JemaatJSON.fromJson(element));
+    try {
+      if (response.statusCode == 200) {
+        response.data.forEach((element) {
+          jemaat.add(JemaatJSON.fromJson(element));
+        });
+      }
+      Future.delayed(const Duration(seconds: 1), () {
+        isLoading.value = false;
       });
-    } else if (response.statusCode == 401) {
-      AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(), // Show a loading indicator
-            SizedBox(height: 16),
-            Text('Sesi login telah habis, kembali kehalaman Login'),
-          ],
-        ),
-      );
-      deviceStorage.write('user_login', false);
-      deviceStorage.write('IsFirstTime', false);
-      print(deviceStorage.read('user_login'));
-      print(deviceStorage.read('IsFirstTime'));
-      deviceStorage.remove('usertoken');
-      deviceStorage.remove('userC');
-      NavigationAdmin().toMain();
+    } catch (e) {
+      if (e is DioException) {
+        if (e.type == DioExceptionType.badResponse) {
+          FilemonHelperFunctions.showSnackBar(
+              "Waktu sesi telah berakhir silahkan Re-Log");
+          deviceStorage.write('user_login', false);
+          deviceStorage.write('IsFirstTime', false);
+          print(deviceStorage.read('user_login'));
+          print(deviceStorage.read('IsFirstTime'));
+          deviceStorage.remove('usertoken');
+          deviceStorage.remove('userC');
+          NavigationAdmin().toMain();
+          if (e.type == DioExceptionType.connectionError) {
+            FilemonHelperFunctions.showSnackBar(
+                "Koneksi bermasalah, ini bukan pada perangkat anda");
+          }
+        }
+      }
     }
-    Future.delayed(const Duration(seconds: 1), () {
-      isLoading.value = false;
-    });
   }
 
   remJemaat() async {

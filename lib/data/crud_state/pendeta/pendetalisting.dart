@@ -113,7 +113,7 @@ class PendetaController extends GetxController {
 
 class PendetaEntity extends GetxController {
   var items = <PendetaJSONForEntity>[].obs;
-  var selectedItem = Rx<PendetaJSONForEntity?>(null);
+  var selectedItem = Rxn<PendetaJSONForEntity>();
   var url = "${ConfigBack.apiAdress}/admin/pendeta_entity/";
   final deviceStorage = GetStorage();
   @override
@@ -132,8 +132,8 @@ class PendetaEntity extends GetxController {
             .map((item) => PendetaJSONForEntity.fromJson(item))
             .toList();
       }
-    } on DioException catch (e) {
-      if (e.response != null) {
+    } catch (e) {
+      if (e is DioException) {
         switch (e.response!.statusCode) {
           case 401:
             log(e.toString());

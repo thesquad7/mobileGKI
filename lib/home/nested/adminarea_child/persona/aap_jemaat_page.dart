@@ -1,7 +1,3 @@
-// ignore_for_file: must_be_immutable
-
-import 'dart:developer';
-
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatView.dart.dart';
@@ -172,7 +168,6 @@ class JemaatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceStorage = GetStorage();
     return Card(
       elevation: 6,
       child: Container(

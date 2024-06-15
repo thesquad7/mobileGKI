@@ -16,14 +16,14 @@ class PendetaJSON {
 }
 
 class PendetaJSONForEntity {
-  final String id;
+  final int id;
   final String name;
 
   PendetaJSONForEntity({required this.id, required this.name});
 
   factory PendetaJSONForEntity.fromJson(Map<String, dynamic> json) {
     return PendetaJSONForEntity(
-      id: json['id'].toString(),
+      id: json['id'],
       name: json['name'],
     );
   }

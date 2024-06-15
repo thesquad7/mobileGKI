@@ -86,7 +86,6 @@ class _EditPhotoCRUD extends State<EditPhotoCRUD> {
                   _pickedImg();
                 } else if (state == AppState.picked) {
                   _cropImage();
-                  log(GetStorage().read("pic"));
                 } else if (state == AppState.cropped) {
                   _clear();
                 }
@@ -157,7 +156,6 @@ class _EditPhotoCRUD extends State<EditPhotoCRUD> {
           _croppedFile = croppedFile;
           contiditon = true;
           GetStorage().write("pic", _croppedFile!.path.toString());
-          log(GetStorage().read("pic"));
         });
       }
     }

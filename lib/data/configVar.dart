@@ -2,7 +2,7 @@ import 'package:get_storage/get_storage.dart';
 
 class ConfigBack {
   ConfigBack._();
-  static final apiAdress = "https://b687-180-241-243-139.ngrok-free.app";
+  static final apiAdress = "https://1b25-180-241-240-254.ngrok-free.app";
   static final imgInternet = "/?path_p=";
 }
 

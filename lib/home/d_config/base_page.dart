@@ -5,11 +5,13 @@ class FTextFieldJemaat extends StatelessWidget {
   const FTextFieldJemaat({
     super.key,
     required this.nama,
+    required this.babtis,
     required this.tempatlahir,
     required this.tanggallahir,
     required this.n_bapak,
     required this.n_ibu,
     required this.n_baptis,
+    required this.num_jemaat,
     required this.alamat,
   });
   final TextEditingController nama,
@@ -17,9 +19,10 @@ class FTextFieldJemaat extends StatelessWidget {
       tanggallahir,
       n_bapak,
       n_ibu,
+      num_jemaat,
       n_baptis,
       alamat;
-
+  final bool babtis;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +30,10 @@ class FTextFieldJemaat extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          FTextField(
+            controller: num_jemaat,
+            title: "Nomor Jemaat",
+          ),
           FTextField(
             controller: nama,
             title: "name",
@@ -47,10 +54,12 @@ class FTextFieldJemaat extends StatelessWidget {
             controller: n_ibu,
             title: "Nama Ibu",
           ),
-          FTextField(
-            controller: n_baptis,
-            title: "Nama Baptis",
-          ),
+          babtis
+              ? FTextField(
+                  controller: n_baptis,
+                  title: "Nama Baptis",
+                )
+              : SizedBox(),
           FTextField(
             controller: alamat,
             title: "Alamat",

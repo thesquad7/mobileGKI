@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'dart:developer';
 
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
+import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/provider/adminProvider/JemaatProvider.dart';
@@ -23,29 +26,38 @@ class APIGetJemaatInfo {
     try {
       var response = await DioService().getMethod('$url$jemaatId');
       if (response.statusCode == 200) {
-        infoJemaat.setInfo(
-            response.data['name'].toString(),
-            response.data['id'].toString(),
-            response.data['tanggal_lahir'].toString(),
-            response.data['tempat_lahir'].toString(),
-            response.data['nama_baptis'].toString(),
-            response.data['nama_bapak'].toString(),
-            response.data['nama_ibu'].toString(),
-            response.data['alamat'].toString(),
-            response.data['jemaat_img'].toString(),
-            response.data['pendeta_id'].toString(),
-            response.data['baptis'],
-            response.data['pendeta_id'].toString(),
-            response.data['jemaat_id'].toString());
-        log(infoJemaat.pdt_id.value.toString());
+        infoJemaat.setName(response.data['name'].toString());
+        infoJemaat.setId(response.data['id'].toString());
+        infoJemaat.setDateborn(response.data['tanggal_lahir'].toString());
+        infoJemaat.setPlaceBorn(response.data['tempat_lahir'].toString());
+        infoJemaat.setNBaptism(response.data['nama_baptis'].toString());
+        infoJemaat.setNFather(response.data['nama_bapak'].toString());
+        infoJemaat.setNMother(response.data['nama_ibu'].toString());
+        infoJemaat.setAddress(response.data['alamat'].toString());
+        infoJemaat.setFile(response.data['jemaat_img'].toString());
+        if (response.data['pendeta_id'] != null) {
+          infoJemaat.setPdtId(response.data['pendeta_id']);
+        }
+        infoJemaat.setBaptisState(response.data['baptis']);
+        infoJemaat.setJiD(response.data['jemaat_id'].toString());
         Get.to(() => EditJemaat(
               isNImg: true,
             ));
+        log(infoJemaat.pdt_id.value.toString());
       }
     } catch (e) {
       if (e is DioException) {
-        print(e);
-        return FilemonHelperFunctions.showSnackBar("Masalah Server Terjadi");
+        if (e.type == DioExceptionType.badResponse) {
+          FilemonHelperFunctions.showSnackBar(
+              "Waktu sesi telah berakhir silahkan Re-Log");
+          deviceStorage.write('user_login', false);
+          deviceStorage.write('IsFirstTime', false);
+          print(deviceStorage.read('user_login'));
+          print(deviceStorage.read('IsFirstTime'));
+          deviceStorage.remove('usertoken');
+          deviceStorage.remove('userC');
+          NavigationAdmin().toMain();
+        }
       }
     }
   }

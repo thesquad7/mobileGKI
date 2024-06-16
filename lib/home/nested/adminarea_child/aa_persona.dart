@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
@@ -59,7 +60,10 @@ class Persona extends StatelessWidget {
                       b_title: FPersona.menuname[1],
                     ),
                     SubMenuButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GetStorage().write("CategoryPlace", "0");
+                        Get.to(() => PersonaCategory());
+                      },
                       icon: FPersona.menuIcon[2],
                       b_title: FPersona.menuname[2],
                     ),

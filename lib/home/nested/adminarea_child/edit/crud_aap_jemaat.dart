@@ -17,6 +17,7 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../data/model/pendeta.dart';
 
@@ -34,10 +35,12 @@ class JemaatEdit extends State<EditJemaat> {
   final JemaatController JController = Get.find();
   late String url;
   late bool isCreated;
+  late DateTime? tanggallahir;
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+
   late TextEditingController? nama,
       _num_jemaat,
       tempatlahir,
-      tanggallahir,
       _nbapak,
       _nibu,
       _nbabptis,
@@ -51,7 +54,6 @@ class JemaatEdit extends State<EditJemaat> {
     nama = TextEditingController();
     _num_jemaat = TextEditingController();
     tempatlahir = TextEditingController();
-    tanggallahir = TextEditingController();
     _alamat = TextEditingController();
     _nbapak = TextEditingController();
     _nibu = TextEditingController();
@@ -62,7 +64,6 @@ class JemaatEdit extends State<EditJemaat> {
   @override
   void dispose() {
     super.dispose();
-    infoJemaat.clearData;
     GetStorage().remove("data");
   }
 
@@ -76,7 +77,7 @@ class JemaatEdit extends State<EditJemaat> {
       _num_jemaat?.value = TextEditingValue(text: infoJemaat.j_id.value);
       nama?.value = TextEditingValue(text: infoJemaat.name.value);
       tempatlahir?.value = TextEditingValue(text: infoJemaat.placeborn.value);
-      tanggallahir?.value = TextEditingValue(text: infoJemaat.dateborn.value);
+      tanggallahir = dateFormat.parse(infoJemaat.dateborn.value);
       _nbapak?.value = TextEditingValue(text: infoJemaat.n_father.value);
       _nibu?.value = TextEditingValue(text: infoJemaat.n_mother.value);
       _nbabptis?.value = TextEditingValue(text: infoJemaat.n_baptis.value);
@@ -118,7 +119,7 @@ class JemaatEdit extends State<EditJemaat> {
                     Pic2Up = infoJemaat.file.value;
                     await APIJemaatCRUD(
                             id: infoJemaat.id.value,
-                            dateborn: tanggallahir!.text.toString(),
+                            dateborn: tanggallahir!.toString(),
                             baptis: controllerCheck.isChecked.value,
                             pendetaId: controller.selectedItem.value.toString(),
                             n_mother: _nibu!.text.toString(),
@@ -132,21 +133,22 @@ class JemaatEdit extends State<EditJemaat> {
                         .requestUpdate();
                   } else {
                     Pic2Up = pic;
-                    await APIJemaatCRUD(
-                            id: infoJemaat.id.value,
-                            dateborn: tanggallahir!.text.toString(),
-                            baptis: controllerCheck.isChecked.value,
-                            pendetaId:
-                                controller.selectedItem.value!.id.toString(),
-                            n_mother: _nibu!.text.toString(),
-                            n_father: _nbapak!.text.toString(),
-                            n_babtism: _nbabptis!.text.toString(),
-                            placeborn: tempatlahir!.text.toString(),
-                            address: _alamat!.text.toString(),
-                            name: nama!.text.toString(),
-                            file: Pic2Up,
-                            jemaatId: infoJemaat.j_id.value)
-                        .requestUpdateSameIMG();
+                    // await APIJemaatCRUD(
+                    //         id: infoJemaat.id.value,
+                    //         dateborn: tanggallahir!.toString(),
+                    //         baptis: controllerCheck.isChecked.value,
+                    //         pendetaId:
+                    //             controller.selectedItem.value!.id.toString(),
+                    //         n_mother: _nibu!.text.toString(),
+                    //         n_father: _nbapak!.text.toString(),
+                    //         n_babtism: _nbabptis!.text.toString(),
+                    //         placeborn: tempatlahir!.text.toString(),
+                    //         address: lo!.text.toString(),
+                    //         name: nama!.text.toString(),
+                    //         file: Pic2Up,
+                    //         jemaatId: infoJemaat.j_id.value)
+                    //     .requestUpdateSameIMG();
+                    log(tanggallahir.toString());
                   }
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
@@ -155,9 +157,9 @@ class JemaatEdit extends State<EditJemaat> {
                     deviceStorage.remove("pic");
                     deviceStorage.write("created", false);
                   }
-                  Get.close(3);
-                  JController.remJemaat();
-                  JController.getJemaat();
+                  // Get.close(3);
+                  // JController.remJemaat();
+                  // JController.getJemaat();
                 });
               },
               delete: () {
@@ -245,7 +247,7 @@ class JemaatEdit extends State<EditJemaat> {
                         ? await APIJemaatCRUD(
                             id: infoJemaat.id.value,
                             jemaatId: _num_jemaat!.text.toString(),
-                            dateborn: tanggallahir!.text.toString(),
+                            dateborn: tanggallahir!.toString(),
                             baptis: controllerCheck.isChecked.value,
                             pendetaId:
                                 controller.selectedItem.value!.id.toString(),
@@ -260,7 +262,7 @@ class JemaatEdit extends State<EditJemaat> {
                         : await APIJemaatCRUD(
                             id: infoJemaat.id.value,
                             jemaatId: _num_jemaat!.text.toString(),
-                            dateborn: tanggallahir!.text.toString(),
+                            dateborn: tanggallahir!.toString(),
                             baptis: controllerCheck.isChecked.value,
                             n_mother: _nibu!.text.toString(),
                             n_father: _nbapak!.text.toString(),
@@ -356,16 +358,19 @@ class JemaatEdit extends State<EditJemaat> {
                 ],
               ),
             ),
-            FTextFieldJemaat(
-                babtis: controllerCheck.isChecked.value,
-                num_jemaat: _num_jemaat!,
-                nama: nama!,
-                tempatlahir: tempatlahir!,
-                tanggallahir: tanggallahir!,
-                n_bapak: _nbapak!,
-                n_ibu: _nibu!,
-                n_baptis: _nbabptis!,
-                alamat: _alamat!),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FTextFieldJemaat(
+                  babtis: controllerCheck.isChecked.value,
+                  num_jemaat: _num_jemaat!,
+                  nama: nama!,
+                  tempatlahir: tempatlahir!,
+                  tanggal: ValueNotifier<DateTime>(tanggallahir!),
+                  n_bapak: _nbapak!,
+                  n_ibu: _nibu!,
+                  n_baptis: _nbabptis!,
+                  alamat: _alamat!),
+            ),
             const SizedBox(
               height: 10,
             )

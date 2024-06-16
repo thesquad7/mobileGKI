@@ -27,10 +27,10 @@ class PendetaController extends GetxController {
   }
 
   getPendeta() async {
-    var response = await DioService().getMethod(url);
     isInternatConnect();
     isLoading.value = true;
     try {
+      var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         response.data.forEach((element) {
           pendeta.add(PendetaJSON.fromJson(element));

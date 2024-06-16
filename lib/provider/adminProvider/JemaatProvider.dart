@@ -16,10 +16,6 @@ class JemaatProvider extends GetxController {
   var file = "".obs;
   var j_id = "".obs;
 
-  void clearData() {
-    pdt_id.value = 0;
-  }
-
   @override
   void onInit() {
     super.onInit();

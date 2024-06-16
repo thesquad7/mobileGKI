@@ -22,15 +22,11 @@ class JemaatController extends GetxController {
   var url = "${ConfigBack.apiAdress}/admin/jemaat/";
   var itemController = ItemScrollController();
 
-  isInternatConnect() async {
-    isInternetConnect.value = await InternetConnectionChecker().hasConnection;
-  }
-
   getJemaat() async {
-    var response = await DioService().getMethod(url);
-    isInternatConnect();
     isLoading.value = true;
+
     try {
+      var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         response.data.forEach((element) {
           jemaat.add(JemaatJSON.fromJson(element));
@@ -40,8 +36,9 @@ class JemaatController extends GetxController {
         isLoading.value = false;
       });
     } catch (e) {
+      isLoading.value = false;
       if (e is DioException) {
-        if (e.type == DioExceptionType.badResponse) {
+        if (e.response?.statusCode == 401) {
           FilemonHelperFunctions.showSnackBar(
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
@@ -84,7 +81,6 @@ class JemaatController extends GetxController {
   @override
   void onInit() {
     getJemaat();
-    isInternatConnect();
     super.onInit();
   }
 }

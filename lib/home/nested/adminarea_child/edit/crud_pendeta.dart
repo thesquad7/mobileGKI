@@ -147,8 +147,8 @@ class PendetaEdit extends State<EditPendeta> {
               });
             }, delete: () {
               FilemonHelperFunctions.showDialogData(
-                "Menghapus Data",
-                "Apakah anda yakin?",
+                "Menghapus Data!",
+                "Pastikan identitas Pendeta ini tidak terhubung dengan\n\nJemaat, Acara, Kesaksian atau Renungan\n\njika terhubung, anda harus mengatur ulang data pendeta pada info terkait\n\nApakah anda yakin?",
                 () async {
                   showDialog(
                     context: context,

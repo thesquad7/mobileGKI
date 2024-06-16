@@ -1,6 +1,6 @@
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
 import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jadwal.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aap_jadwal.dart';
 import 'package:MobileGKI/utils/constrains/b_string_adminarea_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -2,7 +2,7 @@ import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatView.dart.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatlisting.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aa_jemaat.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aap_jemaat.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

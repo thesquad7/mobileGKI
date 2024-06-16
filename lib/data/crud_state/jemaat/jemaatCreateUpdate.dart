@@ -30,6 +30,7 @@ class APIJemaatCRUD {
   var url2 = "${ConfigBack.apiAdress}/admin/jemaat_nopic/";
   var urlNoImg = "${ConfigBack.apiAdress}/admin/jemaat/";
   final dio = Dio();
+
   requestCreateNobaptis() async {
     final String baptisString = (baptis ?? false).toString();
     await GetStorage.init();

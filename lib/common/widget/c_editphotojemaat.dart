@@ -48,11 +48,7 @@ class _EditPhotoCRUD extends State<EditPhotoCRUD> {
   void dispose() {
     contiditon = false;
     widget.isNetImg = true;
-    GetStorage().writeIfNull("pic", "");
-    if (Get.currentRoute != '/EditPendeta') {
-      // Delete the variable from GetStorage cache
-      GetStorage().remove('pic');
-    }
+    GetStorage().write("pic", "null");
     super.dispose();
   }
 

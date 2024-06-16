@@ -26,7 +26,7 @@ class APICategoryCRUD {
     try {
       Response response;
       response = await await DioService()
-          .postMethod(url, {'use_id': 0, 'name': name, 'color_id': color_id});
+          .postMethod(url, {'use_id': "0", 'name': name, 'color_id': color_id});
       if (response.statusCode == 200) {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);

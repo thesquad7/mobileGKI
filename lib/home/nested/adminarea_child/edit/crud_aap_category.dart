@@ -113,7 +113,7 @@ class CatPersona extends State<EditCategoryPersona> {
             }, delete: () {
               FilemonHelperFunctions.showDialogData(
                 "Menghapus Data!",
-                "Pastikan identitas Pendeta ini tidak terhubung dengan\n\nJemaat, Acara, Kesaksian atau Renungan\n\njika terhubung, anda harus mengatur ulang data pendeta pada info terkait\n\nApakah anda yakin?",
+                "Pastikan Category ini tidak terhubung dengan\n\n Acara, Kesaksian atau Renungan\n\njika terhubung, anda harus mengatur ulang data  terkait\n\nApakah anda yakin?",
                 () async {
                   showDialog(
                     context: context,
@@ -136,14 +136,13 @@ class CatPersona extends State<EditCategoryPersona> {
                   setState(() {
                     isCreated = false;
                   });
-                  await APIPendetaCRUD(
-                    pendetaId: deviceStorage.read("pdt_id"),
-                  ).requestDelete();
+                  await APICategoryCRUD(
+                    id: int.parse(deviceStorage.read("C_id")),
+                  ).requestDeleteCatPersona();
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
                     deviceStorage.remove("message");
-                    deviceStorage.remove("pic");
                     deviceStorage.write("created", false);
                   }
                   Get.close(3);
@@ -178,7 +177,10 @@ class CatPersona extends State<EditCategoryPersona> {
                   setState(() {
                     isCreated = false;
                   });
-
+                  await APICategoryCRUD(
+                    color_id: colorId,
+                    name: nama!.text.toString(),
+                  ).requestCreatePersonaCategory();
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));

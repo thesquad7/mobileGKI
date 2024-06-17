@@ -15,6 +15,7 @@ class BerandaProductPageDetail extends StatelessWidget {
           FDetailImgView(
             children: Container(),
             imgUrl: Filemonimages.product1,
+            netImg: false,
           ),
           FDetailPage(
             isTime: false,

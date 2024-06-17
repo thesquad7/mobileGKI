@@ -15,6 +15,7 @@ class FDetailJadwal extends StatelessWidget {
           FDetailImgView(
             children: Container(),
             imgUrl: Filemonimages.slide1,
+            netImg: false,
           ),
           FDetailPage(
             isTime: true,

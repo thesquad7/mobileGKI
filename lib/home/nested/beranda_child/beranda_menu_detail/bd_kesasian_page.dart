@@ -16,6 +16,7 @@ class DetailKesaksianBeranda extends StatelessWidget {
           FDetailImgView(
             children: Container(),
             imgUrl: FBerandaTextData.kesaksianImgBG[index.read('index')],
+            netImg: false,
           ),
           FDetailPage(
             isTime: true,

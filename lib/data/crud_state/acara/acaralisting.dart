@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
-import 'package:MobileGKI/data/model/pendeta.dart';
+import 'package:MobileGKI/data/model/acara.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/animation.dart';
@@ -13,28 +13,27 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class PendetaController extends GetxController {
-  RxList<PendetaJSON> pendeta = RxList();
+class AcaraController extends GetxController {
+  RxList<AcaraJSON> acara = RxList();
   RxBool isListViewScrollToTheDown = false.obs;
   RxBool isLoading = true.obs;
   RxBool isInternetConnect = true.obs;
   final deviceStorage = GetStorage();
-  var url = "${ConfigBack.apiAdress}/admin/pendeta/";
+  var url = "${ConfigBack.apiAdress}/admin/acara/";
   var itemController = ItemScrollController();
 
   isInternatConnect() async {
     isInternetConnect.value = await InternetConnectionChecker().hasConnection;
   }
 
-  getPendeta() async {
+  getAcara() async {
     isInternatConnect();
     isLoading.value = true;
     try {
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
-        log(response.data.toString());
         response.data.forEach((element) {
-          pendeta.add(PendetaJSON.fromJson(element));
+          acara.add(AcaraJSON.fromJson(element));
         });
       } else if (response.statusCode == 401) {
         AlertDialog(
@@ -81,13 +80,13 @@ class PendetaController extends GetxController {
     }
   }
 
-  remPendeta() async {
-    pendeta.clear();
+  remAcara() async {
+    acara.clear();
   }
 
   scrollListViewDownward() {
     itemController.scrollTo(
-        index: pendeta.length - 4,
+        index: acara.length - 4,
         duration: const Duration(seconds: 2),
         curve: Curves.fastOutSlowIn);
     isListViewScrollToTheDown.value = true;
@@ -104,16 +103,16 @@ class PendetaController extends GetxController {
 
   @override
   void onInit() {
-    getPendeta();
+    getAcara();
     isInternatConnect();
     super.onInit();
   }
 }
 
-class PendetaEntity extends GetxController {
-  var items = <PendetaJSONForEntity>[].obs;
-  var selectedItem = Rxn<PendetaJSONForEntity>();
-  var url = "${ConfigBack.apiAdress}/admin/pendeta_entity/";
+class acaraEntity extends GetxController {
+  var items = <AcaraJSONForEntity>[].obs;
+  var selectedItem = Rxn<AcaraJSONForEntity>();
+  var url = "${ConfigBack.apiAdress}/admin/acara_entity/";
   final deviceStorage = GetStorage();
   @override
   void onInit() {
@@ -128,7 +127,7 @@ class PendetaEntity extends GetxController {
       if (response.statusCode == 200) {
         var jsonResponse = response.data as List;
         items.value = jsonResponse
-            .map((item) => PendetaJSONForEntity.fromJson(item))
+            .map((item) => AcaraJSONForEntity.fromJson(item))
             .toList();
       }
     } catch (e) {
@@ -162,7 +161,7 @@ class PendetaEntity extends GetxController {
     selectedItem.value = item;
   }
 
-  void setSelectedItem(PendetaJSONForEntity? item) {
+  void setSelectedItem(AcaraJSONForEntity? item) {
     selectedItem.value = item;
   }
 }

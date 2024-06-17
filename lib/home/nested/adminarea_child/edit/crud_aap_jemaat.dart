@@ -29,7 +29,7 @@ class EditJemaat extends StatefulWidget {
 }
 
 class JemaatEdit extends State<EditJemaat> {
-  final JemaatProvider infoJemaat = Get.find();
+  final JemaatProvider infoJemaat = Get.put(JemaatProvider());
   final PendetaEntity controller = Get.put(PendetaEntity());
   final CheckboxController controllerCheck = Get.put(CheckboxController());
   final JemaatController JController = Get.find();

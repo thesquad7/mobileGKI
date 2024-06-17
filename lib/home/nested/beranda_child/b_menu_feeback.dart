@@ -12,21 +12,23 @@ class BerandaFeedback extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(children: [
           FDetailImgView(
-              children: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(10)),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    size: 20,
-                  ),
-                  onPressed: () {},
+            children: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10)),
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 20,
                 ),
+                onPressed: () {},
               ),
-              imgUrl: Filemonimages.pendeta1),
+            ),
+            imgUrl: Filemonimages.pendeta1,
+            netImg: false,
+          ),
           SizedBox(
               width: double.infinity,
               child: Padding(

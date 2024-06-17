@@ -11,7 +11,11 @@ class BerandaAcaraDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        FDetailImgView(children: Container(), imgUrl: Filemonimages.pendeta1),
+        FDetailImgView(
+          children: Container(),
+          imgUrl: Filemonimages.pendeta1,
+          netImg: false,
+        ),
         FDetailPage(
           isTime: true,
           DT_jam: "11.11",

@@ -1,5 +1,5 @@
 import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_page.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_menu.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jamkerja.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
@@ -25,7 +25,7 @@ class FMenubuttonConfig {
   static final screen = [
     Persona(),
     Jemaat(),
-    const Acara(),
+    AcaraMenu(),
     const JadwalAdminArea(),
     Jemaat(),
     const Renungan(),
@@ -65,5 +65,19 @@ class FPersona {
     Icons.sensor_occupied_sharp,
     Icons.person,
     Icons.flag,
+  ];
+}
+
+class FAcaraMenu {
+  FAcaraMenu._();
+
+  static List<String> menuname = [
+    "Category",
+    "Acara",
+  ];
+
+  static List<IconData> menuIcon = [
+    Icons.flag,
+    Icons.calendar_month,
   ];
 }

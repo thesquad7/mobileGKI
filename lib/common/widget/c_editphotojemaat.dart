@@ -1,14 +1,9 @@
-import 'dart:developer';
-import 'dart:io';
+// ignore_for_file: must_be_immutable
 
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,6 +40,7 @@ class _EditPhotoCRUD extends State<EditPhotoCRUD> {
 
   String get croppedFileName => _croppedFile!.path.toString();
 
+  @override
   void dispose() {
     contiditon = false;
     widget.isNetImg = true;

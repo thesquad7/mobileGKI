@@ -10,6 +10,7 @@ class AcaraProvider extends GetxController {
   var category_id = "".obs;
   var content = "".obs;
   var file = "".obs;
+  var color_id = 0.obs;
 
   @override
   void onInit() {

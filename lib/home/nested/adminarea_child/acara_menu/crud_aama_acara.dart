@@ -6,13 +6,18 @@ import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
+import 'package:MobileGKI/data/crud_state/acara/acaraCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
+import 'package:MobileGKI/data/model/acara.dart';
+import 'package:MobileGKI/data/model/pendeta.dart';
 import 'package:MobileGKI/home/d_config/acara_formfield.dart';
 import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
+import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -29,15 +34,21 @@ class EditAcara extends StatefulWidget {
 class _EditAcara extends State<EditAcara> {
   final AcaraProvider infoAcara = Get.put(AcaraProvider());
   final AcaraController Acontroller = Get.find();
-  final PendetaEntity controller = Get.put(PendetaEntity());
+  final AcaraEntity controller = Get.put(AcaraEntity());
   late String url;
+  int? colorId;
   late bool isCreated;
   final ValueNotifier<DateTime> tanggal =
       ValueNotifier<DateTime>(DateTime.now());
   final ValueNotifier<TimeOfDay> jam_acara =
       ValueNotifier<TimeOfDay>(TimeOfDay.now());
   String formatDateTimeToServer(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
+
+  String formatTimeToServer(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('HH:mm');
     return formatter.format(dateTime);
   }
 
@@ -169,7 +180,7 @@ class _EditAcara extends State<EditAcara> {
               delete: () {
                 FilemonHelperFunctions.showDialogData(
                   "Menghapus Data",
-                  "Apakah anda yakin?",
+                  "Apakah anda yakin, untuk menghapus acara ini?",
                   () async {
                     showDialog(
                       context: context,
@@ -192,14 +203,13 @@ class _EditAcara extends State<EditAcara> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIJemaatCRUD(
+                    await APIAcaraCRUD(
                       id: infoAcara.id.value,
                     ).requestDelete();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
                           deviceStorage.read("message"));
                       deviceStorage.remove("message");
-                      deviceStorage.remove("pic");
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
@@ -211,17 +221,16 @@ class _EditAcara extends State<EditAcara> {
             )
           : FCRUDNavigation(
               create: () {
-                String? pic = deviceStorage.read("pic");
                 FilemonHelperFunctions.showDialogData("Menambahkan Data",
                     "Apakah data yang di input telah tepat?", () async {
-                  log(pic.toString());
-                  if (pic == null) {
+                  log(url.toString());
+                  if (url == null) {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");
-                  } else if (pic == 'Empty') {
+                  } else if (url == 'Empty') {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");
-                  } else if (pic == '') {
+                  } else if (url == '') {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");
                   } else {
@@ -247,13 +256,18 @@ class _EditAcara extends State<EditAcara> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIJemaatCRUD(
-                      id: infoAcara.id.value,
-                      // dateborn: formatDateTimeToServer(tanggallahir.value),
-                      address: _alamat!.text.toString(),
-                      name: nama!.text.toString(),
-                      file: pic,
-                    ).requestCreateNobaptis();
+                    await APIAcaraCRUD(
+                            name: nama!.text,
+                            status: status!.text,
+                            file: url,
+                            content: deskripsi!.text,
+                            location: _alamat!.text,
+                            tanggal: formatDateTimeToServer(tanggal.value),
+                            jam_acara: jam_acara.value.hour.toString() +
+                                ":" +
+                                jam_acara.value.minute.toString(),
+                            category_id: controller.selectedItem.value!.id)
+                        .requestCreate();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
                           deviceStorage.read("message"));
@@ -314,9 +328,51 @@ class _EditAcara extends State<EditAcara> {
                 deskripsi: deskripsi!,
               ),
             ),
-            const SizedBox(
-              height: 10,
-            )
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Obx(() {
+                if (controller.items.isEmpty) {
+                  return CircularProgressIndicator();
+                }
+                if (controller.selectedItem.value == null &&
+                    controller.items.isNotEmpty &&
+                    data != false) {
+                  controller.setDefaultSelectedItem(
+                      int.parse(infoAcara.category_id.value));
+                }
+                return DropdownButtonFormField2<AcaraJSONForEntity>(
+                  hint: Text('Kategori Acara'),
+                  value: controller.selectedItem.value,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  onChanged: (AcaraJSONForEntity? newValue) {
+                    controller.setSelectedItem(newValue);
+                  },
+                  items: controller.items.map((AcaraJSONForEntity item) {
+                    return DropdownMenuItem<AcaraJSONForEntity>(
+                      value: item,
+                      child: Text(item.name),
+                    );
+                  }).toList(),
+                );
+              }),
+            ),
+            SizedBox(height: 20),
+            Container(
+              height: 40,
+              decoration: BoxDecoration(
+                  color: colorId == null
+                      ? null
+                      : CategoryColorHandler.categorycolor[colorId!],
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  )),
+            ),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 class AcaraJSON {
-  late final String status, name, pic, id, content, category_id;
-
+  late final String status, name, pic, id, content, category_id, category_name;
+  int? color_id;
   AcaraJSON(
       {required this.status,
       required this.name,
@@ -15,8 +15,9 @@ class AcaraJSON {
     status = json['status'];
     name = json['name'];
     content = json['content'];
-    category_id = json['category_id'].toString();
-    id = json['id'].toString();
+    category_id = json['category']['id'].toString();
+    category_name = json['category']['name'].toString();
+    color_id = int.parse(json['category']['color_id']);
     pic = json['content_img'];
   }
 }

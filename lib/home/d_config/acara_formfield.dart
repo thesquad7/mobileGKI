@@ -1,11 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:ffi';
 import 'package:MobileGKI/utils/theme/constrains/c_ltexfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 class FAcaraFormField extends StatefulWidget {

@@ -11,6 +11,7 @@ import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_p
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
+import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -115,6 +116,8 @@ class Acara extends StatelessWidget {
           itemCount: AController.acara.length,
           itemBuilder: (_, index) {
             return AcaraItem(
+                indexCat: AController.acara[index].color_id!,
+                catName: AController.acara[index].category_name,
                 nama: AController.acara[index].name,
                 status: AController.acara[index].status,
                 imngUrl: AController.acara[index].pic,
@@ -167,10 +170,13 @@ class AcaraItem extends StatelessWidget {
     super.key,
     required this.nama,
     required this.status,
+    required this.catName,
     required this.imngUrl,
+    required this.indexCat,
     required this.Edit,
   });
-  final String nama, status, imngUrl;
+  final String nama, status, imngUrl, catName;
+  final int indexCat;
   final VoidCallback Edit;
 
   @override
@@ -191,7 +197,8 @@ class AcaraItem extends StatelessWidget {
             width: double.infinity,
             height: 150,
             decoration: BoxDecoration(
-                color: Colors.amber.withOpacity(0.2),
+                color: CategoryColorHandler.categorycolor[indexCat]
+                    .withOpacity(0.2),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
           ),
           Positioned(
@@ -199,14 +206,15 @@ class AcaraItem extends StatelessWidget {
             right: 10,
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.5),
+                  color: CategoryColorHandler.categorycolor[indexCat]
+                      .withOpacity(0.5),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               width: 100,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(4),
                   child: Text(
-                    "Categori",
+                    catName,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

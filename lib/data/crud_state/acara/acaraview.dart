@@ -32,7 +32,8 @@ class APIGetAcaraView {
         infoAcara.setValue(
             infoAcara.file, response.data['content_img'].toString());
         infoAcara.setValue(
-            infoAcara.category_id, response.data['category.id'].toString());
+            infoAcara.category_id, response.data['category_id'].toString());
+        print(infoAcara.category_id.value);
         infoAcara.setValue(
             infoAcara.content, response.data['content'].toString());
         infoAcara.setValue(

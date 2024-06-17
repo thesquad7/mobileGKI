@@ -8,9 +8,20 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
 class APIAcaraCRUD {
-  APIAcaraCRUD({this.name, this.status, this.file, this.pendetaId});
-  final String? name, status;
-  final String? pendetaId, file;
+  APIAcaraCRUD({
+    this.name,
+    this.id,
+    this.status,
+    this.file,
+    this.content,
+    this.location,
+    this.tanggal,
+    this.jam_acara,
+    this.category_id,
+  });
+  final String? name, status, id;
+  final String? content, location, tanggal, jam_acara, file;
+  int? category_id;
 
   var url = "${ConfigBack.apiAdress}/admin/acara/";
   var urlNoImg = "${ConfigBack.apiAdress}/admin/acara_no_image/";
@@ -20,8 +31,13 @@ class APIAcaraCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'name': 'Pdt. $name',
+      'name': name,
       'status': status,
+      'content': content,
+      'location': location,
+      'tanggal': tanggal,
+      'jam_acara': jam_acara,
+      'category_id': category_id,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -67,7 +83,7 @@ class APIAcaraCRUD {
     });
 
     try {
-      var response = await DioService().putMethod('$url$pendetaId', formData);
+      var response = await DioService().putMethod('$url$id', formData);
       if (response.statusCode == 200) {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
@@ -106,8 +122,7 @@ class APIAcaraCRUD {
     });
 
     try {
-      var response =
-          await DioService().putMethod('$urlNoImg$pendetaId', formData);
+      var response = await DioService().putMethod('$urlNoImg$id', formData);
       if (response.statusCode == 200) {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);
@@ -142,7 +157,7 @@ class APIAcaraCRUD {
     final deviceStorage = GetStorage();
 
     try {
-      var response = await DioService().deleteMethod('$url$pendetaId');
+      var response = await DioService().deleteMethod('$url$id');
       if (response.statusCode == 200) {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);

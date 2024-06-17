@@ -33,6 +33,7 @@ class AcaraController extends GetxController {
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         response.data.forEach((element) {
+          log(response.data.toString());
           acara.add(AcaraJSON.fromJson(element));
         });
       } else if (response.statusCode == 401) {
@@ -109,10 +110,10 @@ class AcaraController extends GetxController {
   }
 }
 
-class acaraEntity extends GetxController {
+class AcaraEntity extends GetxController {
   var items = <AcaraJSONForEntity>[].obs;
   var selectedItem = Rxn<AcaraJSONForEntity>();
-  var url = "${ConfigBack.apiAdress}/admin/acara_entity/";
+  var url = "${ConfigBack.apiAdress}/admin/category_use_id/1";
   final deviceStorage = GetStorage();
   @override
   void onInit() {
@@ -122,7 +123,6 @@ class acaraEntity extends GetxController {
 
   void getData() async {
     try {
-      // Simulating network call with provided data
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         var jsonResponse = response.data as List;

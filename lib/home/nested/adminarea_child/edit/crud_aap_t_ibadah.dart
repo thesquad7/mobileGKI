@@ -8,12 +8,16 @@ import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
+import 'package:MobileGKI/data/crud_state/gereja/gerejaCreateUpdate.dart';
+import 'package:MobileGKI/data/crud_state/gereja/gerejalisting.dart';
 import 'package:MobileGKI/data/model/acara.dart';
 import 'package:MobileGKI/home/d_config/acara_formfield.dart';
 import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
+import 'package:MobileGKI/provider/adminProvider/gerejaProvider.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,43 +25,28 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-class EditAcara extends StatefulWidget {
+class EditTempatIbdah extends StatefulWidget {
   bool isNImg;
-  EditAcara({this.isNImg = false});
+  EditTempatIbdah({this.isNImg = false});
   @override
-  _EditAcara createState() => _EditAcara();
+  _EditTempatIbdah createState() => _EditTempatIbdah();
 }
 
-class _EditAcara extends State<EditAcara> {
-  final AcaraProvider infoAcara = Get.put(AcaraProvider());
-  final AcaraController Acontroller = Get.find();
-  final AcaraEntity controller = Get.put(AcaraEntity());
+class _EditTempatIbdah extends State<EditTempatIbdah> {
+  final GerejaProvider infoGereja = Get.put(GerejaProvider());
+  final GerejaController GController = Get.find();
   late String url, title;
   int? colorId;
   late bool isCreated, data;
-  final ValueNotifier<DateTime> tanggal =
-      ValueNotifier<DateTime>(DateTime.now());
-  final ValueNotifier<TimeOfDay> jam_acara =
-      ValueNotifier<TimeOfDay>(TimeOfDay.now());
-  String formatDateTimeToServer(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    return formatter.format(dateTime);
-  }
-
-  String formatTimeToServer(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('HH:mm');
-    return formatter.format(dateTime);
-  }
 
   XFile? _pickedFile;
-  DateFormat dateFormat = DateFormat("yyyy-MM-dd");
   TimeOfDay parseTimeOfDay(String timeString) {
     final format = DateFormat.Hm();
     final DateTime dateTime = format.parse(timeString);
     return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
   }
 
-  late TextEditingController? nama, status, deskripsi, _alamat;
+  late TextEditingController? nama;
   late bool isInput;
   @override
   void initState() {
@@ -66,20 +55,12 @@ class _EditAcara extends State<EditAcara> {
     isInput = false;
     isCreated = true;
     nama = TextEditingController();
-    status = TextEditingController();
-    _alamat = TextEditingController();
-    deskripsi = TextEditingController();
     title = GetStorage().read("pagetitle");
     data = GetStorage().read("data");
     log(widget.isNImg.toString());
     if (widget.isNImg == true) {
-      url = infoAcara.file.value;
-      nama?.value = TextEditingValue(text: infoAcara.name.value);
-      status?.value = TextEditingValue(text: infoAcara.status.value);
-      tanggal.value = dateFormat.parse(infoAcara.tanggal.value);
-      jam_acara.value = parseTimeOfDay(infoAcara.jam_mulai.value);
-      deskripsi?.value = TextEditingValue(text: infoAcara.content.value);
-      _alamat?.value = TextEditingValue(text: infoAcara.location.value);
+      url = infoGereja.file.value;
+      nama?.value = TextEditingValue(text: infoGereja.name.value);
     }
   }
 
@@ -123,40 +104,24 @@ class _EditAcara extends State<EditAcara> {
                   setState(() {
                     isCreated = false;
                   });
-                  if (pic == infoAcara.file.toString()) {
-                    APIAcaraCRUD(
-                            id: infoAcara.id.value,
+                  if (pic == infoGereja.file.toString()) {
+                    APIGerejaCRUD(
+                            gerejaId: infoGereja.id.value,
                             name: nama!.text,
-                            status: status!.text,
-                            file: url,
-                            content: deskripsi!.text,
-                            location: _alamat!.text,
-                            tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
+                            file: url)
                         .requestUpdate();
                   } else {
-                    APIAcaraCRUD(
-                            id: infoAcara.id.value,
-                            name: nama!.text,
-                            status: status!.text,
-                            content: deskripsi!.text,
-                            location: _alamat!.text,
-                            tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
-                        .requestUpdateNoImage();
+                    APIGerejaCRUD(
+                      gerejaId: infoGereja.id.value,
+                      name: nama!.text,
+                    ).requestUpdateNoImage();
                   }
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    GController.remGereja();
+                    GController.getGereja();
                     deviceStorage.remove("message");
                     deviceStorage.write("created", false);
                   }
@@ -189,7 +154,7 @@ class _EditAcara extends State<EditAcara> {
                       isCreated = false;
                     });
                     await APIAcaraCRUD(
-                      id: infoAcara.id.value,
+                      id: infoGereja.id.value,
                     ).requestDelete();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
@@ -198,8 +163,8 @@ class _EditAcara extends State<EditAcara> {
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    GController.remGereja();
+                    GController.getGereja();
                   },
                 );
               },
@@ -241,17 +206,7 @@ class _EditAcara extends State<EditAcara> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIAcaraCRUD(
-                            name: nama!.text,
-                            status: status!.text,
-                            file: url,
-                            content: deskripsi!.text,
-                            location: _alamat!.text,
-                            tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
+                    await APIGerejaCRUD(name: nama!.text, file: url)
                         .requestCreate();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
@@ -261,8 +216,8 @@ class _EditAcara extends State<EditAcara> {
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    GController.remGereja();
+                    GController.getGereja();
                   }
                 });
               },
@@ -303,61 +258,12 @@ class _EditAcara extends State<EditAcara> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: FAcaraFormField(
-                nama: nama!,
-                tanggal: tanggal,
-                alamat: _alamat!,
-                jam: jam_acara,
-                status: status!,
-                deskripsi: deskripsi!,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: FTextField(
+                title: "Nama tempat Ibadah",
+                controller: nama,
               ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Obx(() {
-                if (controller.items.isEmpty) {
-                  return CircularProgressIndicator();
-                }
-                if (controller.selectedItem.value == null &&
-                    controller.items.isNotEmpty &&
-                    data != false) {
-                  controller.setDefaultSelectedItem(
-                      int.parse(infoAcara.category_id.value));
-                }
-                return DropdownButtonFormField2<AcaraJSONForEntity>(
-                  hint: Text('Kategori Acara'),
-                  value: controller.selectedItem.value,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  onChanged: (AcaraJSONForEntity? newValue) {
-                    controller.setSelectedItem(newValue);
-                  },
-                  items: controller.items.map((AcaraJSONForEntity item) {
-                    return DropdownMenuItem<AcaraJSONForEntity>(
-                      value: item,
-                      child: Text(item.name),
-                    );
-                  }).toList(),
-                );
-              }),
-            ),
-            SizedBox(height: 20),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  color: colorId == null
-                      ? null
-                      : CategoryColorHandler.categorycolor[colorId!],
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  )),
-            ),
+            )
           ],
         ),
       ),
@@ -375,13 +281,5 @@ class _EditAcara extends State<EditAcara> {
       });
       url = _pickedFile!.path.toString();
     }
-  }
-}
-
-class CheckboxController extends GetxController {
-  var isChecked = false.obs;
-
-  void toggleCheckbox(bool? value) {
-    isChecked.value = value ?? false;
   }
 }

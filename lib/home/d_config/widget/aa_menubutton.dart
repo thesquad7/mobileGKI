@@ -42,7 +42,10 @@ class icondataAdmin extends StatelessWidget {
               icon,
               size: 70,
             ),
-            Text(name)
+            Text(
+              name,
+              overflow: TextOverflow.ellipsis,
+            )
           ]),
         ),
       ),

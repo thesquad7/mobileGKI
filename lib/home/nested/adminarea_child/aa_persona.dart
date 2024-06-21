@@ -1,20 +1,17 @@
-import 'dart:developer';
-
 import 'package:MobileGKI/common/widget/c_header.dart';
-import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
-import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
 import 'package:MobileGKI/utils/constrains/aa_menubutton_config.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
-import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'persona/aap_t_ibadah.dart';
 
 class Persona extends StatelessWidget {
   Persona({super.key});
@@ -61,11 +58,18 @@ class Persona extends StatelessWidget {
                     ),
                     SubMenuButton(
                       onPressed: () {
-                        GetStorage().write("CategoryPlace", "0");
-                        Get.to(() => PersonaCategory());
+                        Get.to(() => TempatIbadah());
                       },
                       icon: FPersona.menuIcon[2],
                       b_title: FPersona.menuname[2],
+                    ),
+                    SubMenuButton(
+                      onPressed: () {
+                        GetStorage().write("CategoryPlace", "0");
+                        Get.to(() => PersonaCategory());
+                      },
+                      icon: FPersona.menuIcon[3],
+                      b_title: FPersona.menuname[3],
                     ),
                   ],
                 )),

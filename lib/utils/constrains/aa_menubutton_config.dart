@@ -14,7 +14,7 @@ class FMenubuttonConfig {
 
   static List<String> menuname = [
     "Persona",
-    "Keuangan",
+    "Pengunjung",
     "Acara",
     "Jadwal",
     "Kesaksian",
@@ -35,7 +35,7 @@ class FMenubuttonConfig {
 
   static List<IconData> menuIcon = [
     Icons.group,
-    Icons.monetization_on_outlined,
+    Icons.view_stream,
     Icons.calendar_month,
     Icons.schedule_sharp,
     Icons.star,
@@ -52,7 +52,8 @@ class FPersona {
   static List<String> menuname = [
     "Pendeta",
     "Jemaat",
-    "Kategory",
+    "Tempat Ibadah",
+    "Kategori",
   ];
   static final screen = [
     Pendeta(),
@@ -65,6 +66,7 @@ class FPersona {
   static List<IconData> menuIcon = [
     Icons.sensor_occupied_sharp,
     Icons.person,
+    Icons.church,
     Icons.flag,
   ];
 }

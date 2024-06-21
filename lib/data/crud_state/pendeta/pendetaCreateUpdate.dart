@@ -36,7 +36,6 @@ class APIPendetaCRUD {
       if (e.response != null) {
         switch (e.response!.statusCode) {
           case 401:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
@@ -48,7 +47,6 @@ class APIPendetaCRUD {
             NavigationAdmin().toMain();
             break;
           case 500:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;
@@ -76,7 +74,6 @@ class APIPendetaCRUD {
       if (e.response != null) {
         switch (e.response!.statusCode) {
           case 401:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
@@ -88,7 +85,6 @@ class APIPendetaCRUD {
             NavigationAdmin().toMain();
             break;
           case 500:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;
@@ -116,7 +112,6 @@ class APIPendetaCRUD {
       if (e.response != null) {
         switch (e.response!.statusCode) {
           case 401:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
@@ -128,7 +123,6 @@ class APIPendetaCRUD {
             NavigationAdmin().toMain();
             break;
           case 500:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;

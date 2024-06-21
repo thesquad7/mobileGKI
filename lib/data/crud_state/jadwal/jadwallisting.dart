@@ -4,6 +4,7 @@ import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/data/model/acara.dart';
+import 'package:MobileGKI/data/model/jadwal.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/animation.dart';
@@ -13,27 +14,27 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class AcaraController extends GetxController {
-  RxList<AcaraJSON> acara = RxList();
+class JadwalController extends GetxController {
+  RxList<JadwalJSON> jadwal = RxList();
   RxBool isListViewScrollToTheDown = false.obs;
   RxBool isLoading = true.obs;
   RxBool isInternetConnect = true.obs;
   final deviceStorage = GetStorage();
-  var url = "${ConfigBack.apiAdress}/admin/acara/";
+  var url = "${ConfigBack.apiAdress}/admin/jadwal/";
   var itemController = ItemScrollController();
 
   isInternatConnect() async {
     isInternetConnect.value = await InternetConnectionChecker().hasConnection;
   }
 
-  getAcara() async {
+  getJadwal() async {
     isInternatConnect();
     isLoading.value = true;
     try {
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         response.data.forEach((element) {
-          acara.add(AcaraJSON.fromJson(element));
+          jadwal.add(JadwalJSON.fromJson(element));
         });
       } else if (response.statusCode == 401) {
         AlertDialog(
@@ -80,13 +81,13 @@ class AcaraController extends GetxController {
     }
   }
 
-  remAcara() async {
-    acara.clear();
+  remJadwal() async {
+    jadwal.clear();
   }
 
   scrollListViewDownward() {
     itemController.scrollTo(
-        index: acara.length - 4,
+        index: jadwal.length - 4,
         duration: const Duration(seconds: 2),
         curve: Curves.fastOutSlowIn);
     isListViewScrollToTheDown.value = true;
@@ -103,16 +104,16 @@ class AcaraController extends GetxController {
 
   @override
   void onInit() {
-    getAcara();
+    getJadwal();
     isInternatConnect();
     super.onInit();
   }
 }
 
-class AcaraEntity extends GetxController {
-  var items = <AcaraJSONForEntity>[].obs;
-  var selectedItem = Rxn<AcaraJSONForEntity>();
-  var url = "${ConfigBack.apiAdress}/admin/category_use_id/1";
+class JadwalEntity extends GetxController {
+  var items = <JadwalJSONForEntity>[].obs;
+  var selectedItem = Rxn<JadwalJSONForEntity>();
+  var url = "${ConfigBack.apiAdress}/admin/category_use_id/2";
   final deviceStorage = GetStorage();
   @override
   void onInit() {
@@ -126,7 +127,7 @@ class AcaraEntity extends GetxController {
       if (response.statusCode == 200) {
         var jsonResponse = response.data as List;
         items.value = jsonResponse
-            .map((item) => AcaraJSONForEntity.fromJson(item))
+            .map((item) => JadwalJSONForEntity.fromJson(item))
             .toList();
       }
     } catch (e) {
@@ -160,7 +161,7 @@ class AcaraEntity extends GetxController {
     selectedItem.value = item;
   }
 
-  void setSelectedItem(AcaraJSONForEntity? item) {
+  void setSelectedItem(JadwalJSONForEntity? item) {
     selectedItem.value = item;
   }
 }

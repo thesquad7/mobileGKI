@@ -1,15 +1,19 @@
 // ignore_for_file: unused_import
 
 import 'dart:developer';
+import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraview.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwalview.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -22,12 +26,12 @@ import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../utils/constrains/colors.dart';
 
-class Jadwal extends StatelessWidget {
-  Jadwal({
+class JadwalAdmin extends StatelessWidget {
+  JadwalAdmin({
     Key? key,
   }) : super(key: key);
 
-  final AcaraController AController = Get.put(AcaraController());
+  final JadwalController JController = Get.put(JadwalController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +43,8 @@ class Jadwal extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Pendeta");
-            Get.to(() => EditAcara(
+            GetStorage().write("pagetitle", "Tambah Jadwal");
+            Get.to(() => EditJadwal(
                   isNImg: false,
                 ));
           }),
@@ -48,8 +52,8 @@ class Jadwal extends StatelessWidget {
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: AController.isInternetConnect.value
-              ? AController.isLoading.value
+          child: JController.isInternetConnect.value
+              ? JController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -107,27 +111,35 @@ class Jadwal extends StatelessWidget {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        AController.remAcara();
-        return AController.getAcara();
+        JController.remJadwal();
+        return JController.getJadwal();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: AController.itemController,
+          itemScrollController: JController.itemController,
           physics: AlwaysScrollableScrollPhysics(),
-          itemCount: AController.acara.length,
+          itemCount: JController.jadwal.length,
           itemBuilder: (_, index) {
-            return AcaraItem(
-                indexCat: AController.acara[index].color_id!,
-                catName: AController.acara[index].category_name,
-                nama: AController.acara[index].name,
-                status: AController.acara[index].status,
-                imngUrl: AController.acara[index].pic,
-                Edit: () async {
+            return InkWell(
+                onTap: () async {
                   GetStorage().write("data", true);
                   GetStorage().write("pagetitle", "Perbaharui Acara");
-                  await APIGetAcaraView(
-                          acaraId: AController.acara[index].id.toString())
-                      .getAcara();
-                });
+                  await APIGetJadwalView(
+                          acaraId: JController.jadwal[index].id.toString())
+                      .getJadwal();
+                },
+                child: HorizontalCard(
+                    tanggal: JController.jadwal[index].tanggal,
+                    tempat: JController.jadwal[index].place,
+                    tema: JController.jadwal[index].name,
+                    nama_pendeta: JController.jadwal[index].pendeta,
+                    isnetImgPendeta: true,
+                    img_pendeta: ConfigBack.apiAdress +
+                        ConfigBack.imgInternet +
+                        JController.jadwal[index].pendeta_pic,
+                    jenis_ibadah: JController.jadwal[index].category_name,
+                    img_bg: ConfigBack.apiAdress +
+                        ConfigBack.imgInternet +
+                        JController.jadwal[index].pic));
           }),
     );
   }
@@ -158,7 +170,7 @@ class Jadwal extends StatelessWidget {
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      AController.getAcara();
+      JController.getJadwal();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }

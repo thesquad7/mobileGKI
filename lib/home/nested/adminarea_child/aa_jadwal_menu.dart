@@ -2,8 +2,10 @@
 
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
+import 'package:MobileGKI/home/jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/list_aama_acara.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/list_aama_jadwal.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
@@ -57,7 +59,7 @@ class JadwalMenu extends StatelessWidget {
                       b_title: FAcaraMenu.menuname[0],
                     ),
                     SubMenuButton(
-                      onPressed: () => Get.to(() => Acara()),
+                      onPressed: () => Get.to(() => JadwalAdmin()),
                       icon: FAcaraMenu.menuIcon[1],
                       b_title: FAcaraMenu.menuname[1],
                     ),

@@ -7,8 +7,8 @@ import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-class APIAcaraCRUD {
-  APIAcaraCRUD({
+class APIJadwalCRUD {
+  APIJadwalCRUD({
     this.name,
     this.id,
     this.status,
@@ -23,8 +23,8 @@ class APIAcaraCRUD {
   final String? content, location, tanggal, jam_acara, file;
   int? category_id;
 
-  var url = "${ConfigBack.apiAdress}/admin/acara/";
-  var urlNoImg = "${ConfigBack.apiAdress}/admin/acara_no_image/";
+  var url = "${ConfigBack.apiAdress}/admin/jadwal/";
+  var urlNoImg = "${ConfigBack.apiAdress}/admin/jadwal_no_image/";
   final dio = Dio();
 
   requestCreate() async {

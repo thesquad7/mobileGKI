@@ -18,6 +18,7 @@ class AdminArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(children: [
           FilemonPrimaryHeaderCon(
             color: Colors.teal,

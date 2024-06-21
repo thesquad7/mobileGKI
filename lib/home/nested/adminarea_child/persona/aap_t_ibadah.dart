@@ -1,16 +1,11 @@
-// ignore_for_file: unused_import
-
 import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
-import 'package:MobileGKI/data/crud_state/caterogoryGlobalCRUD/CategoryGlobalListing.dart';
-import 'package:MobileGKI/data/crud_state/caterogoryGlobalCRUD/CategoryView.dart';
-import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
+import 'package:MobileGKI/data/crud_state/gereja/gerejalisting.dart';
+import 'package:MobileGKI/data/crud_state/gereja/gerejaview.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aap_category.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
-import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,14 +15,14 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../utils/constrains/colors.dart';
+import '../edit/crud_aap_t_ibadah.dart';
 
-class JadwalCategory extends StatelessWidget {
-  JadwalCategory({
+class TempatIbadah extends StatelessWidget {
+  TempatIbadah({
     Key? key,
   }) : super(key: key);
 
-  final CategoryPersonaController categoryController =
-      Get.put(CategoryPersonaController());
+  final GerejaController GController = Get.put(GerejaController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +34,15 @@ class JadwalCategory extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Category");
-            Get.to(() => EditCategoryPersona());
+            GetStorage().write("pagetitle", "Tambah Tempat Ibadah");
+            Get.to(() => EditTempatIbdah());
           }),
       body: Obx(
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: categoryController.isInternetConnect.value
-              ? categoryController.isLoading.value
+          child: GController.isInternetConnect.value
+              ? GController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -74,7 +69,7 @@ class JadwalCategory extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             color: FilemonColor.primary,
             child: const Text(
-              "Try Again",
+              "Terjadi Masalah, Coba Kembali",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -105,26 +100,25 @@ class JadwalCategory extends StatelessWidget {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        categoryController.remCategory();
-        return categoryController.getCategory();
+        GController.remGereja();
+        return GController.getGereja();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: categoryController.itemController,
+          itemScrollController: GController.itemController,
           physics: AlwaysScrollableScrollPhysics(),
-          itemCount: categoryController.cat.length,
+          itemCount: GController.gereja.length,
           itemBuilder: (_, index) {
-            return CategoryItem(
-              nama: categoryController.cat[index].name,
-              ColorIndex: int.parse(categoryController.cat[index].color_id),
-              Edit: () async {
-                GetStorage().write("data", true);
-                GetStorage().write("pagetitle", "Perbaharui Category");
-
-                await APIGetCategoryInfo(
-                        categoryId: categoryController.cat[index].id.toString())
-                    .getCategory();
-              },
-            );
+            return PendetaItem(
+                nama: GController.gereja[index].name,
+                imngUrl: GController.gereja[index].pic,
+                Edit: () async {
+                  GetStorage().write("data", true);
+                  GetStorage()
+                      .write("pagetitle", "Perbaharui data Tempat Ibadah");
+                  await APIGetGerejaInfo(
+                          pendetaId: GController.gereja[index].id.toString())
+                      .getTempatIbadah();
+                });
           }),
     );
   }
@@ -149,28 +143,27 @@ class JadwalCategory extends StatelessWidget {
               )),
         ),
       ),
-      title: Text("Category"),
+      title: Text("Tempat Ibadah"),
     );
   }
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      categoryController.getCategory();
+      GController.getGereja();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }
   }
 }
 
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({
+class PendetaItem extends StatelessWidget {
+  const PendetaItem({
     super.key,
     required this.nama,
+    required this.imngUrl,
     required this.Edit,
-    required this.ColorIndex,
   });
-  final String nama;
-  final int ColorIndex;
+  final String nama, imngUrl;
   final VoidCallback Edit;
 
   @override
@@ -186,27 +179,22 @@ class CategoryItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                height: 80,
+              RoundedIMG(
                 width: 80,
-                decoration: BoxDecoration(
-                    color: CategoryColorHandler.categorycolor[ColorIndex],
-                    borderRadius: BorderRadius.circular(10)),
+                isNetworkImage: true,
+                imageUrl:
+                    ConfigBack.apiAdress + ConfigBack.imgInternet + imngUrl,
+                height: 80,
               ),
               Container(
                 width: 200,
                 height: 75,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       nama,
                       style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    Text(
-                      "Warna " + CategoryColorHandler.colorName[ColorIndex],
-                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ],
                 ),

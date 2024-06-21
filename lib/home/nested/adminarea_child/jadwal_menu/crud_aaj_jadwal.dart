@@ -8,6 +8,8 @@ import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
+import 'package:MobileGKI/data/crud_state/gereja/gerejalisting.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
 import 'package:MobileGKI/data/crud_state/jemaat/jemaatCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/model/acara.dart';
@@ -18,11 +20,14 @@ import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../provider/adminProvider/jadwalProvider.dart';
 
 class EditJadwal extends StatefulWidget {
   bool isNImg;
@@ -32,9 +37,11 @@ class EditJadwal extends StatefulWidget {
 }
 
 class _EditJadwal extends State<EditJadwal> {
-  final AcaraProvider infoAcara = Get.put(AcaraProvider());
-  final AcaraController Acontroller = Get.find();
-  final AcaraEntity controller = Get.put(AcaraEntity());
+  final JadwalProvider infoJadwal = Get.put(JadwalProvider());
+  final JadwalController JController = Get.find();
+  final PendetaEntity controller = Get.put(PendetaEntity());
+  final JadwalEntity type = Get.put(JadwalEntity());
+  final GerejaEntity place = Get.put(GerejaEntity());
   late String url, title;
   int? colorId;
   late bool isCreated, data;
@@ -129,39 +136,39 @@ class _EditJadwal extends State<EditJadwal> {
                   });
                   if (pic == infoAcara.file.toString()) {
                     Pic2Up = pic;
-                    APIAcaraCRUD(
-                            id: infoAcara.id.value,
-                            name: nama!.text,
-                            status: status!.text,
-                            file: url,
-                            content: deskripsi!.text,
-                            location: _alamat!.text,
-                            tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
-                        .requestUpdate();
+                    // APIAcaraCRUD(
+                    //         id: infoAcara.id.value,
+                    //         name: nama!.text,
+                    //         status: status!.text,
+                    //         file: url,
+                    //         content: deskripsi!.text,
+                    //         location: _alamat!.text,
+                    //         tanggal: formatDateTimeToServer(tanggal.value),
+                    //         jam_acara: jam_acara.value.hour.toString() +
+                    //             ":" +
+                    //             jam_acara.value.minute.toString(),
+                    //         category_id: controller.selectedItem.value!.id)
+                    //     .requestUpdate();
                   } else {
-                    APIAcaraCRUD(
-                            id: infoAcara.id.value,
-                            name: nama!.text,
-                            status: status!.text,
-                            content: deskripsi!.text,
-                            location: _alamat!.text,
-                            tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
-                        .requestUpdateNoImage();
+                    // APIAcaraCRUD(
+                    //         id: infoAcara.id.value,
+                    //         name: nama!.text,
+                    //         status: status!.text,
+                    //         content: deskripsi!.text,
+                    //         location: _alamat!.text,
+                    //         tanggal: formatDateTimeToServer(tanggal.value),
+                    //         jam_acara: jam_acara.value.hour.toString() +
+                    //             ":" +
+                    //             jam_acara.value.minute.toString(),
+                    //         category_id: controller.selectedItem.value!.id)
+                    //     .requestUpdateNoImage();
                   }
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    JController.remJadwal();
+                    JController.getJadwal();
                     deviceStorage.remove("message");
                     deviceStorage.write("created", false);
                   }

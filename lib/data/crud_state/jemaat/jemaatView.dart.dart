@@ -25,14 +25,12 @@ class APIGetJemaatInfo {
   getJemaat() async {
     try {
       infoJemaat.setPdtId(0);
-      log(infoJemaat.pdt_id.value.toString());
       var response = await DioService().getMethod('$url$jemaatId');
       if (response.statusCode == 200) {
         infoJemaat.setName(response.data['name'].toString());
         infoJemaat.setId(response.data['id'].toString());
         infoJemaat.setDateborn(response.data['tanggal_lahir'].toString());
         infoJemaat.setPlaceBorn(response.data['tempat_lahir'].toString());
-
         infoJemaat.setNFather(response.data['nama_bapak'].toString());
         infoJemaat.setNMother(response.data['nama_ibu'].toString());
         infoJemaat.setAddress(response.data['alamat'].toString());

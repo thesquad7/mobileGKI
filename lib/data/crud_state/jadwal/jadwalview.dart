@@ -7,6 +7,7 @@ import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
 import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
@@ -14,16 +15,16 @@ import 'package:get/get.dart';
 
 import 'package:get_storage/get_storage.dart';
 
-class APIGetAcaraView {
-  APIGetAcaraView({this.acaraId});
+class APIGetJadwalView {
+  APIGetJadwalView({this.acaraId});
   final String? acaraId;
   final dio = Dio();
   final deviceStorage = GetStorage();
   final AcaraProvider infoAcara = Get.put(AcaraProvider());
 
-  var url = "${ConfigBack.apiAdress}/admin/acara/";
+  var url = "${ConfigBack.apiAdress}/admin/jadwal/";
 
-  getAcara() async {
+  getJadwal() async {
     try {
       var response = await DioService().getMethod('$url$acaraId');
       if (response.statusCode == 200) {
@@ -44,7 +45,7 @@ class APIGetAcaraView {
             infoAcara.status, response.data['status'].toString());
         infoAcara.setValue(
             infoAcara.location, response.data['location'].toString());
-        Get.to(() => EditAcara(
+        Get.to(() => EditJadwal(
               isNImg: true,
             ));
       }

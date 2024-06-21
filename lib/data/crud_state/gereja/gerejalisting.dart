@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
-import 'package:MobileGKI/data/model/pendeta.dart';
+import 'package:MobileGKI/data/model/gereja.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/animation.dart';
@@ -13,27 +13,28 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class PendetaController extends GetxController {
-  RxList<PendetaJSON> pendeta = RxList();
+class GerejaController extends GetxController {
+  RxList<GerejaJSON> gereja = RxList();
   RxBool isListViewScrollToTheDown = false.obs;
   RxBool isLoading = true.obs;
   RxBool isInternetConnect = true.obs;
   final deviceStorage = GetStorage();
-  var url = "${ConfigBack.apiAdress}/admin/pendeta/";
+  var url = "${ConfigBack.apiAdress}/admin/gereja/";
   var itemController = ItemScrollController();
 
   isInternatConnect() async {
     isInternetConnect.value = await InternetConnectionChecker().hasConnection;
   }
 
-  getPendeta() async {
+  getGereja() async {
     isInternatConnect();
     isLoading.value = true;
     try {
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
+        log(response.data.toString());
         response.data.forEach((element) {
-          pendeta.add(PendetaJSON.fromJson(element));
+          gereja.add(GerejaJSON.fromJson(element));
         });
       } else if (response.statusCode == 401) {
         AlertDialog(
@@ -60,6 +61,7 @@ class PendetaController extends GetxController {
     } on DioException catch (e) {
       switch (e.response!.statusCode) {
         case 401:
+          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
@@ -71,6 +73,7 @@ class PendetaController extends GetxController {
           NavigationAdmin().toMain();
           break;
         case 500:
+          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Koneksi bermasalah, ini bukan pada perangkat anda");
           break;
@@ -78,13 +81,13 @@ class PendetaController extends GetxController {
     }
   }
 
-  remPendeta() async {
-    pendeta.clear();
+  remGereja() async {
+    gereja.clear();
   }
 
   scrollListViewDownward() {
     itemController.scrollTo(
-        index: pendeta.length - 4,
+        index: gereja.length - 4,
         duration: const Duration(seconds: 2),
         curve: Curves.fastOutSlowIn);
     isListViewScrollToTheDown.value = true;
@@ -101,17 +104,18 @@ class PendetaController extends GetxController {
 
   @override
   void onInit() {
-    getPendeta();
+    getGereja();
     isInternatConnect();
     super.onInit();
   }
 }
 
-class PendetaEntity extends GetxController {
-  var items = <PendetaJSONForEntity>[].obs;
-  var selectedItem = Rxn<PendetaJSONForEntity>();
-  var url = "${ConfigBack.apiAdress}/admin/pendeta_entity/";
+class GerejaEntity extends GetxController {
+  var items = <GerejaJSONForEntity>[].obs;
+  var selectedItem = Rxn<GerejaJSONForEntity>();
+  var url = "${ConfigBack.apiAdress}/admin/gereja/";
   final deviceStorage = GetStorage();
+
   @override
   void onInit() {
     getData();
@@ -120,18 +124,18 @@ class PendetaEntity extends GetxController {
 
   void getData() async {
     try {
-      // Simulating network call with provided data
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
         var jsonResponse = response.data as List;
         items.value = jsonResponse
-            .map((item) => PendetaJSONForEntity.fromJson(item))
+            .map((item) => GerejaJSONForEntity.fromJson(item))
             .toList();
       }
     } catch (e) {
       if (e is DioException) {
         switch (e.response!.statusCode) {
           case 401:
+            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
@@ -143,6 +147,7 @@ class PendetaEntity extends GetxController {
             NavigationAdmin().toMain();
             break;
           case 500:
+            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;
@@ -157,7 +162,7 @@ class PendetaEntity extends GetxController {
     selectedItem.value = item;
   }
 
-  void setSelectedItem(PendetaJSONForEntity? item) {
+  void setSelectedItem(GerejaJSONForEntity? item) {
     selectedItem.value = item;
   }
 }

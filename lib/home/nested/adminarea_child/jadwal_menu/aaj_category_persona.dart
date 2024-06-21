@@ -3,12 +3,11 @@
 import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
-import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
-import 'package:MobileGKI/data/crud_state/acara/acaraview.dart';
+import 'package:MobileGKI/data/crud_state/caterogoryGlobalCRUD/CategoryGlobalListing.dart';
+import 'package:MobileGKI/data/crud_state/caterogoryGlobalCRUD/CategoryView.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aap_category.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
@@ -22,12 +21,13 @@ import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../utils/constrains/colors.dart';
 
-class Acara extends StatelessWidget {
-  Acara({
+class JadwalCategory extends StatelessWidget {
+  JadwalCategory({
     Key? key,
   }) : super(key: key);
 
-  final AcaraController AController = Get.put(AcaraController());
+  final CategoryPersonaController categoryController =
+      Get.put(CategoryPersonaController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +39,15 @@ class Acara extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Pendeta");
-            Get.to(() => EditAcara(
-                  isNImg: false,
-                ));
+            GetStorage().write("pagetitle", "Tambah Category");
+            Get.to(() => EditCategoryPersona());
           }),
       body: Obx(
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: AController.isInternetConnect.value
-              ? AController.isLoading.value
+          child: categoryController.isInternetConnect.value
+              ? categoryController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -107,27 +105,26 @@ class Acara extends StatelessWidget {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        AController.remAcara();
-        return AController.getAcara();
+        categoryController.remCategory();
+        return categoryController.getCategory();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: AController.itemController,
+          itemScrollController: categoryController.itemController,
           physics: AlwaysScrollableScrollPhysics(),
-          itemCount: AController.acara.length,
+          itemCount: categoryController.cat.length,
           itemBuilder: (_, index) {
-            return AcaraItem(
-                indexCat: AController.acara[index].color_id!,
-                catName: AController.acara[index].category_name,
-                nama: AController.acara[index].name,
-                status: AController.acara[index].status,
-                imngUrl: AController.acara[index].pic,
-                Edit: () async {
-                  GetStorage().write("data", true);
-                  GetStorage().write("pagetitle", "Perbaharui Acara");
-                  await APIGetAcaraView(
-                          acaraId: AController.acara[index].id.toString())
-                      .getAcara();
-                });
+            return CategoryItem(
+              nama: categoryController.cat[index].name,
+              ColorIndex: int.parse(categoryController.cat[index].color_id),
+              Edit: () async {
+                GetStorage().write("data", true);
+                GetStorage().write("pagetitle", "Perbaharui Category");
+
+                await APIGetCategoryInfo(
+                        categoryId: categoryController.cat[index].id.toString())
+                    .getCategory();
+              },
+            );
           }),
     );
   }
@@ -152,117 +149,79 @@ class Acara extends StatelessWidget {
               )),
         ),
       ),
-      title: Text("Acara"),
+      title: Text("Category"),
     );
   }
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      AController.getAcara();
+      categoryController.getCategory();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }
   }
 }
 
-class AcaraItem extends StatelessWidget {
-  const AcaraItem({
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({
     super.key,
     required this.nama,
-    required this.status,
-    required this.catName,
-    required this.imngUrl,
-    required this.indexCat,
     required this.Edit,
+    required this.ColorIndex,
   });
-  final String nama, status, imngUrl, catName;
-  final int indexCat;
+  final String nama;
+  final int ColorIndex;
   final VoidCallback Edit;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 6,
-        child: Stack(children: [
-          Container(
-              width: double.infinity,
-              height: 150,
-              child: ClipRRect(
-                  child: Image.network(
-                    ConfigBack.apiAdress + ConfigBack.imgInternet + imngUrl,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  borderRadius: BorderRadius.circular(10))),
-          Container(
-            width: double.infinity,
-            height: 150,
-            decoration: BoxDecoration(
-                color: CategoryColorHandler.categorycolor[indexCat]
-                    .withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-          ),
-          Positioned(
-            top: 10,
-            right: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: CategoryColorHandler.categorycolor[indexCat]
-                      .withOpacity(0.7),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              width: 100,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    catName,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 50,
-            right: 10,
-            child: InkWell(
-              onTap: Edit,
-              child: Container(
-                height: 40,
+      elevation: 6,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(),
+        height: 100,
+        child: SizedBox(
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: 80,
+                width: 80,
                 decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.8),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                width: 40,
-                child: Center(
-                  child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Icon(Icons.edit)),
+                    color: CategoryColorHandler.categorycolor[ColorIndex],
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+              Container(
+                width: 200,
+                height: 75,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      nama,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    Text(
+                      "Warna " + CategoryColorHandler.colorName[ColorIndex],
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                  ],
                 ),
               ),
-            ),
+              Container(
+                width: 40,
+                child: IconButton(
+                  onPressed: Edit,
+                  icon: Icon(Icons.edit),
+                ),
+              )
+            ],
           ),
-          Positioned(
-            top: 90,
-            left: 10,
-            child: Container(
-              width: FilemonHelperFunctions.screenWidth() * 0.95,
-              child: Text(
-                nama,
-                style: Theme.of(context).textTheme.headlineMedium,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            child: Container(
-              width: 100,
-              child: Text(
-                status,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          )
-        ]));
+        ),
+      ),
+    );
   }
 }

@@ -24,14 +24,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-class EditAcara extends StatefulWidget {
+class EditJadwal extends StatefulWidget {
   bool isNImg;
-  EditAcara({this.isNImg = false});
+  EditJadwal({this.isNImg = false});
   @override
-  _EditAcara createState() => _EditAcara();
+  _EditJadwal createState() => _EditJadwal();
 }
 
-class _EditAcara extends State<EditAcara> {
+class _EditJadwal extends State<EditJadwal> {
   final AcaraProvider infoAcara = Get.put(AcaraProvider());
   final AcaraController Acontroller = Get.find();
   final AcaraEntity controller = Get.put(AcaraEntity());

@@ -1,6 +1,7 @@
 import 'package:MobileGKI/common/widget/c_fmanagementpage.dart';
 import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_aap_jadwal.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
 import 'package:MobileGKI/utils/constrains/b_string_adminarea_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class JadwalAdminArea extends StatelessWidget {
           return InkWell(
             onTap: () {
               indexitem.write("index", index);
-              Get.to(() => const JadwalCRUD());
+              Get.to(() => EditJadwal());
             },
             child: HorizontalCard(
                 tanggal: JadwalText.jadwalTanggal[index],

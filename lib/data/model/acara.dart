@@ -15,6 +15,7 @@ class AcaraJSON {
     status = json['status'];
     name = json['name'];
     content = json['content'];
+    id = json['id'].toString();
     category_id = json['category']['id'].toString();
     category_name = json['category']['name'].toString();
     color_id = int.parse(json['category']['color_id']);

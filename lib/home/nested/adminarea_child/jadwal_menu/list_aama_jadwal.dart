@@ -22,8 +22,8 @@ import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../../utils/constrains/colors.dart';
 
-class Acara extends StatelessWidget {
-  Acara({
+class Jadwal extends StatelessWidget {
+  Jadwal({
     Key? key,
   }) : super(key: key);
 

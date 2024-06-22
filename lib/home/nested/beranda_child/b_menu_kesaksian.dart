@@ -20,6 +20,7 @@ class KesaksianBeranda extends StatelessWidget {
               Get.to(() => DetailKesaksianBeranda());
             },
             child: HorizontalCard(
+                isTempat: false,
                 tanggal: FBerandaTextData.kesaksianTanggal[index],
                 tempat: FBerandaTextData.kesaksianAlamat[index],
                 tema: FBerandaTextData.kesaksianTitle[index],

@@ -27,6 +27,7 @@ class Jadwal extends StatelessWidget {
           GestureDetector(
             onTap: () => Get.to(() => const FDetailJadwal()),
             child: HorizontalCard(
+                isTempat: true,
                 tanggal: "10 Maret 2024",
                 tempat: "GKI Indramayu",
                 tema: "Melayani Tuhan",
@@ -36,6 +37,7 @@ class Jadwal extends StatelessWidget {
                 img_bg: Filemonimages.slide2),
           ),
           HorizontalCard(
+              isTempat: true,
               tanggal: "18 Maret 2024",
               tempat: "GKI Indramayu",
               tema: "Indah Bersama sang Dambaan",
@@ -44,6 +46,7 @@ class Jadwal extends StatelessWidget {
               jenis_ibadah: "Ibadah Umum Muda",
               img_bg: Filemonimages.product2),
           HorizontalCard(
+              isTempat: true,
               tanggal: "25 Maret 2024",
               tempat: "GKI Eretan",
               tema: "Tulus dengan Mu",
@@ -52,6 +55,7 @@ class Jadwal extends StatelessWidget {
               jenis_ibadah: "Ibadah Umum",
               img_bg: Filemonimages.product3),
           HorizontalCard(
+              isTempat: true,
               tanggal: "25 Maret 2024",
               tempat: "GKI Jatibarang",
               tema: "Tulus dengan Mu",
@@ -60,6 +64,7 @@ class Jadwal extends StatelessWidget {
               jenis_ibadah: "Komsel Akbar",
               img_bg: Filemonimages.slide1),
           HorizontalCard(
+              isTempat: true,
               tanggal: "25 Maret 2024",
               tempat: "GKI Eretan",
               tema: "Tulus dengan Mu",
@@ -68,6 +73,7 @@ class Jadwal extends StatelessWidget {
               jenis_ibadah: "Ibadah Umum",
               img_bg: Filemonimages.product4),
           HorizontalCard(
+              isTempat: true,
               tanggal: "25 Maret 2024",
               tempat: "GKI Eretan",
               tema: "Tulus dengan Mu",

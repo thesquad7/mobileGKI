@@ -10,8 +10,8 @@ import 'package:get/get.dart' as Devices;
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 
-class APIJadwalCRUD {
-  APIJadwalCRUD({
+class APIKesaksianCRUD {
+  APIKesaksianCRUD({
     this.name,
     this.id,
     this.file,
@@ -181,7 +181,7 @@ class APIJadwalCRUD {
     final deviceStorage = GetStorage();
 
     try {
-      var response = await DioService().deleteMethod(';;;;;;;$url$id');
+      var response = await DioService().deleteMethod('$url$id');
       if (response.statusCode == 200) {
         deviceStorage.write("message", response.data['message']);
         deviceStorage.write("created", true);

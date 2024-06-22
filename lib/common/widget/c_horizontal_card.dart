@@ -9,13 +9,15 @@ class HorizontalCard extends StatelessWidget {
   const HorizontalCard({
     super.key,
     required this.tanggal,
-    required this.tempat,
+    this.tempat = "",
     required this.tema,
     required this.nama_pendeta,
     required this.img_pendeta,
     required this.jenis_ibadah,
     required this.img_bg,
     this.isnetImgPendeta = false,
+    this.isThema = true,
+    required this.isTempat,
   });
 
   final String tanggal,
@@ -25,7 +27,7 @@ class HorizontalCard extends StatelessWidget {
       img_pendeta,
       jenis_ibadah,
       img_bg;
-  final bool isnetImgPendeta;
+  final bool isnetImgPendeta, isTempat, isThema;
 
   @override
   Widget build(BuildContext context) {
@@ -72,25 +74,27 @@ class HorizontalCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
-              Positioned(
-                top: 105,
-                left: 100,
-                child: Text(
-                  jenis_ibadah,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-              ),
+              isThema
+                  ? Positioned(
+                      top: 105,
+                      left: 100,
+                      child: Text(
+                        jenis_ibadah,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    )
+                  : SizedBox(),
               Positioned(
                 bottom: 5,
                 right: 5,
                 child: Container(
                   width: 150,
-                  child: Text(
-                    tempat,
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.end,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  child: isTempat
+                      ? Text(tempat,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis)
+                      : SizedBox(),
                 ),
               )
             ]),

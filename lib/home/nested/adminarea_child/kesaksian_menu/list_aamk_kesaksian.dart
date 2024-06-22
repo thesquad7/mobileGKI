@@ -8,12 +8,14 @@ import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraview.dart';
 import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
 import 'package:MobileGKI/data/crud_state/jadwal/jadwalview.dart';
+import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianview.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/kesaksian_menu/crud_aamk_kesaksian.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -24,14 +26,15 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../../data/crud_state/kesaksian/kesaksianlisting.dart';
 import '../../../../utils/constrains/colors.dart';
 
-class JadwalAdmin extends StatelessWidget {
-  JadwalAdmin({
+class KekasaksianAdmin extends StatelessWidget {
+  KekasaksianAdmin({
     Key? key,
   }) : super(key: key);
 
-  final JadwalController JController = Get.put(JadwalController());
+  final KesaksianController KController = Get.put(KesaksianController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +46,8 @@ class JadwalAdmin extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Jadwal");
-            Get.to(() => EditJadwal(
+            GetStorage().write("pagetitle", "Tambah Kesaksian");
+            Get.to(() => EditKesaksian(
                   isNImg: false,
                 ));
           }),
@@ -52,8 +55,8 @@ class JadwalAdmin extends StatelessWidget {
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: JController.isInternetConnect.value
-              ? JController.isLoading.value
+          child: KController.isInternetConnect.value
+              ? KController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -111,36 +114,36 @@ class JadwalAdmin extends StatelessWidget {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        JController.remJadwal();
-        return JController.getJadwal();
+        KController.remData();
+        return KController.getData();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: JController.itemController,
+          itemScrollController: KController.itemController,
           physics: AlwaysScrollableScrollPhysics(),
-          itemCount: JController.jadwal.length,
+          itemCount: KController.kesaksian.length,
           itemBuilder: (_, index) {
             return InkWell(
                 onTap: () async {
                   GetStorage().write("data", true);
                   GetStorage().write("pagetitle", "Perbaharui Acara");
-                  await APIGetJadwalView(
-                          acaraId: JController.jadwal[index].id.toString())
+                  await APIGetKesaksianInfo(
+                          acaraId: KController.kesaksian[index].id.toString())
                       .getJadwal();
                 },
                 child: HorizontalCard(
-                    isTempat: true,
-                    tanggal: JController.jadwal[index].tanggal,
-                    tempat: JController.jadwal[index].place,
-                    tema: JController.jadwal[index].name,
-                    nama_pendeta: JController.jadwal[index].pendeta,
+                    isTempat: false,
+                    isThema: false,
+                    tanggal: KController.kesaksian[index].tanggal,
+                    tema: KController.kesaksian[index].name,
+                    nama_pendeta: KController.kesaksian[index].user_name,
                     isnetImgPendeta: true,
                     img_pendeta: ConfigBack.apiAdress +
                         ConfigBack.imgInternet +
-                        JController.jadwal[index].pendeta_pic,
-                    jenis_ibadah: JController.jadwal[index].category_name,
+                        KController.kesaksian[index].user_pic,
+                    jenis_ibadah: KController.kesaksian[index].user_name,
                     img_bg: ConfigBack.apiAdress +
                         ConfigBack.imgInternet +
-                        JController.jadwal[index].pic));
+                        KController.kesaksian[index].pic));
           }),
     );
   }
@@ -165,13 +168,13 @@ class JadwalAdmin extends StatelessWidget {
               )),
         ),
       ),
-      title: Text("Jadwal"),
+      title: Text("Kesaksian"),
     );
   }
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      JController.getJadwal();
+      KController.getData();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }

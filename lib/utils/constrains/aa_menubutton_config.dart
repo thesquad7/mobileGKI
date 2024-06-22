@@ -1,8 +1,8 @@
 import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jadwal_menu.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_menu.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/aa_jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jamkerja.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/kesaksian_menu/list_aamk_kesaksian.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_jemaat_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
@@ -28,7 +28,7 @@ class FMenubuttonConfig {
     Jemaat(),
     AcaraMenu(),
     JadwalMenu(),
-    Jemaat(),
+    KekasaksianAdmin(),
     const Renungan(),
     const JamKerja(),
   ];

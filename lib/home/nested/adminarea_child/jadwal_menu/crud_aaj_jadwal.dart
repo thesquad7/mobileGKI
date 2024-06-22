@@ -4,18 +4,18 @@ import 'dart:developer';
 
 import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
+import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraCreateUpdate.dart';
-import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/crud_state/gereja/gerejalisting.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwalCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
-import 'package:MobileGKI/data/crud_state/jemaat/jemaatCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
-import 'package:MobileGKI/data/model/acara.dart';
+import 'package:MobileGKI/data/model/gereja.dart';
+import 'package:MobileGKI/data/model/jadwal.dart';
 import 'package:MobileGKI/data/model/pendeta.dart';
-import 'package:MobileGKI/home/d_config/acara_formfield.dart';
-import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
+import 'package:MobileGKI/home/d_config/jadwal_formfield.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -42,7 +42,7 @@ class _EditJadwal extends State<EditJadwal> {
   final PendetaEntity controller = Get.put(PendetaEntity());
   final JadwalEntity type = Get.put(JadwalEntity());
   final GerejaEntity place = Get.put(GerejaEntity());
-  late String url, title;
+  late String url, title, pdt_img;
   int? colorId;
   late bool isCreated, data;
   final ValueNotifier<DateTime> tanggal =
@@ -54,7 +54,11 @@ class _EditJadwal extends State<EditJadwal> {
     return formatter.format(dateTime);
   }
 
-  String formatTimeToServer(DateTime dateTime) {
+  String formatTimeToServer(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    final dateTime = DateTime(
+        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+
     final DateFormat formatter = DateFormat('HH:mm');
     return formatter.format(dateTime);
   }
@@ -73,6 +77,7 @@ class _EditJadwal extends State<EditJadwal> {
   void initState() {
     super.initState();
     url = "";
+    pdt_img = "";
     isInput = false;
     isCreated = true;
     nama = TextEditingController();
@@ -83,13 +88,11 @@ class _EditJadwal extends State<EditJadwal> {
     data = GetStorage().read("data");
     log(widget.isNImg.toString());
     if (widget.isNImg == true) {
-      url = infoAcara.file.value;
-      nama?.value = TextEditingValue(text: infoAcara.name.value);
-      status?.value = TextEditingValue(text: infoAcara.status.value);
-      tanggal.value = dateFormat.parse(infoAcara.tanggal.value);
-      jam_acara.value = parseTimeOfDay(infoAcara.jam_mulai.value);
-      deskripsi?.value = TextEditingValue(text: infoAcara.content.value);
-      _alamat?.value = TextEditingValue(text: infoAcara.location.value);
+      url = infoJadwal.file.value;
+      nama?.value = TextEditingValue(text: infoJadwal.name.value);
+      tanggal.value = dateFormat.parse(infoJadwal.tanggal.value);
+      jam_acara.value = parseTimeOfDay(infoJadwal.jam_mulai.value);
+      deskripsi?.value = TextEditingValue(text: infoJadwal.content.value);
     }
   }
 
@@ -102,13 +105,12 @@ class _EditJadwal extends State<EditJadwal> {
   @override
   Widget build(BuildContext context) {
     final deviceStorage = GetStorage();
+    final pendetaSize = FilemonHelperFunctions.screenWidthtoPendeta();
 
     return Scaffold(
       bottomNavigationBar: data
           ? FCRUDNavigationEdit(
               edit: () async {
-                String? pic = deviceStorage.read("pic");
-                String? Pic2Up;
                 FilemonHelperFunctions.showDialogData(
                     "Merubah Data", "Apakah data yang di input telah tepat?",
                     () async {
@@ -134,43 +136,34 @@ class _EditJadwal extends State<EditJadwal> {
                   setState(() {
                     isCreated = false;
                   });
-                  if (pic == infoAcara.file.toString()) {
-                    Pic2Up = pic;
-                    // APIAcaraCRUD(
-                    //         id: infoAcara.id.value,
-                    //         name: nama!.text,
-                    //         status: status!.text,
-                    //         file: url,
-                    //         content: deskripsi!.text,
-                    //         location: _alamat!.text,
-                    //         tanggal: formatDateTimeToServer(tanggal.value),
-                    //         jam_acara: jam_acara.value.hour.toString() +
-                    //             ":" +
-                    //             jam_acara.value.minute.toString(),
-                    //         category_id: controller.selectedItem.value!.id)
-                    //     .requestUpdate();
+                  if (url != infoJadwal.file.toString()) {
+                    log('im here');
+                    APIJadwalCRUD(
+                            id: infoJadwal.id.value,
+                            name: nama!.text,
+                            file: url,
+                            content: deskripsi!.text,
+                            tanggal: formatDateTimeToServer(tanggal.value),
+                            jam_acara: formatTimeToServer(jam_acara.value),
+                            category_id: type.selectedItem.value!.id,
+                            gereja_id: place.selectedItem.value!.id,
+                            pendeta_id: controller.selectedItem.value!.id)
+                        .requestUpdate();
                   } else {
-                    // APIAcaraCRUD(
-                    //         id: infoAcara.id.value,
-                    //         name: nama!.text,
-                    //         status: status!.text,
-                    //         content: deskripsi!.text,
-                    //         location: _alamat!.text,
-                    //         tanggal: formatDateTimeToServer(tanggal.value),
-                    //         jam_acara: jam_acara.value.hour.toString() +
-                    //             ":" +
-                    //             jam_acara.value.minute.toString(),
-                    //         category_id: controller.selectedItem.value!.id)
-                    //     .requestUpdateNoImage();
+                    APIJadwalCRUD(
+                            id: infoJadwal.id.value,
+                            name: nama!.text,
+                            content: deskripsi!.text,
+                            tanggal: formatDateTimeToServer(tanggal.value),
+                            jam_acara: formatTimeToServer(jam_acara.value),
+                            category_id: type.selectedItem.value!.id,
+                            gereja_id: place.selectedItem.value!.id,
+                            pendeta_id: controller.selectedItem.value!.id)
+                        .requestUpdateNoImage();
                   }
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
-                    Get.close(3);
-                    JController.remJadwal();
-                    JController.getJadwal();
-                    deviceStorage.remove("message");
-                    deviceStorage.write("created", false);
                   }
                 });
               },
@@ -200,8 +193,8 @@ class _EditJadwal extends State<EditJadwal> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIAcaraCRUD(
-                      id: infoAcara.id.value,
+                    await APIJadwalCRUD(
+                      id: infoJadwal.id.value,
                     ).requestDelete();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
@@ -210,8 +203,8 @@ class _EditJadwal extends State<EditJadwal> {
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    JController.remJadwal();
+                    JController.getJadwal();
                   },
                 );
               },
@@ -253,17 +246,15 @@ class _EditJadwal extends State<EditJadwal> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIAcaraCRUD(
+                    await APIJadwalCRUD(
                             name: nama!.text,
-                            status: status!.text,
                             file: url,
                             content: deskripsi!.text,
-                            location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
-                            category_id: controller.selectedItem.value!.id)
+                            jam_acara: formatTimeToServer(jam_acara.value),
+                            category_id: type.selectedItem.value!.id,
+                            gereja_id: place.selectedItem.value!.id,
+                            pendeta_id: controller.selectedItem.value!.id)
                         .requestCreate();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
@@ -273,8 +264,8 @@ class _EditJadwal extends State<EditJadwal> {
                       deviceStorage.write("created", false);
                     }
                     Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
+                    JController.remJadwal();
+                    JController.getJadwal();
                   }
                 });
               },
@@ -316,10 +307,82 @@ class _EditJadwal extends State<EditJadwal> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: FAcaraFormField(
+              child: Row(
+                children: [
+                  Container(
+                    child: Stack(children: [
+                      RoundedIMG(
+                        height: 90,
+                        width: 90,
+                        isNetworkImage: data ? data : isInput,
+                        imageUrl: data
+                            ? ConfigBack.apiAdress +
+                                ConfigBack.imgInternet +
+                                pdt_img
+                            : isInput
+                                ? ConfigBack.apiAdress +
+                                    ConfigBack.imgInternet +
+                                    pdt_img
+                                : Filemonimages.pendeta1,
+                      ),
+                    ]),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    width: pendetaSize,
+                    child: Obx(() {
+                      if (controller.items.isEmpty) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (controller.selectedItem.value == null &&
+                          controller.items.isNotEmpty &&
+                          data != false) {
+                        controller.setDefaultSelectedItem(
+                            int.parse(infoJadwal.pendeta_id.value));
+                        Future.delayed(Duration(seconds: 1), () {
+                          setState(() {
+                            pdt_img = controller.selectedItem.value!.pic;
+                          });
+                        });
+                      }
+                      return DropdownButtonFormField2<PendetaJSONForEntity>(
+                        hint: Text('Pengkothbah'),
+                        value: controller.selectedItem.value,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        onChanged: (PendetaJSONForEntity? newValue) {
+                          controller.setSelectedItem(newValue);
+                          setState(() {
+                            pdt_img = controller.selectedItem.value!.pic;
+                            log(pdt_img);
+                          });
+                        },
+                        items:
+                            controller.items.map((PendetaJSONForEntity item) {
+                          return DropdownMenuItem<PendetaJSONForEntity>(
+                            value: item,
+                            child: Text(item.name),
+                          );
+                        }).toList(),
+                      );
+                    }),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: FJadwalFormField(
                 nama: nama!,
                 tanggal: tanggal,
-                alamat: _alamat!,
                 jam: jam_acara,
                 status: status!,
                 deskripsi: deskripsi!,
@@ -329,29 +392,29 @@ class _EditJadwal extends State<EditJadwal> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Obx(() {
-                if (controller.items.isEmpty) {
-                  return CircularProgressIndicator();
+                if (place.items.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
                 }
-                if (controller.selectedItem.value == null &&
-                    controller.items.isNotEmpty &&
+                if (place.selectedItem.value == null &&
+                    place.items.isNotEmpty &&
                     data != false) {
-                  controller.setDefaultSelectedItem(
-                      int.parse(infoAcara.category_id.value));
+                  place.setDefaultSelectedItem(
+                      int.parse(infoJadwal.category_id.value));
                 }
-                return DropdownButtonFormField2<AcaraJSONForEntity>(
-                  hint: Text('Kategori Acara'),
-                  value: controller.selectedItem.value,
+                return DropdownButtonFormField2<GerejaJSONForEntity>(
+                  hint: Text('Tempat Ibadah'),
+                  value: place.selectedItem.value,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 16),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  onChanged: (AcaraJSONForEntity? newValue) {
-                    controller.setSelectedItem(newValue);
+                  onChanged: (GerejaJSONForEntity? newValue) {
+                    place.setSelectedItem(newValue);
                   },
-                  items: controller.items.map((AcaraJSONForEntity item) {
-                    return DropdownMenuItem<AcaraJSONForEntity>(
+                  items: place.items.map((GerejaJSONForEntity item) {
+                    return DropdownMenuItem<GerejaJSONForEntity>(
                       value: item,
                       child: Text(item.name),
                     );
@@ -360,15 +423,60 @@ class _EditJadwal extends State<EditJadwal> {
               }),
             ),
             SizedBox(height: 20),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  color: colorId == null
-                      ? null
-                      : CategoryColorHandler.categorycolor[colorId!],
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Obx(() {
+                if (type.items.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (type.selectedItem.value == null &&
+                    type.items.isNotEmpty &&
+                    data != false) {
+                  type.setDefaultSelectedItem(
+                      int.parse(infoJadwal.category_id.value));
+                  Future.delayed(Duration(seconds: 1), () {
+                    setState(() {
+                      colorId = type.selectedItem.value!.color_id;
+                    });
+                  });
+                }
+                return DropdownButtonFormField2<JadwalJSONForEntity>(
+                  hint: Text('Kategori Jadwal'),
+                  value: type.selectedItem.value,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  onChanged: (JadwalJSONForEntity? newValue) {
+                    type.setSelectedItem(newValue);
+                    setState(() {
+                      colorId = type.selectedItem.value!.color_id;
+                    });
+                  },
+                  items: type.items.map((JadwalJSONForEntity item) {
+                    return DropdownMenuItem<JadwalJSONForEntity>(
+                      value: item,
+                      child: Text(item.name),
+                    );
+                  }).toList(),
+                );
+              }),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: colorId == null
+                        ? null
+                        : CategoryColorHandler.categorycolor[colorId!],
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    )),
+              ),
             ),
           ],
         ),

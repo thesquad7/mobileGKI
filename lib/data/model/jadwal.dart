@@ -10,6 +10,7 @@ class JadwalJSON {
       pendeta,
       pendeta_pic,
       place,
+      jam_acara,
       category_name;
   int? color_id;
   JadwalJSON(
@@ -39,14 +40,16 @@ class JadwalJSON {
 }
 
 class JadwalJSONForEntity {
-  final int id;
+  final int id, color_id;
   final String name;
 
-  JadwalJSONForEntity({required this.id, required this.name});
+  JadwalJSONForEntity(
+      {required this.id, required this.color_id, required this.name});
 
   factory JadwalJSONForEntity.fromJson(Map<String, dynamic> json) {
     return JadwalJSONForEntity(
       id: json['id'],
+      color_id: int.parse(json['color_id']),
       name: json['name'],
     );
   }

@@ -15,7 +15,7 @@ class HorizontalCard extends StatelessWidget {
     required this.img_pendeta,
     required this.jenis_ibadah,
     required this.img_bg,
-    this.isnetImgPendeta,
+    this.isnetImgPendeta = false,
   });
 
   final String tanggal,
@@ -25,7 +25,7 @@ class HorizontalCard extends StatelessWidget {
       img_pendeta,
       jenis_ibadah,
       img_bg;
-  final bool? isnetImgPendeta;
+  final bool isnetImgPendeta;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class HorizontalCard extends StatelessWidget {
               Column(children: [
                 BackgoundImgCard(
                   fit: BoxFit.fitWidth,
-                  isNetworkImage: isnetImgPendeta!,
+                  isNetworkImage: isnetImgPendeta,
                   imageUrl: img_bg,
                 ),
                 Container(

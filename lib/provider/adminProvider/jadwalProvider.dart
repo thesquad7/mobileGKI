@@ -9,6 +9,7 @@ class JadwalProvider extends GetxController {
   var jam_mulai = "".obs;
   var category_id = "".obs;
   var pendeta_id = "".obs;
+  var place_id = "".obs;
   var file = "".obs;
 
   @override

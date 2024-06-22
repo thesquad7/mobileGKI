@@ -164,7 +164,7 @@ class JadwalAdmin extends StatelessWidget {
               )),
         ),
       ),
-      title: Text("Acara"),
+      title: Text("Jadwal"),
     );
   }
 

@@ -50,10 +50,14 @@ class RoundedIMG extends StatelessWidget {
                   ? BorderRadius.circular(borderRadius)
                   : BorderRadius.zero,
               child: isNetworkImage
-                  ? Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                    )
+                  ? imageUrl == "http://10.0.2.2:8000/?path_p="
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                        )
                   : isFile
                       ? Image.file(File(imageUrl))
                       : Image.asset(imageUrl)),

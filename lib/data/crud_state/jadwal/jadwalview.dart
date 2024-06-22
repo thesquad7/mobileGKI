@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:MobileGKI/data/api_config.dart';
@@ -9,6 +10,7 @@ import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
 import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
+import 'package:MobileGKI/provider/adminProvider/jadwalProvider.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -20,7 +22,7 @@ class APIGetJadwalView {
   final String? acaraId;
   final dio = Dio();
   final deviceStorage = GetStorage();
-  final AcaraProvider infoAcara = Get.put(AcaraProvider());
+  final JadwalProvider infoJadwal = Get.put(JadwalProvider());
 
   var url = "${ConfigBack.apiAdress}/admin/jadwal/";
 
@@ -28,23 +30,18 @@ class APIGetJadwalView {
     try {
       var response = await DioService().getMethod('$url$acaraId');
       if (response.statusCode == 200) {
-        infoAcara.setValue(infoAcara.id, response.data['id'].toString());
-        infoAcara.setValue(infoAcara.name, response.data['name'].toString());
-        infoAcara.setValue(
-            infoAcara.file, response.data['content_img'].toString());
-        infoAcara.setValue(
-            infoAcara.category_id, response.data['category_id'].toString());
-        print(infoAcara.category_id.value);
-        infoAcara.setValue(
-            infoAcara.content, response.data['content'].toString());
-        infoAcara.setValue(
-            infoAcara.jam_mulai, response.data['jam_mulai'].toString());
-        infoAcara.setValue(
-            infoAcara.tanggal, response.data['tanggal'].toString());
-        infoAcara.setValue(
-            infoAcara.status, response.data['status'].toString());
-        infoAcara.setValue(
-            infoAcara.location, response.data['location'].toString());
+        infoJadwal.setValue(infoJadwal.id, response.data['id'].toString());
+        infoJadwal.setValue(infoJadwal.name, response.data['name']);
+        infoJadwal.setValue(infoJadwal.file, response.data['content_img']);
+        infoJadwal.setValue(infoJadwal.tanggal, response.data['tanggal']);
+        infoJadwal.setValue(infoJadwal.jam_mulai, response.data['jam_mulai']);
+        infoJadwal.setValue(infoJadwal.content, response.data['content']);
+        infoJadwal.setValue(
+            infoJadwal.category_id, response.data['category']['id'].toString());
+        infoJadwal.setValue(
+            infoJadwal.pendeta_id, response.data['pendeta']['id'].toString());
+        infoJadwal.setValue(
+            infoJadwal.place_id, response.data['church']['id'].toString());
         Get.to(() => EditJadwal(
               isNImg: true,
             ));

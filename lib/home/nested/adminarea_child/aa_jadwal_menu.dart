@@ -55,13 +55,13 @@ class JadwalMenu extends StatelessWidget {
                         GetStorage().write("CategoryPlace", "2");
                         Get.to(() => AcaraCategory());
                       },
-                      icon: FAcaraMenu.menuIcon[0],
-                      b_title: FAcaraMenu.menuname[0],
+                      icon: FJadwalMenu.menuIcon[0],
+                      b_title: FJadwalMenu.menuname[0],
                     ),
                     SubMenuButton(
                       onPressed: () => Get.to(() => JadwalAdmin()),
-                      icon: FAcaraMenu.menuIcon[1],
-                      b_title: FAcaraMenu.menuname[1],
+                      icon: FJadwalMenu.menuIcon[1],
+                      b_title: FJadwalMenu.menuname[1],
                     ),
                   ],
                 )),

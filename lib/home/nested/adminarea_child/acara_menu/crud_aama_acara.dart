@@ -44,7 +44,11 @@ class _EditAcara extends State<EditAcara> {
     return formatter.format(dateTime);
   }
 
-  String formatTimeToServer(DateTime dateTime) {
+  String formatTimeToServer(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    final dateTime = DateTime(
+        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
+
     final DateFormat formatter = DateFormat('HH:mm');
     return formatter.format(dateTime);
   }
@@ -154,12 +158,12 @@ class _EditAcara extends State<EditAcara> {
                   if (deviceStorage.read("created") == true) {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
-                    Get.close(3);
-                    Acontroller.remAcara();
-                    Acontroller.getAcara();
-                    deviceStorage.remove("message");
-                    deviceStorage.write("created", false);
                   }
+                  Get.close(3);
+                  Acontroller.remAcara();
+                  Acontroller.getAcara();
+                  deviceStorage.remove("message");
+                  deviceStorage.write("created", false);
                 });
               },
               delete: () {
@@ -248,9 +252,7 @@ class _EditAcara extends State<EditAcara> {
                             content: deskripsi!.text,
                             location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
+                            jam_acara: formatTimeToServer(jam_acara.value),
                             category_id: controller.selectedItem.value!.id)
                         .requestCreate();
                     if (deviceStorage.read("created") == true) {

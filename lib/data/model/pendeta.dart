@@ -17,14 +17,13 @@ class PendetaJSON {
 
 class PendetaJSONForEntity {
   final int id;
-  final String name;
+  final String name, pic;
 
-  PendetaJSONForEntity({required this.id, required this.name});
+  PendetaJSONForEntity(
+      {required this.id, required this.pic, required this.name});
 
   factory PendetaJSONForEntity.fromJson(Map<String, dynamic> json) {
     return PendetaJSONForEntity(
-      id: json['id'],
-      name: json['name'],
-    );
+        id: json['id'], name: json['name'], pic: json['img']);
   }
 }

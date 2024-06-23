@@ -18,6 +18,7 @@ class BerandaProductPageDetail extends StatelessWidget {
             netImg: false,
           ),
           FDetailPage(
+            isTimeDay: false,
             isTime: false,
             isHeadMetadata: false,
             deskripsi: FilemonText.lorem100,

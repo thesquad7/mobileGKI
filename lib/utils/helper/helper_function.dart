@@ -168,6 +168,22 @@ class FilemonHelperFunctions {
     return MediaQuery.of(Get.context!).size.width - 120.0;
   }
 
+  static TimeOfDay parseTimeOfDay(String timeString) {
+    final format = DateFormat.Hm();
+    final DateTime dateTime = format.parse(timeString);
+    return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
+  }
+
+  static String formatTimeOfDay(TimeOfDay timeOfDay) {
+    final int hour = timeOfDay.hour;
+    final int minute = timeOfDay.minute;
+    final String formattedTime =
+        '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
+
+  static DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+
   static String getFormattedDate(DateTime date,
       {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);

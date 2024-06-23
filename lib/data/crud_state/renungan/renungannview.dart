@@ -1,7 +1,6 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
@@ -9,7 +8,7 @@ import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
-import 'package:MobileGKI/home/nested/adminarea_child/renungan_menu/crud_aama_acara.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/renungan_menu/crud_aamr_renungan.dart';
 import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
 import 'package:MobileGKI/provider/adminProvider/jadwalProvider.dart';
 import 'package:MobileGKI/provider/adminProvider/kesaksianProvider.dart';
@@ -42,7 +41,6 @@ class APIGetRenunganInfo {
         infoRenungan.setValue(infoRenungan.content, response.data['content']);
         infoRenungan.setValue(infoRenungan.category_id,
             response.data['category']['id'].toString());
-
         Get.to(() => EditRenungan(
               isNImg: true,
             ));
@@ -54,8 +52,6 @@ class APIGetRenunganInfo {
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
           deviceStorage.write('IsFirstTime', false);
-          print(deviceStorage.read('user_login'));
-          print(deviceStorage.read('IsFirstTime'));
           deviceStorage.remove('usertoken');
           deviceStorage.remove('userC');
           NavigationAdmin().toMain();

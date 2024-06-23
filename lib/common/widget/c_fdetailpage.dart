@@ -9,6 +9,7 @@ class FDetailPage extends StatelessWidget {
   const FDetailPage(
       {super.key,
       required this.isTime,
+      required this.isTimeDay,
       required this.isHeadMetadata,
       this.HMD_personName = "",
       this.HMD_status = "",
@@ -22,7 +23,7 @@ class FDetailPage extends StatelessWidget {
       this.HMD_personPic = "",
       this.isAuthor = false,
       this.Author = ""});
-  final bool isTime, isHeadMetadata, isAddress, isAuthor;
+  final bool isTime, isHeadMetadata, isAddress, isAuthor, isTimeDay;
   final String HMD_personName,
       Author,
       Address,
@@ -43,6 +44,7 @@ class FDetailPage extends StatelessWidget {
           JudulJadwal(judul: Judul),
           isTime
               ? DateTimeAcara(
+                  isTimeDay: isTimeDay,
                   tanggal: DT_tanggal,
                   jam: DT_jam,
                 )

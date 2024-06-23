@@ -15,20 +15,20 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 
 class APIRenunganCRUD {
-  APIRenunganCRUD(
-      {this.name,
-      this.id,
-      this.file,
-      this.content,
-      this.tanggal,
-      this.user_id,
-      this.author});
+  APIRenunganCRUD({
+    this.name,
+    this.id,
+    this.file,
+    this.content,
+    this.tanggal,
+    this.category_id,
+  });
   final String? name, id;
-  final String? content, tanggal, author, file;
-  int? user_id;
+  final String? content, tanggal, file;
+  final int? category_id;
   final RenunganController RController = Get.find();
-  var url = "${ConfigBack.apiAdress}/admin/kesaksian/";
-  var urlNoImg = "${ConfigBack.apiAdress}/admin/kesaksian_no_image/";
+  var url = "${ConfigBack.apiAdress}/admin/renungan/";
+  var urlNoImg = "${ConfigBack.apiAdress}/admin/renungan_no_image/";
   final dio = Dio();
 
   requestCreate() async {
@@ -37,9 +37,8 @@ class APIRenunganCRUD {
     final formData = FormData.fromMap({
       'name': name,
       'content': content,
-      'date': tanggal,
-      'author': author,
-      'user_id': user_id,
+      'tanggal': tanggal,
+      'category_id': category_id,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -82,9 +81,8 @@ class APIRenunganCRUD {
     final formData = FormData.fromMap({
       'name': name,
       'content': content,
-      'date': tanggal,
-      'author': author,
-      'user_id': user_id,
+      'tanggal': tanggal,
+      'category_id': category_id,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -130,9 +128,8 @@ class APIRenunganCRUD {
     final formData = FormData.fromMap({
       'name': name,
       'content': content,
-      'date': tanggal,
-      'author': author,
-      'user_id': user_id,
+      'tanggal': tanggal,
+      'category_id': category_id,
     });
 
     try {

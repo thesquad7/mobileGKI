@@ -1,6 +1,7 @@
 import 'package:MobileGKI/home/admin_area.dart';
 import 'package:MobileGKI/home/beranda.dart';
-import 'package:MobileGKI/home/jadwal_page.dart';
+import 'package:MobileGKI/home/list_main_jadwal.dart';
+
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:flutter/material.dart';
@@ -42,5 +43,5 @@ class NavMenu extends StatelessWidget {
 
 class NavigationCon extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screens = [const HomeScreen(), const Jadwal(), AdminArea()];
+  final screens = [const HomeScreen(), Jadwal(), AdminArea()];
 }

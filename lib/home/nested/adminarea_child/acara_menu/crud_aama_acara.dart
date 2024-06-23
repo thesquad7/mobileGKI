@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, non_constant_identifier_names
 
 import 'dart:developer';
 
@@ -136,9 +136,7 @@ class _EditAcara extends State<EditAcara> {
                             content: deskripsi!.text,
                             location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
+                            jam_acara: formatTimeToServer(jam_acara.value),
                             category_id: controller.selectedItem.value!.id)
                         .requestUpdate();
                   } else {
@@ -149,9 +147,7 @@ class _EditAcara extends State<EditAcara> {
                             content: deskripsi!.text,
                             location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
+                            jam_acara: formatTimeToServer(jam_acara.value),
                             category_id: controller.selectedItem.value!.id)
                         .requestUpdateNoImage();
                   }

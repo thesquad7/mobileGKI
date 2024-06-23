@@ -19,6 +19,7 @@ class DetailKesaksianBeranda extends StatelessWidget {
             netImg: false,
           ),
           FDetailPage(
+            isTimeDay: false,
             isTime: true,
             DT_tanggal: FBerandaTextData.kesaksianTanggal[index.read('index')],
             isHeadMetadata: true,

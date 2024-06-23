@@ -29,7 +29,7 @@ class _RenunganField extends State<FRenunganFormField> {
         children: [
           FTextField(
             controller: widget.nama,
-            title: "Nama Acara",
+            title: "Nama / Tema Renungan",
           ),
           SizedBox(height: 20),
           SizedBox(height: 20),
@@ -46,7 +46,7 @@ class _RenunganField extends State<FRenunganFormField> {
                     valueListenable: widget.tanggal,
                     builder: (context, value, child) {
                       return Container(
-                        width: 100,
+                        width: 130,
                         child: Text(DateFormat.yMMMEd('id_ID').format(value)),
                       );
                     },

@@ -1,4 +1,5 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
+import 'package:MobileGKI/data/configVar.dart';
 import 'package:flutter/material.dart';
 
 class HeadDMetadata extends StatelessWidget {
@@ -21,7 +22,8 @@ class HeadDMetadata extends StatelessWidget {
           child: SizedBox(
             height: 80,
             child: RoundedIMG(
-              imageUrl: imgUrl,
+              isNetworkImage: true,
+              imageUrl: ConfigBack.apiAdress + ConfigBack.imgInternet + imgUrl,
             ),
           ),
         ),

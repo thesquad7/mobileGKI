@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeAcara extends StatelessWidget {
   const DateTimeAcara({
     super.key,
     required this.tanggal,
-    required this.jam,
+    this.jam = "",
+    required this.isTimeDay,
   });
   final String tanggal, jam;
+  final bool isTimeDay;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +32,20 @@ class DateTimeAcara extends StatelessWidget {
             ],
           ),
           SizedBox(width: 30),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(Icons.schedule),
-              ),
-              Text(
-                jam,
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
-          )
+          isTimeDay
+              ? Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(Icons.schedule),
+                    ),
+                    Text(
+                      jam,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )
+                  ],
+                )
+              : SizedBox()
         ],
       ),
     );

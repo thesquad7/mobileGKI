@@ -2,7 +2,6 @@
 
 import 'package:MobileGKI/common/widget/c_header.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_menubutton.dart';
-import 'package:MobileGKI/home/jadwal_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/list_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/list_aama_jadwal.dart';

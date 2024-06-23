@@ -6,14 +6,10 @@ import 'package:MobileGKI/common/widget/c_crud_bottomnav.dart';
 import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
-import 'package:MobileGKI/data/crud_state/acara/acaraCreateUpdate.dart';
-import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
+import 'package:MobileGKI/data/crud_state/renungan/renunganCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/renungan/renunganlisting.dart';
-import 'package:MobileGKI/data/model/acara.dart';
 import 'package:MobileGKI/data/model/renungan.dart';
-import 'package:MobileGKI/home/d_config/acara_formfield.dart';
 import 'package:MobileGKI/home/d_config/renungan_formfield.dart';
-import 'package:MobileGKI/provider/adminProvider/acaraProvier.dart';
 import 'package:MobileGKI/provider/adminProvider/renunganProvider.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
@@ -29,10 +25,10 @@ class EditRenungan extends StatefulWidget {
   bool isNImg;
   EditRenungan({this.isNImg = false});
   @override
-  _EditAcara createState() => _EditAcara();
+  _EditRenungan createState() => _EditRenungan();
 }
 
-class _EditAcara extends State<EditRenungan> {
+class _EditRenungan extends State<EditRenungan> {
   final RenunganController RController = Get.put(RenunganController());
   final RenunganProvider infoAcara = Get.find();
   final RenunganEntity controller = Get.put(RenunganEntity());
@@ -41,31 +37,14 @@ class _EditAcara extends State<EditRenungan> {
   late bool isCreated, data;
   final ValueNotifier<DateTime> tanggal =
       ValueNotifier<DateTime>(DateTime.now());
-  final ValueNotifier<TimeOfDay> jam_acara =
-      ValueNotifier<TimeOfDay>(TimeOfDay.now());
   String formatDateTimeToServer(DateTime dateTime) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(dateTime);
   }
 
-  String formatTimeToServer(TimeOfDay timeOfDay) {
-    final now = DateTime.now();
-    final dateTime = DateTime(
-        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-
-    final DateFormat formatter = DateFormat('HH:mm');
-    return formatter.format(dateTime);
-  }
-
   XFile? _pickedFile;
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-  TimeOfDay parseTimeOfDay(String timeString) {
-    final format = DateFormat.Hm();
-    final DateTime dateTime = format.parse(timeString);
-    return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
-  }
-
-  late TextEditingController? nama, status, deskripsi, _alamat;
+  late TextEditingController? nama, deskripsi;
   late bool isInput;
   @override
   void initState() {
@@ -74,8 +53,6 @@ class _EditAcara extends State<EditRenungan> {
     isInput = false;
     isCreated = true;
     nama = TextEditingController();
-    status = TextEditingController();
-    _alamat = TextEditingController();
     deskripsi = TextEditingController();
     title = GetStorage().read("pagetitle");
     data = GetStorage().read("data");
@@ -129,30 +106,21 @@ class _EditAcara extends State<EditRenungan> {
                     isCreated = false;
                   });
                   if (pic == infoAcara.file.toString()) {
-                    APIAcaraCRUD(
+                    APIRenunganCRUD(
                             id: infoAcara.id.value,
                             name: nama!.text,
-                            status: status!.text,
                             file: url,
                             content: deskripsi!.text,
-                            location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
                             category_id: controller.selectedItem.value!.id)
                         .requestUpdate();
                   } else {
-                    APIAcaraCRUD(
+                    print(tanggal.value);
+                    APIRenunganCRUD(
                             id: infoAcara.id.value,
                             name: nama!.text,
-                            status: status!.text,
                             content: deskripsi!.text,
-                            location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: jam_acara.value.hour.toString() +
-                                ":" +
-                                jam_acara.value.minute.toString(),
                             category_id: controller.selectedItem.value!.id)
                         .requestUpdateNoImage();
                   }
@@ -193,7 +161,7 @@ class _EditAcara extends State<EditRenungan> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIAcaraCRUD(
+                    await APIRenunganCRUD(
                       id: infoAcara.id.value,
                     ).requestDelete();
                     if (deviceStorage.read("created") == true) {
@@ -246,14 +214,11 @@ class _EditAcara extends State<EditRenungan> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIAcaraCRUD(
+                    await APIRenunganCRUD(
                             name: nama!.text,
-                            status: status!.text,
                             file: url,
                             content: deskripsi!.text,
-                            location: _alamat!.text,
                             tanggal: formatDateTimeToServer(tanggal.value),
-                            jam_acara: formatTimeToServer(jam_acara.value),
                             category_id: controller.selectedItem.value!.id)
                         .requestCreate();
                     if (deviceStorage.read("created") == true) {

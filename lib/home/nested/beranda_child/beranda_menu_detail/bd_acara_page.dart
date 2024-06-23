@@ -17,6 +17,7 @@ class BerandaAcaraDetail extends StatelessWidget {
           netImg: false,
         ),
         FDetailPage(
+          isTimeDay: true,
           isTime: true,
           DT_jam: "11.11",
           DT_tanggal: "11 Maret 2023",

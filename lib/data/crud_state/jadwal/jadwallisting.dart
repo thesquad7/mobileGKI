@@ -1,13 +1,10 @@
-import 'dart:developer';
-
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
-import 'package:MobileGKI/data/model/acara.dart';
 import 'package:MobileGKI/data/model/jadwal.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -49,8 +46,6 @@ class JadwalController extends GetxController {
         );
         deviceStorage.write('user_login', false);
         deviceStorage.write('IsFirstTime', false);
-        print(deviceStorage.read('user_login'));
-        print(deviceStorage.read('IsFirstTime'));
         deviceStorage.remove('usertoken');
         deviceStorage.remove('userC');
         NavigationAdmin().toMain();
@@ -61,19 +56,15 @@ class JadwalController extends GetxController {
     } on DioException catch (e) {
       switch (e.response!.statusCode) {
         case 401:
-          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
           deviceStorage.write('IsFirstTime', false);
-          print(deviceStorage.read('user_login'));
-          print(deviceStorage.read('IsFirstTime'));
           deviceStorage.remove('usertoken');
           deviceStorage.remove('userC');
           NavigationAdmin().toMain();
           break;
         case 500:
-          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Koneksi bermasalah, ini bukan pada perangkat anda");
           break;
@@ -134,19 +125,15 @@ class JadwalEntity extends GetxController {
       if (e is DioException) {
         switch (e.response!.statusCode) {
           case 401:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
             deviceStorage.write('IsFirstTime', false);
-            print(deviceStorage.read('user_login'));
-            print(deviceStorage.read('IsFirstTime'));
             deviceStorage.remove('usertoken');
             deviceStorage.remove('userC');
             NavigationAdmin().toMain();
             break;
           case 500:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;

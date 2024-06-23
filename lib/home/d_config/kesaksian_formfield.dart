@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_ltexfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:flutter/material.dart';
@@ -37,14 +38,20 @@ class _FKesaksianFormfield extends State<FKesaksianFormfield> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ValueListenableBuilder<DateTime>(
-                valueListenable: widget.tanggal,
-                builder: (context, value, child) {
-                  return Container(
-                    width: 100,
-                    child: Text(DateFormat.yMMMEd('id_ID').format(value)),
-                  );
-                },
+              Row(
+                children: [
+                  Icon(Icons.date_range),
+                  SizedBox(width: 10),
+                  ValueListenableBuilder<DateTime>(
+                    valueListenable: widget.tanggal,
+                    builder: (context, value, child) {
+                      return Container(
+                        width: FilemonHelperFunctions.screenWidth() * 0.5,
+                        child: Text(DateFormat.yMMMEd('id_ID').format(value)),
+                      );
+                    },
+                  ),
+                ],
               ),
               Container(
                 child: ElevatedButton(

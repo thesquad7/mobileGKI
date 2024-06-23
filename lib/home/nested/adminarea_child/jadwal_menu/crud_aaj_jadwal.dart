@@ -71,7 +71,7 @@ class _EditJadwal extends State<EditJadwal> {
     return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
   }
 
-  late TextEditingController? nama, status, deskripsi, _alamat;
+  late TextEditingController? nama, status, deskripsi;
   late bool isInput;
   @override
   void initState() {
@@ -82,7 +82,6 @@ class _EditJadwal extends State<EditJadwal> {
     isCreated = true;
     nama = TextEditingController();
     status = TextEditingController();
-    _alamat = TextEditingController();
     deskripsi = TextEditingController();
     title = GetStorage().read("pagetitle");
     data = GetStorage().read("data");

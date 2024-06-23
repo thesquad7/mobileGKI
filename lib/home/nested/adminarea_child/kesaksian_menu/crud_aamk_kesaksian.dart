@@ -8,6 +8,7 @@ import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/jadwal/jadwalCreateUpdate.dart';
+import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianlisting.dart';
 import 'package:MobileGKI/data/model/kesaksian.dart';
 import 'package:MobileGKI/home/d_config/kesaksian_formfield.dart';
@@ -114,19 +115,23 @@ class _EditKesaksian extends State<EditKesaksian> {
                   });
                   if (url != infoKesaksian.file.toString()) {
                     log('im here');
-                    APIJadwalCRUD(
-                      id: infoKesaksian.id.value,
-                      name: nama!.text,
-                      file: url,
-                      content: deskripsi!.text,
-                      tanggal: formatDateTimeToServer(tanggal.value),
-                    ).requestUpdate();
+                    APIKesaksianCRUD(
+                            id: infoKesaksian.id.value,
+                            name: nama!.text,
+                            author: controller.selectedItem.value!.name,
+                            tanggal: formatDateTimeToServer(tanggal.value),
+                            user_id: controller.selectedItem.value!.id,
+                            content: deskripsi!.text,
+                            file: url)
+                        .requestUpdate();
                   } else {
-                    APIJadwalCRUD(
+                    APIKesaksianCRUD(
                       id: infoKesaksian.id.value,
                       name: nama!.text,
-                      content: deskripsi!.text,
+                      author: controller.selectedItem.value!.name,
                       tanggal: formatDateTimeToServer(tanggal.value),
+                      user_id: controller.selectedItem.value!.id,
+                      content: deskripsi!.text,
                     ).requestUpdateNoImage();
                   }
                   if (deviceStorage.read("created") == true) {
@@ -161,7 +166,8 @@ class _EditKesaksian extends State<EditKesaksian> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIJadwalCRUD(
+                    log(infoKesaksian.id.value);
+                    await APIKesaksianCRUD(
                       id: infoKesaksian.id.value,
                     ).requestDelete();
                     if (deviceStorage.read("created") == true) {
@@ -214,12 +220,14 @@ class _EditKesaksian extends State<EditKesaksian> {
                     setState(() {
                       isCreated = false;
                     });
-                    await APIJadwalCRUD(
-                      name: nama!.text,
-                      file: url,
-                      content: deskripsi!.text,
-                      tanggal: formatDateTimeToServer(tanggal.value),
-                    ).requestCreate();
+                    await APIKesaksianCRUD(
+                            name: nama!.text,
+                            author: controller.selectedItem.value!.name,
+                            tanggal: formatDateTimeToServer(tanggal.value),
+                            user_id: controller.selectedItem.value!.id,
+                            content: deskripsi!.text,
+                            file: url)
+                        .requestCreate();
                     if (deviceStorage.read("created") == true) {
                       FilemonHelperFunctions.showSnackBar(
                           deviceStorage.read("message"));
@@ -304,7 +312,8 @@ class _EditKesaksian extends State<EditKesaksian> {
                           controller.items.isNotEmpty &&
                           data != false) {
                         controller.setDefaultSelectedItem(
-                            int.parse(infoKesaksian.user_id.value));
+                            int.parse(infoKesaksian.user_id.value),
+                            infoKesaksian.user_name.value);
                         Future.delayed(Duration(seconds: 1), () {
                           setState(() {
                             pdt_img =

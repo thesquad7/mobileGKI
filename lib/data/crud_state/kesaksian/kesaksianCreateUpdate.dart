@@ -1,8 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'dart:developer';
 
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
+import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianlisting.dart';
 import 'package:MobileGKI/data/interface.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:dio/dio.dart';
@@ -11,36 +14,31 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 
 class APIKesaksianCRUD {
-  APIKesaksianCRUD({
-    this.name,
-    this.id,
-    this.file,
-    this.content,
-    this.tanggal,
-    this.jam_acara,
-    this.category_id,
-    this.pendeta_id,
-    this.gereja_id,
-  });
+  APIKesaksianCRUD(
+      {this.name,
+      this.id,
+      this.file,
+      this.content,
+      this.tanggal,
+      this.user_id,
+      this.author});
   final String? name, id;
-  final String? content, tanggal, jam_acara, file;
-  int? category_id, pendeta_id, gereja_id;
-  final JadwalController JController = Get.find();
-  var url = "${ConfigBack.apiAdress}/admin/jadwal/";
-  var urlNoImg = "${ConfigBack.apiAdress}/admin/jadwal_no_image/";
+  final String? content, tanggal, author, file;
+  int? user_id;
+  final KesaksianController KController = Get.find();
+  var url = "${ConfigBack.apiAdress}/admin/kesaksian/";
+  var urlNoImg = "${ConfigBack.apiAdress}/admin/kesaksian_no_image/";
   final dio = Dio();
 
   requestCreate() async {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'title': name,
+      'name': name,
       'content': content,
-      'tanggal_mulai': tanggal,
-      'waktu_mulai': jam_acara,
-      'category_id': category_id,
-      'pendeta_id': pendeta_id,
-      'church_id': gereja_id,
+      'date': tanggal,
+      'author': author,
+      'user_id': user_id,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -81,13 +79,11 @@ class APIKesaksianCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'title': name.toString(),
-      'content': content.toString(),
-      'tanggal_mulai': tanggal.toString(),
-      'waktu_mulai': jam_acara.toString(),
-      'category_id': category_id,
-      'pendeta_id': pendeta_id,
-      'church_id': gereja_id,
+      'name': name,
+      'content': content,
+      'date': tanggal,
+      'author': author,
+      'user_id': user_id,
       'file': await MultipartFile.fromFile(file!)
     });
 
@@ -97,8 +93,8 @@ class APIKesaksianCRUD {
         deviceStorage.write("created", true);
         deviceStorage.write("message", response.data['message']);
         Get.close(3);
-        JController.remJadwal();
-        JController.getJadwal();
+        KController.remData();
+        KController.getData();
         deviceStorage.remove("message");
         deviceStorage.write("created", false);
       }
@@ -131,13 +127,11 @@ class APIKesaksianCRUD {
     await GetStorage.init();
     final deviceStorage = GetStorage();
     final formData = FormData.fromMap({
-      'title': name,
+      'name': name,
       'content': content,
-      'tanggal_mulai': tanggal,
-      'waktu_mulai': jam_acara,
-      'category_id': category_id,
-      'pendeta_id': pendeta_id,
-      'church_id': gereja_id,
+      'date': tanggal,
+      'author': author,
+      'user_id': user_id,
     });
 
     try {
@@ -146,8 +140,8 @@ class APIKesaksianCRUD {
         deviceStorage.write("created", true);
         deviceStorage.write("message", response.data['message']);
         Get.close(3);
-        JController.remJadwal();
-        JController.getJadwal();
+        KController.remData();
+        KController.getData();
         deviceStorage.remove("message");
         deviceStorage.write("created", false);
       }

@@ -44,9 +44,9 @@ class APIGetKesaksianInfo {
         infoKesaksian.setValue(
             infoKesaksian.content, response.data['content'].toString());
         infoKesaksian.setValue(
-            infoKesaksian.id, response.data['user']['name'].toString());
+            infoKesaksian.user_name, response.data['user']['name'].toString());
         infoKesaksian.setValue(
-            infoKesaksian.id, response.data['user']['id'].toString());
+            infoKesaksian.user_id, response.data['user']['id'].toString());
         Get.to(() => EditKesaksian(
               isNImg: true,
             ));

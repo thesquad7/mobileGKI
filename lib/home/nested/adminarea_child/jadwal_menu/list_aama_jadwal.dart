@@ -128,6 +128,8 @@ class JadwalAdmin extends StatelessWidget {
                       .getJadwal();
                 },
                 child: HorizontalCard(
+                    top_color: Colors.black54,
+                    bottom_color: Colors.pink.shade900,
                     isTempat: true,
                     tanggal: JController.jadwal[index].tanggal,
                     tempat: JController.jadwal[index].place,

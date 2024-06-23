@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, sized_box_for_whitespace, non_constant_identifier_names, use_build_context_synchronously, use_super_parameters
 
 import 'dart:developer';
 import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
@@ -119,7 +119,7 @@ class KekasaksianAdmin extends StatelessWidget {
       },
       child: ScrollablePositionedList.builder(
           itemScrollController: KController.itemController,
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: KController.kesaksian.length,
           itemBuilder: (_, index) {
             return InkWell(
@@ -131,6 +131,8 @@ class KekasaksianAdmin extends StatelessWidget {
                       .getJadwal();
                 },
                 child: HorizontalCard(
+                    bottom_color: Colors.deepPurple.shade900,
+                    top_color: Colors.black54,
                     isTempat: false,
                     isThema: false,
                     tanggal: KController.kesaksian[index].tanggal,
@@ -158,7 +160,7 @@ class KekasaksianAdmin extends StatelessWidget {
               color: dark
                   ? FilemonColor.white.withOpacity(0.3)
                   : FilemonColor.dark.withOpacity(0.7),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: IconButton(
               onPressed: () => Get.back(),
               icon: Icon(
@@ -168,7 +170,7 @@ class KekasaksianAdmin extends StatelessWidget {
               )),
         ),
       ),
-      title: Text("Kesaksian"),
+      title: const Text("Kesaksian"),
     );
   }
 
@@ -204,6 +206,7 @@ class AcaraItem extends StatelessWidget {
               width: double.infinity,
               height: 150,
               child: ClipRRect(
+                  // ignore: sort_child_properties_last
                   child: Image.network(
                     ConfigBack.apiAdress + ConfigBack.imgInternet + imngUrl,
                     fit: BoxFit.fitWidth,
@@ -215,7 +218,7 @@ class AcaraItem extends StatelessWidget {
             decoration: BoxDecoration(
                 color: CategoryColorHandler.categorycolor[indexCat]
                     .withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
           ),
           Positioned(
             top: 10,
@@ -224,7 +227,7 @@ class AcaraItem extends StatelessWidget {
               decoration: BoxDecoration(
                   color: CategoryColorHandler.categorycolor[indexCat]
                       .withOpacity(0.7),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
               width: 100,
               child: Center(
                 child: Padding(
@@ -246,12 +249,11 @@ class AcaraItem extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.8),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
                 width: 40,
-                child: Center(
+                child: const Center(
                   child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Icon(Icons.edit)),
+                      padding: EdgeInsets.all(4), child: Icon(Icons.edit)),
                 ),
               ),
             ),

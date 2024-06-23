@@ -154,8 +154,9 @@ class KesaksianEntity extends GetxController {
     }
   }
 
-  void setDefaultSelectedItem(int relatedId) {
-    var item = items.firstWhere((item) => item.id == relatedId,
+  void setDefaultSelectedItem(int relatedId, String name) {
+    var item = items.firstWhere(
+        (item) => item.id == relatedId && item.name == name,
         orElse: () => items.first);
     selectedItem.value = item;
   }

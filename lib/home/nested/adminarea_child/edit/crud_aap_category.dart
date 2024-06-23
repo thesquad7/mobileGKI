@@ -202,7 +202,7 @@ class CatPersona extends State<EditCategoryPersona> {
               clipBehavior: Clip.none,
               children: [
                 FilemonPrimaryHeaderCon(
-                    height: 100,
+                    height: 120,
                     child: FilemonAppBar(
                       showBackArrow: true,
                       title: Text(title),

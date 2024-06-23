@@ -11,11 +11,15 @@ import 'package:MobileGKI/data/crud_state/jadwal/jadwalview.dart';
 import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianview.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
+import 'package:MobileGKI/data/crud_state/renungan/renunganlisting.dart';
+import 'package:MobileGKI/data/crud_state/renungan/renungannview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/kesaksian_menu/crud_aamk_kesaksian.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/renungan_menu/crud_aama_acara.dart';
+import 'package:MobileGKI/provider/adminProvider/renunganProvider.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -26,28 +30,18 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../../common/widget/c_fhorizontalcardImgbg.dart';
 import '../../../../data/crud_state/kesaksian/kesaksianlisting.dart';
 import '../../../../utils/constrains/colors.dart';
 
-class KekasaksianAdmin extends StatefulWidget {
-  KekasaksianAdmin({
+class RenunganAdmin extends StatelessWidget {
+  RenunganAdmin({
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<KekasaksianAdmin> createState() => _KekasaksianAdminState();
-}
-
-class _KekasaksianAdminState extends State<KekasaksianAdmin> {
-  final KesaksianController KController = Get.put(KesaksianController());
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+  final RenunganController RController = Get.put(RenunganController());
   @override
   Widget build(BuildContext context) {
+    Get.put(RenunganProvider());
     final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
       extendBody: true,
@@ -56,8 +50,8 @@ class _KekasaksianAdminState extends State<KekasaksianAdmin> {
           child: const Icon(Icons.add),
           onPressed: () {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Kesaksian");
-            Get.to(() => EditKesaksian(
+            GetStorage().write("pagetitle", "Tambah Renungan");
+            Get.to(() => EditRenungan(
                   isNImg: false,
                 ));
           }),
@@ -65,8 +59,8 @@ class _KekasaksianAdminState extends State<KekasaksianAdmin> {
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: KController.isInternetConnect.value
-              ? KController.isLoading.value
+          child: RController.isInternetConnect.value
+              ? RController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -124,38 +118,46 @@ class _KekasaksianAdminState extends State<KekasaksianAdmin> {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        KController.remData();
-        return KController.getData();
+        RController.remData();
+        return RController.getData();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: KController.itemController,
+          itemScrollController: RController.itemController,
           physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: KController.kesaksian.length,
+          itemCount: RController.renungan.length,
           itemBuilder: (_, index) {
-            return InkWell(
-                onTap: () async {
-                  GetStorage().write("data", true);
-                  GetStorage().write("pagetitle", "Perbaharui Acara");
-                  await APIGetKesaksianInfo(
-                          acaraId: KController.kesaksian[index].id.toString())
-                      .getJadwal();
-                },
-                child: HorizontalCard(
-                    bottom_color: Colors.deepPurple.shade900,
-                    top_color: Colors.black54,
-                    isTempat: false,
-                    isThema: false,
-                    tanggal: KController.kesaksian[index].tanggal,
-                    tema: KController.kesaksian[index].name,
-                    nama_pendeta: KController.kesaksian[index].user_name,
-                    isnetImgPendeta: true,
-                    img_pendeta: ConfigBack.apiAdress +
-                        ConfigBack.imgInternet +
-                        KController.kesaksian[index].user_pic,
-                    jenis_ibadah: KController.kesaksian[index].user_name,
-                    img_bg: ConfigBack.apiAdress +
-                        ConfigBack.imgInternet +
-                        KController.kesaksian[index].pic));
+            return Stack(children: [
+              FHorizontalCardImgBG(
+                judul: RController.renungan[index].name,
+                author: RController.renungan[index].category_name,
+                category: RController.renungan[index].tanggal,
+                imgUrl: ConfigBack.apiAdress +
+                    ConfigBack.imgInternet +
+                    RController.renungan[index].pic,
+              ),
+              Positioned(
+                right: 30,
+                top: 65,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () async {
+                      GetStorage().write("data", true);
+                      GetStorage().write("pagetitle", "Perbaharui Renungan");
+                      await APIGetRenunganInfo(
+                              acaraId:
+                                  RController.renungan[index].id.toString())
+                          .getRenungan();
+                    },
+                  ),
+                ),
+              )
+            ]);
           }),
     );
   }
@@ -180,13 +182,13 @@ class _KekasaksianAdminState extends State<KekasaksianAdmin> {
               )),
         ),
       ),
-      title: const Text("Kesaksian"),
+      title: const Text("Renungan"),
     );
   }
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      KController.getData();
+      RController.getData();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }

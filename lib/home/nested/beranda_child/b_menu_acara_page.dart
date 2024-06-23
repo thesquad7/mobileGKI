@@ -17,6 +17,9 @@ class MenuAcaraBeranda extends StatelessWidget {
             Get.to(() => const BerandaAcaraDetail());
           },
           child: FHorizontalCardImgBG(
+            judul: "Null",
+            category: "Null",
+            author: "Null",
             imgUrl: Filemonimages.pendeta2,
           ),
         );

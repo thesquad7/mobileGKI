@@ -1,26 +1,25 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_ltexfield.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-class FKesaksianFormfield extends StatefulWidget {
-  FKesaksianFormfield({
+class FRenunganFormField extends StatefulWidget {
+  FRenunganFormField({
     super.key,
     required this.nama,
     required this.tanggal,
-    required this.content,
+    required this.deskripsi,
   });
   final ValueNotifier<DateTime> tanggal;
-  final TextEditingController nama, content;
+
+  final TextEditingController nama, deskripsi;
   @override
-  State<FKesaksianFormfield> createState() => _FKesaksianFormfield();
+  State<FRenunganFormField> createState() => _RenunganField();
 }
 
-class _FKesaksianFormfield extends State<FKesaksianFormfield> {
+class _RenunganField extends State<FRenunganFormField> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,10 +29,11 @@ class _FKesaksianFormfield extends State<FKesaksianFormfield> {
         children: [
           FTextField(
             controller: widget.nama,
-            title: "Judul Kesaksian",
+            title: "Nama Acara",
           ),
           SizedBox(height: 20),
-          Text("Tanggal & Waktu"),
+          SizedBox(height: 20),
+          Text("Tanggal Rilis"),
           SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,12 +41,12 @@ class _FKesaksianFormfield extends State<FKesaksianFormfield> {
               Row(
                 children: [
                   Icon(Icons.date_range),
-                  SizedBox(width: 10),
+                  SizedBox(width: 15),
                   ValueListenableBuilder<DateTime>(
                     valueListenable: widget.tanggal,
                     builder: (context, value, child) {
                       return Container(
-                        width: FilemonHelperFunctions.screenWidth() * 0.5,
+                        width: 100,
                         child: Text(DateFormat.yMMMEd('id_ID').format(value)),
                       );
                     },
@@ -76,7 +76,7 @@ class _FKesaksianFormfield extends State<FKesaksianFormfield> {
           ),
           SizedBox(height: 20),
           LTextField(
-            controller: widget.content,
+            controller: widget.deskripsi,
             title: "Deskripsi",
           ),
         ],

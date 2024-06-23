@@ -1,4 +1,3 @@
-import 'package:MobileGKI/home/nested/aa_renungan_page.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jadwal_menu.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_acara_menu.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/aa_jamkerja.dart';
@@ -8,6 +7,8 @@ import 'package:MobileGKI/home/nested/adminarea_child/aa_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/persona/aap_pendeta_page.dart';
 import 'package:MobileGKI/utils/helper/img_cropper.dart';
 import 'package:flutter/material.dart';
+
+import '../../home/nested/adminarea_child/aa_renungan_menu.dart';
 
 class FMenubuttonConfig {
   FMenubuttonConfig._();
@@ -29,7 +30,7 @@ class FMenubuttonConfig {
     AcaraMenu(),
     JadwalMenu(),
     KekasaksianAdmin(),
-    const Renungan(),
+    RenunganMenu(),
     const JamKerja(),
   ];
 
@@ -96,5 +97,19 @@ class FJadwalMenu {
   static List<IconData> menuIcon = [
     Icons.flag,
     Icons.calendar_month,
+  ];
+}
+
+class FRenunganmenu {
+  FRenunganmenu._();
+
+  static List<String> menuname = [
+    "Category",
+    "Renungan",
+  ];
+
+  static List<IconData> menuIcon = [
+    Icons.flag,
+    Icons.book,
   ];
 }

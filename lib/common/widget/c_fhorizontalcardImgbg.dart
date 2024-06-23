@@ -1,11 +1,19 @@
+import 'package:MobileGKI/utils/constrains/colorhandler.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FHorizontalCardImgBG extends StatelessWidget {
   const FHorizontalCardImgBG({
     super.key,
     required this.imgUrl,
+    required this.judul,
+    required this.category,
+    this.color_id = 1,
+    required this.author,
   });
-  final String imgUrl;
+  final String imgUrl, judul, category, author;
+  final int color_id;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class FHorizontalCardImgBG extends StatelessWidget {
                 width: double.infinity,
                 height: 150,
                 child: ClipRRect(
-                    child: Image.asset(
+                    child: Image.network(
                       imgUrl,
                       fit: BoxFit.fitWidth,
                     ),
@@ -27,7 +35,8 @@ class FHorizontalCardImgBG extends StatelessWidget {
               width: double.infinity,
               height: 150,
               decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.2),
+                  color: CategoryColorHandler.categorycolor[color_id]
+                      .withOpacity(0.2),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
             ),
             Positioned(
@@ -35,14 +44,15 @@ class FHorizontalCardImgBG extends StatelessWidget {
               right: 10,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.amber.withOpacity(0.5),
+                    color: CategoryColorHandler.categorycolor[color_id]
+                        .withOpacity(0.5),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 width: 100,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: Text(
-                      "Categori",
+                      category,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -53,20 +63,21 @@ class FHorizontalCardImgBG extends StatelessWidget {
               top: 70,
               left: 10,
               child: Container(
-                width: 100,
+                width: FilemonHelperFunctions.screenWidth() * 0.72,
                 child: Text(
-                  "Judul",
+                  judul,
                   style: Theme.of(context).textTheme.headlineMedium,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
             Positioned(
-              bottom: 20,
+              bottom: 30,
               left: 10,
               child: Container(
                 width: 100,
                 child: Text(
-                  "Author",
+                  author,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),

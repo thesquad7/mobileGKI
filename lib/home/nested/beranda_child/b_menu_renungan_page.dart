@@ -14,7 +14,11 @@ class RenunganBeranda extends StatelessWidget {
         autokeepalive: false,
         searchbutton: false,
         child: (_, index) {
-          return FHorizontalCardImgBG(imgUrl: Filemonimages.product3);
+          return FHorizontalCardImgBG(
+              judul: "Null",
+              category: "Null",
+              author: "Null",
+              imgUrl: Filemonimages.product3);
         });
   }
 }

@@ -115,6 +115,16 @@ class DioService {
     });
   }
 
+  Future<dynamic> postMethodPublic(String url, Object datafile) async {
+    dioUpers.Dio dio = dioUpers.Dio();
+    dioUpers.Options options = dioUpers.Options(method: "POST");
+    return await dio
+        .post(url, data: datafile, options: options)
+        .then((response) {
+      return response;
+    });
+  }
+
   Future<dynamic> putMethod(String url, Object datafile) async {
     dioUpers.Dio dio = dioUpers.Dio();
     dioUpers.Options options =

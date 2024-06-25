@@ -2,11 +2,11 @@
 
 class KesaksianJSON {
   late final String tanggal, name, pic, id, content, user_pic, user_name;
-  late final int user_id;
+  late final int? user_id;
   KesaksianJSON(
       {required this.tanggal,
       required this.name,
-      required this.user_id,
+      this.user_id,
       required this.pic,
       required this.user_pic,
       required this.user_name,

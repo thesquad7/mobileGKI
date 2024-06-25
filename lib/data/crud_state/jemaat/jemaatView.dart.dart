@@ -34,7 +34,7 @@ class APIGetJemaatInfo {
         infoJemaat.setNFather(response.data['nama_bapak'].toString());
         infoJemaat.setNMother(response.data['nama_ibu'].toString());
         infoJemaat.setAddress(response.data['alamat'].toString());
-        infoJemaat.setFile(response.data['jemaat_img'].toString());
+        infoJemaat.setFile(response.data['profile_img'].toString());
         if (response.data['pendeta_id'] != null &&
             response.data['nama_baptis'] != null) {
           infoJemaat.setPdtId(response.data['pendeta_id']);

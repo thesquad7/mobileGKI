@@ -9,9 +9,10 @@ class HeadDMetadata extends StatelessWidget {
     required this.status,
     required this.jenisacara,
     required this.imgUrl,
+    required this.isCatHMD,
   });
   final String personname, status, jenisacara, imgUrl;
-
+  final bool isCatHMD;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -41,13 +42,15 @@ class HeadDMetadata extends StatelessWidget {
               status,
               style: Theme.of(context).textTheme.bodyLarge,
             )),
-        Positioned(
-            left: 100,
-            top: 55,
-            child: Text(
-              jenisacara,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ))
+        isCatHMD
+            ? Positioned(
+                left: 100,
+                top: 55,
+                child: Text(
+                  jenisacara,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ))
+            : SizedBox(),
       ]),
     );
   }

@@ -3,27 +3,31 @@ import 'package:MobileGKI/common/widget/c_authour.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_date_time.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_judul.dart';
 import 'package:MobileGKI/common/widget/c_jadwal_metadata.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FDetailPage extends StatelessWidget {
-  const FDetailPage(
-      {super.key,
-      required this.isTime,
-      required this.isTimeDay,
-      required this.isHeadMetadata,
-      this.HMD_personName = "",
-      this.HMD_status = "",
-      this.HMD_jenisAcara = "",
-      required this.deskripsi,
-      required this.Judul,
-      this.DT_tanggal = "",
-      this.DT_jam = "",
-      required this.isAddress,
-      this.Address = "",
-      this.HMD_personPic = "",
-      this.isAuthor = false,
-      this.Author = ""});
-  final bool isTime, isHeadMetadata, isAddress, isAuthor, isTimeDay;
+  const FDetailPage({
+    super.key,
+    required this.isTime,
+    required this.isTimeDay,
+    required this.isHeadMetadata,
+    this.HMD_personName = "",
+    this.HMD_status = "",
+    this.HMD_jenisAcara = "",
+    required this.deskripsi,
+    required this.Judul,
+    this.DT_tanggal = "",
+    this.DT_jam = "",
+    required this.isAddress,
+    this.Address = "",
+    this.HMD_personPic = "",
+    required this.isAuthor,
+    this.Author = "",
+    required this.isCatHMD,
+  });
+  final bool isTime, isHeadMetadata, isAddress, isAuthor, isTimeDay, isCatHMD;
   final String HMD_personName,
       Author,
       Address,
@@ -67,6 +71,7 @@ class FDetailPage extends StatelessWidget {
               : SizedBox(),
           isHeadMetadata
               ? HeadDMetadata(
+                  isCatHMD: isCatHMD,
                   imgUrl: HMD_personPic,
                   personname: HMD_personName,
                   status: HMD_status,
@@ -74,7 +79,7 @@ class FDetailPage extends StatelessWidget {
                 )
               : SizedBox(),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: EdgeInsets.only(top: 10),
             child: SizedBox(
                 width: double.infinity,
                 child: Text(
@@ -82,11 +87,14 @@ class FDetailPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                 )),
           ),
-          SizedBox(
-            height: 400,
-            child: Text(
-              deskripsi,
-              style: Theme.of(context).textTheme.labelMedium,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SizedBox(
+              child: Text(
+                deskripsi,
+                style: Theme.of(context).textTheme.labelMedium,
+                textAlign: TextAlign.justify,
+              ),
             ),
           )
         ],

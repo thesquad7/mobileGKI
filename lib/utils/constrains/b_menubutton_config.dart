@@ -2,8 +2,9 @@ import 'package:MobileGKI/home/nested/beranda_child/b_menu_acara_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_feeback.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_jadwaltu_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_kesaksian.dart';
-import 'package:MobileGKI/home/nested/beranda_child/b_menu_renungan_page.dart';
 import 'package:flutter/material.dart';
+
+import '../../home/nested/beranda_child/list_aamr_renungan.dart';
 
 class berandaMenuConfig {
   berandaMenuConfig._();
@@ -11,7 +12,7 @@ class berandaMenuConfig {
   static final List<String> judulMenu = [
     "Kesaksian",
     "Acara",
-    "Keuangan",
+    "Pengunjung",
     "Jadwal TU",
     "Renungan",
     "Saran&Kritik"
@@ -19,18 +20,18 @@ class berandaMenuConfig {
   static List<IconData> iconMenu = [
     Icons.star_outlined,
     Icons.event,
-    Icons.monetization_on,
+    Icons.view_stream,
     Icons.schedule_rounded,
     Icons.doorbell,
     Icons.feedback
   ];
 
   static final screen = [
-    const KesaksianBeranda(),
-    const MenuAcaraBeranda(),
-    const KesaksianBeranda(),
+    KesaksianBeranda(),
+    MenuAcaraBeranda(),
+    KesaksianBeranda(),
     const JadwalTUBeranda(),
-    const RenunganBeranda(),
+    RenunganBeranda(),
     const BerandaFeedback(),
   ];
 }

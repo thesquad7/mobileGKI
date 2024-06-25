@@ -1,16 +1,26 @@
-// ignore_for_file: unused_import, prefer_const_constructors
+// ignore_for_file: unused_import, sized_box_for_whitespace, non_constant_identifier_names, use_build_context_synchronously, use_super_parameters
 
 import 'dart:developer';
+import 'package:MobileGKI/common/widget/c_horizontal_card.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaralisting.dart';
 import 'package:MobileGKI/data/crud_state/acara/acaraview.dart';
-import 'package:MobileGKI/data/crud_state/acara/public_acaralisting.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwallisting.dart';
+import 'package:MobileGKI/data/crud_state/jadwal/jadwalview.dart';
+import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianview.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetalisting.dart';
 import 'package:MobileGKI/data/crud_state/pendeta/pendetaview.dart';
+import 'package:MobileGKI/data/crud_state/renungan/public_renunganlisting.dart';
+import 'package:MobileGKI/data/crud_state/renungan/renunganlisting.dart';
+import 'package:MobileGKI/data/crud_state/renungan/renungannview.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/aama_category_persona.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/acara_menu/crud_aama_acara.dart';
 import 'package:MobileGKI/home/nested/adminarea_child/edit/crud_pendeta.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/jadwal_menu/crud_aaj_jadwal.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/kesaksian_menu/crud_aamk_kesaksian.dart';
+import 'package:MobileGKI/home/nested/adminarea_child/renungan_menu/crud_aamr_renungan.dart';
+import 'package:MobileGKI/provider/adminProvider/renunganProvider.dart';
 import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/constrains/colorhandler.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
@@ -18,25 +28,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../../../utils/constrains/colors.dart';
+import '../../../../common/widget/c_fhorizontalcardImgbg.dart';
+import '../../../../data/crud_state/kesaksian/kesaksianlisting.dart';
+import '../../../../utils/constrains/colors.dart';
 
-class MenuAcaraBeranda extends StatefulWidget {
-  MenuAcaraBeranda({
+class RenunganBeranda extends StatefulWidget {
+  RenunganBeranda({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<MenuAcaraBeranda> createState() => _MenuAcaraBerandaState();
+  State<RenunganBeranda> createState() => _RenunganBerandaState();
 }
 
-class _MenuAcaraBerandaState extends State<MenuAcaraBeranda> {
-  final AcaraControllerPublic AController = Get.put(AcaraControllerPublic());
-
+class _RenunganBerandaState extends State<RenunganBeranda> {
+  final RenunganControllerPublic RController =
+      Get.put(RenunganControllerPublic());
+  late DateTime tanggal_convert;
   @override
   Widget build(BuildContext context) {
+    Get.put(RenunganProvider());
     final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
       extendBody: true,
@@ -45,8 +60,8 @@ class _MenuAcaraBerandaState extends State<MenuAcaraBeranda> {
         () => SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: AController.isInternetConnect.value
-              ? AController.isLoading.value
+          child: RController.isInternetConnect.value
+              ? RController.isLoading.value
                   ? _buildLoading(context)
                   : _buildBody()
               : _buildNoInternetConnection(context),
@@ -104,30 +119,34 @@ class _MenuAcaraBerandaState extends State<MenuAcaraBeranda> {
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {
-        AController.remAcara();
-        return AController.getAcara();
+        RController.remData();
+        return RController.getData();
       },
       child: ScrollablePositionedList.builder(
-          itemScrollController: AController.itemController,
-          physics: AlwaysScrollableScrollPhysics(),
-          itemCount: AController.acara.length,
+          itemScrollController: RController.itemController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: RController.renungan.length,
           itemBuilder: (_, index) {
-            return InkWell(
-              onTap: () async {
-                GetStorage().write("data", true);
-                GetStorage().write("pagetitle", "Perbaharui Acara");
-                await APIGetAcaraViewPublic(
-                        acaraId: AController.acara[index].id.toString())
-                    .getAcara();
-              },
-              child: AcaraItem(
-                indexCat: AController.acara[index].color_id!,
-                catName: AController.acara[index].category_name,
-                nama: AController.acara[index].name,
-                status: AController.acara[index].status,
-                imngUrl: AController.acara[index].pic,
+            tanggal_convert = FilemonHelperFunctions.dateFormat
+                .parse(RController.renungan[index].tanggal);
+            return Stack(children: [
+              InkWell(
+                onTap: () async {
+                  await APIGetRenunganInfoPublic(
+                          acaraId: RController.renungan[index].id.toString())
+                      .getRenungan();
+                },
+                child: FHorizontalCardImgBG(
+                  color_id: int.parse(RController.renungan[index].color_id),
+                  judul: RController.renungan[index].name,
+                  author: RController.renungan[index].category_name,
+                  category: DateFormat.yMMMEd('id_ID').format(tanggal_convert),
+                  imgUrl: ConfigBack.apiAdress +
+                      ConfigBack.imgInternet +
+                      RController.renungan[index].pic,
+                ),
               ),
-            );
+            ]);
           }),
     );
   }
@@ -142,7 +161,7 @@ class _MenuAcaraBerandaState extends State<MenuAcaraBeranda> {
               color: dark
                   ? FilemonColor.white.withOpacity(0.3)
                   : FilemonColor.dark.withOpacity(0.7),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: IconButton(
               onPressed: () => Get.back(),
               icon: Icon(
@@ -152,96 +171,15 @@ class _MenuAcaraBerandaState extends State<MenuAcaraBeranda> {
               )),
         ),
       ),
-      title: Text("Acara"),
+      title: const Text("Renungan"),
     );
   }
 
   void _materialOnTapButton(BuildContext context) async {
     if (await InternetConnectionChecker().hasConnection == true) {
-      AController.getAcara();
+      RController.getData();
     } else {
       FilemonHelperFunctions.showSnackBar(context.toString());
     }
-  }
-}
-
-class AcaraItem extends StatelessWidget {
-  const AcaraItem({
-    super.key,
-    required this.nama,
-    required this.status,
-    required this.catName,
-    required this.imngUrl,
-    required this.indexCat,
-  });
-  final String nama, status, imngUrl, catName;
-  final int indexCat;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 6,
-        child: Stack(children: [
-          Container(
-              width: double.infinity,
-              height: 150,
-              child: ClipRRect(
-                  child: Image.network(
-                    ConfigBack.apiAdress + ConfigBack.imgInternet + imngUrl,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  borderRadius: BorderRadius.circular(10))),
-          Container(
-            width: double.infinity,
-            height: 150,
-            decoration: BoxDecoration(
-                color: CategoryColorHandler.categorycolor[indexCat]
-                    .withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-          ),
-          Positioned(
-            top: 10,
-            right: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: CategoryColorHandler.categorycolor[indexCat]
-                      .withOpacity(0.7),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              width: 100,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    catName,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 90,
-            left: 10,
-            child: Container(
-              width: FilemonHelperFunctions.screenWidth() * 0.95,
-              child: Text(
-                nama,
-                style: Theme.of(context).textTheme.headlineMedium,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            child: Container(
-              width: 100,
-              child: Text(
-                status,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          )
-        ]));
   }
 }

@@ -8,6 +8,7 @@ class AcaraProvider extends GetxController {
   var tanggal = "".obs;
   var jam_mulai = "".obs;
   var category_id = "".obs;
+  var category_name = "".obs;
   var content = "".obs;
   var file = "".obs;
   var color_id = 0.obs;

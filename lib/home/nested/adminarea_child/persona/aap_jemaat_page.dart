@@ -30,7 +30,7 @@ class Jemaat extends StatelessWidget {
           child: const Icon(Icons.add),
           onPressed: () async {
             GetStorage().write("data", false);
-            GetStorage().write("pagetitle", "Tambah Pendeta");
+            GetStorage().write("pagetitle", "Tambah Jemaat");
 
             Get.to(() => EditJemaat());
           }),

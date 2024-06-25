@@ -103,20 +103,24 @@ class APIGetJadwalViewPublic {
         infoJadwal.setValue(
             infoJadwal.place_name, response.data['church'].toString());
         Get.to(() => FDetailPageBuilder(
-            isTimeDay: true,
-            person_name: infoJadwal.pendeta_name.value,
-            person_pic: infoJadwal.pendeta_pic.value,
-            person_status: infoJadwal.pendeta_status.value,
-            jam_detail: infoJadwal.jam_mulai.value,
-            tanggal_detail: infoJadwal.tanggal.value,
-            content: infoJadwal.content.value,
-            content_pic: infoJadwal.file.value,
-            title: infoJadwal.name.value,
-            category_name: infoJadwal.category_name.value,
-            address: infoJadwal.place_name.value,
-            isheadMetadata: true,
-            isAddress: true,
-            isTime: true));
+              isAuthor: false,
+              isCatHMD: true,
+              isTimeDay: true,
+              person_name: infoJadwal.pendeta_name.value,
+              person_pic: infoJadwal.pendeta_pic.value,
+              person_status: infoJadwal.pendeta_status.value,
+              jam_detail: infoJadwal.jam_mulai.value,
+              tanggal_detail: infoJadwal.tanggal.value,
+              content: infoJadwal.content.value,
+              content_pic: infoJadwal.file.value,
+              title: infoJadwal.name.value,
+              category_name: infoJadwal.category_name.value,
+              address: infoJadwal.place_name.value,
+              isheadMetadata: true,
+              isAddress: true,
+              isTime: true,
+              author: '',
+            ));
       }
     } catch (e) {
       if (e is DioException) {

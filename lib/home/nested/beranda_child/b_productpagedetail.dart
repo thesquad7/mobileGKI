@@ -18,6 +18,8 @@ class BerandaProductPageDetail extends StatelessWidget {
             netImg: false,
           ),
           FDetailPage(
+            isAuthor: false,
+            isCatHMD: false,
             isTimeDay: false,
             isTime: false,
             isHeadMetadata: false,

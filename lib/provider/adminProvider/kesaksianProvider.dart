@@ -7,6 +7,7 @@ class KesaksianProvider extends GetxController {
   var content = "".obs;
   var user_id = "".obs;
   var user_name = "".obs;
+  var user_pic = "".obs;
   var file = "".obs;
 
   @override

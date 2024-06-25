@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -36,7 +37,7 @@ class Jadwal extends StatelessWidget {
   }) : super(key: key);
 
   final JadwalPublicController JController = Get.put(JadwalPublicController());
-
+  late DateTime tanggal_convert;
   @override
   Widget build(BuildContext context) {
     final JadwalPublicController JController =
@@ -116,6 +117,8 @@ class Jadwal extends StatelessWidget {
           physics: AlwaysScrollableScrollPhysics(),
           itemCount: JController.jadwal.length,
           itemBuilder: (_, index) {
+            tanggal_convert = FilemonHelperFunctions.dateFormat
+                .parse(JController.jadwal[index].tanggal);
             return InkWell(
                 onTap: () async {
                   GetStorage().write("data", true);
@@ -129,7 +132,7 @@ class Jadwal extends StatelessWidget {
                         .categorycolor[JController.jadwal[index].color_id!],
                     bottom_color: Colors.amber,
                     isTempat: true,
-                    tanggal: JController.jadwal[index].tanggal,
+                    tanggal: DateFormat.yMMMEd('id_ID').format(tanggal_convert),
                     tempat: JController.jadwal[index].place,
                     tema: JController.jadwal[index].name,
                     nama_pendeta: JController.jadwal[index].pendeta,

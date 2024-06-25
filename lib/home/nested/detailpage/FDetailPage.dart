@@ -19,14 +19,18 @@ class FDetailPageBuilder extends StatelessWidget {
     this.tanggal_detail = "",
     required this.content_pic,
     required this.title,
-    required this.category_name,
+    this.category_name = "",
     required this.isheadMetadata,
     required this.isAddress,
     required this.isTime,
     required this.isTimeDay,
+    required this.isCatHMD,
+    required this.isAuthor,
+    this.author = "",
   });
 
   final String content,
+      author,
       person_name,
       person_status,
       person_pic,
@@ -36,7 +40,7 @@ class FDetailPageBuilder extends StatelessWidget {
       tanggal_detail,
       address,
       category_name;
-  final bool isheadMetadata, isAddress, isTime, isTimeDay;
+  final bool isheadMetadata, isAddress, isTime, isTimeDay, isCatHMD, isAuthor;
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +55,13 @@ class FDetailPageBuilder extends StatelessWidget {
               netImg: true,
             ),
             FDetailPage(
+              isCatHMD: isCatHMD,
               isTimeDay: isTimeDay,
               isTime: isTime,
               isHeadMetadata: isheadMetadata,
               deskripsi: content,
               Judul: title,
+              Author: author,
               HMD_jenisAcara: category_name,
               HMD_personPic: person_pic,
               HMD_personName: person_name,
@@ -63,7 +69,7 @@ class FDetailPageBuilder extends StatelessWidget {
               DT_jam: jam_detail, // Example data
               DT_tanggal: tanggal_detail, // Example data
               isAddress: isAddress,
-              Address: address,
+              Address: address, isAuthor: isAuthor,
             )
           ],
         ),

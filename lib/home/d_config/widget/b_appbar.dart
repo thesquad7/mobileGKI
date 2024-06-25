@@ -1,6 +1,7 @@
 import 'package:MobileGKI/common/widget/c_appabar.dart';
 import 'package:MobileGKI/home/d_config/widget/aa_circlephotos.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class berandaAppbar extends StatelessWidget {
   const berandaAppbar(
@@ -11,7 +12,7 @@ class berandaAppbar extends StatelessWidget {
       this.areImage = false,
       this.imgH = 10,
       this.imgW = 10,
-      this.icon = const Icon(Icons.abc),
+      this.icon = const SizedBox(),
       this.are2line = false,
       this.title = "Title",
       this.areAction = false,
@@ -19,7 +20,7 @@ class berandaAppbar extends StatelessWidget {
   final String textGrettings, textUser, Imgurl, title;
   final bool areImage, are2line, areAction;
   final Widget exitbutton;
-  final Icon icon;
+  final Widget? icon;
   final double? imgH, imgW;
 
   @override
@@ -44,7 +45,7 @@ class berandaAppbar extends StatelessWidget {
                       width: imgW,
                     )
                   ]
-                : [IconButton(onPressed: () {}, icon: icon)]
+                : [icon!]
             : [exitbutton]);
   }
 }

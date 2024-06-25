@@ -1,8 +1,7 @@
-import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 
-class AddressDetail extends StatelessWidget {
-  const AddressDetail({
+class ThemeWidget extends StatelessWidget {
+  const ThemeWidget({
     super.key,
     required this.address,
   });
@@ -12,13 +11,14 @@ class AddressDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 35,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.location_on),
+          Icon(Icons.manage_accounts_rounded),
           SizedBox(width: 10),
           Container(
-              width: FilemonHelperFunctions.screenWidth() * 0.8,
+              width: 280,
               child: Text(
                 address,
                 style: Theme.of(context).textTheme.bodySmall,

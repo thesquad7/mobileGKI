@@ -1,6 +1,7 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/c_rounded_container.dart';
 import 'package:MobileGKI/common/widget/c_text_title.dart';
+import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -11,15 +12,17 @@ class FverticalCard extends StatelessWidget {
   const FverticalCard({
     super.key,
     required this.ImgUrl,
+    required this.title,
+    required this.tag,
   });
-  final String ImgUrl;
+  final String ImgUrl, title, tag;
 
   @override
   Widget build(BuildContext context) {
     final dark = FilemonHelperFunctions.isDarkMode(context);
     return Container(
       width: 180,
-      padding: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
           boxShadow: [FilemonShadowStyle.verticalCard],
           borderRadius: BorderRadius.circular(FilemonSized.productImageRadius),
@@ -31,9 +34,12 @@ class FverticalCard extends StatelessWidget {
           child: Stack(
             children: [
               RoundedIMG(
+                isNetworkImage: true,
                 padding: EdgeInsets.all(0),
-                imageUrl: ImgUrl,
+                imageUrl:
+                    ConfigBack.apiAdress + ConfigBack.imgInternet + ImgUrl,
                 height: 170,
+                width: 170,
                 applyImgRadius: true,
                 fit: BoxFit.fitHeight,
               ),
@@ -41,7 +47,7 @@ class FverticalCard extends StatelessWidget {
                 top: 10,
                 left: 10,
                 child: RoundedContainer(
-                  child: Text("Tag"),
+                  child: Text(tag),
                   radius: FilemonSized.sm,
                   backgroundColor: FilemonColor.secondary.withOpacity(0.8),
                   padding: const EdgeInsets.symmetric(
@@ -55,6 +61,7 @@ class FverticalCard extends StatelessWidget {
           padding: const EdgeInsets.only(left: FilemonSized.sm),
           child: Column(children: [
             FProductTextTitle(
+              title: title,
               smallSize: true,
             )
           ]),

@@ -40,5 +40,5 @@ class NavMenuVisitor extends StatelessWidget {
 
 class NavigationConV extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screens = [const HomeScreen(), Jadwal()];
+  final screens = [HomeScreen(), Jadwal()];
 }

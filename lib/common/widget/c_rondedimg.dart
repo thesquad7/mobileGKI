@@ -60,7 +60,10 @@ class RoundedIMG extends StatelessWidget {
                         )
                   : isFile
                       ? Image.file(File(imageUrl))
-                      : Image.asset(imageUrl)),
+                      : Image.asset(
+                          imageUrl,
+                          fit: BoxFit.fitWidth,
+                        )),
         ),
       ),
     );

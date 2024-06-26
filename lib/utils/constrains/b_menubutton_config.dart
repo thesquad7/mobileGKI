@@ -4,6 +4,7 @@ import 'package:MobileGKI/home/nested/beranda_child/b_menu_jadwaltu_page.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_menu_kesaksian.dart';
 import 'package:flutter/material.dart';
 
+import '../../home/nested/beranda_child/b_menu_pengunjung.dart';
 import '../../home/nested/beranda_child/list_aamr_renungan.dart';
 
 class berandaMenuConfig {
@@ -29,7 +30,7 @@ class berandaMenuConfig {
   static final screen = [
     KesaksianBeranda(),
     MenuAcaraBeranda(),
-    KesaksianBeranda(),
+    PengunjungPublic(),
     const JadwalTUBeranda(),
     RenunganBeranda(),
     const BerandaFeedback(),

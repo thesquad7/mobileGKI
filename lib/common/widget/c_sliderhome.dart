@@ -1,5 +1,6 @@
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/utils/controller/controller_home.dart';
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:MobileGKI/utils/theme/constrains/c_circlecontainer.dart';
 import 'package:MobileGKI/utils/constrains/colors.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
@@ -29,6 +30,7 @@ class FilemonHomeSlider extends StatelessWidget {
               viewportFraction: 1),
           items: banners
               .map((url) => RoundedIMG(
+                    width: FilemonHelperFunctions.screenWidth(),
                     imageUrl: url,
                     padding: EdgeInsets.all(0),
                   ))

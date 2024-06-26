@@ -9,6 +9,8 @@ import 'package:MobileGKI/utils/helper/img_cropper.dart';
 import 'package:flutter/material.dart';
 
 import '../../home/nested/adminarea_child/aa_renungan_menu.dart';
+import '../../home/nested/adminarea_child/feedback/list_aamf_feedback.dart';
+import '../../home/nested/adminarea_child/pengunjung/list_aamp_pengunjung.dart';
 
 class FMenubuttonConfig {
   FMenubuttonConfig._();
@@ -26,12 +28,13 @@ class FMenubuttonConfig {
   ];
   static final screen = [
     Persona(),
-    Jemaat(),
+    PengunjungungAdmin(),
     AcaraMenu(),
     JadwalMenu(),
     KekasaksianAdmin(),
     RenunganMenu(),
     const JamKerja(),
+    FeedbackAdmin()
   ];
 
   static List<IconData> menuIcon = [

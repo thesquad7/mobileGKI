@@ -27,6 +27,7 @@ class FDetailPageBuilder extends StatelessWidget {
     required this.isCatHMD,
     required this.isAuthor,
     this.author = "",
+    this.title_page = "",
   });
 
   final String content,
@@ -36,6 +37,7 @@ class FDetailPageBuilder extends StatelessWidget {
       person_pic,
       content_pic,
       title,
+      title_page,
       jam_detail,
       tanggal_detail,
       address,
@@ -49,6 +51,7 @@ class FDetailPageBuilder extends StatelessWidget {
         child: Column(
           children: [
             FDetailImgView(
+              title: title_page,
               children: Container(),
               imgUrl:
                   ConfigBack.apiAdress + ConfigBack.imgInternet + content_pic,

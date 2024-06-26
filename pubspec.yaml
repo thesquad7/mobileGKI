@@ -45,6 +45,7 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
   intl: ^0.18.1
+  shimmer: ^3.0.0
   carousel_slider: ^4.2.1
   dropdown_button2: ^2.3.9
   dio: ^5.4.3+1

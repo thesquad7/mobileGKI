@@ -128,11 +128,6 @@ class _EditRenungan extends State<EditRenungan> {
                     FilemonHelperFunctions.showSnackBar(
                         deviceStorage.read("message"));
                   }
-                  Get.close(3);
-                  RController.remData();
-                  RController.getData();
-                  deviceStorage.remove("message");
-                  deviceStorage.write("created", false);
                 });
               },
               delete: () {

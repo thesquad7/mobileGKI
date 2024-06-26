@@ -19,6 +19,7 @@ class HorizontalCard extends StatelessWidget {
       required this.jenis_ibadah,
       required this.img_bg,
       this.isnetImgPendeta = false,
+      this.padding = const EdgeInsets.all(FilemonSized.borderRadiusSm),
       this.isThema = true,
       required this.isTempat,
       this.top_color = Colors.white,
@@ -33,10 +34,11 @@ class HorizontalCard extends StatelessWidget {
       img_bg;
   final bool isnetImgPendeta, isTempat, isThema;
   final Color bottom_color, top_color;
+  final EdgeInsetsGeometry padding;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(FilemonSized.borderRadiusSm),
+      padding: padding,
       child: Container(
         width: double.infinity,
         height: 160,

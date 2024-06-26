@@ -20,7 +20,7 @@ class FProductTextTitle extends StatelessWidget {
       style: smallSize
           ? Theme.of(context).textTheme.titleLarge
           : Theme.of(context).textTheme.titleSmall,
-      overflow: TextOverflow.ellipsis,
+      overflow: TextOverflow.fade,
       maxLines: 2,
       textAlign: TextAlign.left,
     );

@@ -7,7 +7,6 @@ import 'package:MobileGKI/common/widget/c_crud_bottomnavedit.dart';
 import 'package:MobileGKI/common/widget/c_rondedimg.dart';
 import 'package:MobileGKI/common/widget/d_imgview.dart';
 import 'package:MobileGKI/data/configVar.dart';
-import 'package:MobileGKI/data/crud_state/jadwal/jadwalCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianCreateUpdate.dart';
 import 'package:MobileGKI/data/crud_state/kesaksian/kesaksianlisting.dart';
 import 'package:MobileGKI/data/model/kesaksian.dart';

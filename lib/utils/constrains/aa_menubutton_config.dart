@@ -42,7 +42,7 @@ class FMenubuttonConfig {
     Icons.view_stream,
     Icons.calendar_month,
     Icons.schedule_sharp,
-    Icons.star,
+    Icons.emoji_people_sharp,
     Icons.health_and_safety_rounded,
     Icons.work_history,
     Icons.feedback,

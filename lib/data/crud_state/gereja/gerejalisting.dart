@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:MobileGKI/data/api_config.dart';
 import 'package:MobileGKI/data/configVar.dart';
 import 'package:MobileGKI/data/interface.dart';
@@ -32,7 +30,6 @@ class GerejaController extends GetxController {
     try {
       var response = await DioService().getMethod(url);
       if (response.statusCode == 200) {
-        log(response.data.toString());
         response.data.forEach((element) {
           gereja.add(GerejaJSON.fromJson(element));
         });
@@ -61,7 +58,6 @@ class GerejaController extends GetxController {
     } on DioException catch (e) {
       switch (e.response!.statusCode) {
         case 401:
-          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
@@ -73,7 +69,6 @@ class GerejaController extends GetxController {
           NavigationAdmin().toMain();
           break;
         case 500:
-          log(e.toString());
           FilemonHelperFunctions.showSnackBar(
               "Koneksi bermasalah, ini bukan pada perangkat anda");
           break;
@@ -135,7 +130,6 @@ class GerejaEntity extends GetxController {
       if (e is DioException) {
         switch (e.response!.statusCode) {
           case 401:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
@@ -147,7 +141,6 @@ class GerejaEntity extends GetxController {
             NavigationAdmin().toMain();
             break;
           case 500:
-            log(e.toString());
             FilemonHelperFunctions.showSnackBar(
                 "Koneksi bermasalah, ini bukan pada perangkat anda");
             break;

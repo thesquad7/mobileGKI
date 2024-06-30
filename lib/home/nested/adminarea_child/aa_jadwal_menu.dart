@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'persona/aap_t_ibadah.dart';
+
 class JadwalMenu extends StatelessWidget {
   JadwalMenu({super.key});
   final deviceStorage = GetStorage();
@@ -56,6 +58,13 @@ class JadwalMenu extends StatelessWidget {
                       },
                       icon: FJadwalMenu.menuIcon[0],
                       b_title: FJadwalMenu.menuname[0],
+                    ),
+                    SubMenuButton(
+                      onPressed: () {
+                        Get.to(() => TempatIbadah());
+                      },
+                      icon: FPersona.menuIcon[2],
+                      b_title: FPersona.menuname[2],
                     ),
                     SubMenuButton(
                       onPressed: () => Get.to(() => JadwalAdmin()),

@@ -211,7 +211,6 @@ class _EditJadwal extends State<EditJadwal> {
               create: () {
                 FilemonHelperFunctions.showDialogData("Menambahkan Data",
                     "Apakah data yang di input telah tepat?", () async {
-                  log(url.toString());
                   if (url == null) {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");

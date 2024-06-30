@@ -107,7 +107,8 @@ class JadwalAdmin extends StatelessWidget {
 
   Widget _buildBody() {
     return LiquidPullToRefresh(
-      color: Colors.blue,
+      backgroundColor: Colors.red,
+      color: Colors.transparent,
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,
       onRefresh: () {

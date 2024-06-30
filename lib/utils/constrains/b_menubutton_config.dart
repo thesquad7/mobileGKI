@@ -19,7 +19,7 @@ class berandaMenuConfig {
     "Saran&Kritik"
   ];
   static List<IconData> iconMenu = [
-    Icons.star_outlined,
+    Icons.emoji_people_sharp,
     Icons.event,
     Icons.view_stream,
     Icons.schedule_rounded,

@@ -40,8 +40,6 @@ class Jadwal extends StatelessWidget {
   late DateTime tanggal_convert;
   @override
   Widget build(BuildContext context) {
-    final JadwalPublicController JController =
-        Get.put(JadwalPublicController());
     final dark = FilemonHelperFunctions.isDarkMode(context);
     return Scaffold(
       extendBody: true,
@@ -105,6 +103,7 @@ class Jadwal extends StatelessWidget {
 
   Widget _buildBody() {
     return LiquidPullToRefresh(
+      backgroundColor: Colors.red,
       color: Colors.transparent,
       showChildOpacityTransition: false,
       animSpeedFactor: 2.1,

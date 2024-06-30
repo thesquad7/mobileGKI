@@ -40,8 +40,7 @@ class OnboardingScreen extends StatelessWidget {
                 navigasi: () {
                   deviceStorage.write("useradmin", false);
                   deviceStorage.write("isFirstTime", false);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (_) => const NavMenuVisitor()));
+                  Get.to(() => const NavMenuVisitor());
                 },
               ),
               OnboardingPage(
@@ -49,8 +48,7 @@ class OnboardingScreen extends StatelessWidget {
                 animated_asset: Filemonimages.admin,
                 navigasi: () {
                   deviceStorage.write("useradmin", true);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => LoginUI()));
+                  Get.to(() => LoginUI());
                 },
               )
             ],

@@ -56,21 +56,15 @@ class Persona extends StatelessWidget {
                       icon: FPersona.menuIcon[1],
                       b_title: FPersona.menuname[1],
                     ),
-                    SubMenuButton(
-                      onPressed: () {
-                        Get.to(() => TempatIbadah());
-                      },
-                      icon: FPersona.menuIcon[2],
-                      b_title: FPersona.menuname[2],
-                    ),
-                    SubMenuButton(
-                      onPressed: () {
-                        GetStorage().write("CategoryPlace", "0");
-                        Get.to(() => PersonaCategory());
-                      },
-                      icon: FPersona.menuIcon[3],
-                      b_title: FPersona.menuname[3],
-                    ),
+
+                    // SubMenuButton(
+                    //   onPressed: () {
+                    //     GetStorage().write("CategoryPlace", "0");
+                    //     Get.to(() => PersonaCategory());
+                    //   },
+                    //   icon: FPersona.menuIcon[3],
+                    //   b_title: FPersona.menuname[3],
+                    // ),
                   ],
                 )),
           )

@@ -1,3 +1,4 @@
+import 'package:MobileGKI/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
 
 class LTextField extends StatelessWidget {
@@ -14,18 +15,20 @@ class LTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: 80.0,
+        maxHeight: FilemonHelperFunctions.screenHeight() * 4,
+      ),
       width: double.infinity,
-      child: Expanded(
-        child: TextField(
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
-          obscureText: passtext,
-          controller: controller,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: title,
-          ),
+      child: TextField(
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+        obscureText: passtext,
+        controller: controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: title,
         ),
       ),
     );

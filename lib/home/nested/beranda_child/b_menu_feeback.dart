@@ -71,9 +71,8 @@ class _BerandaFeedbackState extends State<BerandaFeedback> {
             padding: EdgeInsets.only(top: 15),
             child: SizedBox(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: LTextField(controller: desc, title: "Masukan"),
-              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: LTextField(controller: desc, title: "Masukan")),
             ),
           ),
           Padding(

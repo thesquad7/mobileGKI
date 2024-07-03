@@ -45,7 +45,6 @@ class APIJadwalCRUD {
     });
 
     try {
-      print(formData.fields);
       Response response;
       response = await await DioService().postMethod(url, formData);
       if (response.statusCode == 200) {
@@ -61,8 +60,6 @@ class APIJadwalCRUD {
                 "Waktu sesi telah berakhir silahkan Re-Log");
             deviceStorage.write('user_login', false);
             deviceStorage.write('IsFirstTime', false);
-            print(deviceStorage.read('user_login'));
-            print(deviceStorage.read('IsFirstTime'));
             deviceStorage.remove('usertoken');
             deviceStorage.remove('userC');
             NavigationAdmin().toMain();

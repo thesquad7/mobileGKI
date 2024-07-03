@@ -75,7 +75,6 @@ class _EditAcara extends State<EditAcara> {
     deskripsi = TextEditingController();
     title = GetStorage().read("pagetitle");
     data = GetStorage().read("data");
-    log(widget.isNImg.toString());
     if (widget.isNImg == true) {
       url = infoAcara.file.value;
       nama?.value = TextEditingValue(text: infoAcara.name.value);
@@ -208,7 +207,6 @@ class _EditAcara extends State<EditAcara> {
               create: () {
                 FilemonHelperFunctions.showDialogData("Menambahkan Data",
                     "Apakah data yang di input telah tepat?", () async {
-                  log(url.toString());
                   if (url == null) {
                     FilemonHelperFunctions.showAlertErorr(
                         "Info", "Anda Belum Menambahkan Gambar");
@@ -241,6 +239,8 @@ class _EditAcara extends State<EditAcara> {
                     setState(() {
                       isCreated = false;
                     });
+                    log(formatTimeToServer(jam_acara.value));
+                    log(formatDateTimeToServer(tanggal.value));
                     await APIAcaraCRUD(
                             name: nama!.text,
                             status: status!.text,

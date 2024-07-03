@@ -254,13 +254,15 @@ class AcaraItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 20,
+            bottom: 15,
             left: 10,
             child: Container(
-              width: 100,
+              width: 250,
               child: Text(
                 status,
                 style: Theme.of(context).textTheme.bodySmall,
+                overflow: TextOverflow.fade,
+                maxLines: 1,
               ),
             ),
           )

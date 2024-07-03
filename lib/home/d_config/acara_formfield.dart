@@ -65,6 +65,7 @@ class _FAcaraFormField extends State<FAcaraFormField> {
                       if (newtime == null) return;
                       setState(() {
                         widget.jam.value = newtime;
+                        print(widget.jam.value);
                       });
                     } catch (e) {
                       print(e.toString());

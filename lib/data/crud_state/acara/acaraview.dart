@@ -36,7 +36,6 @@ class APIGetAcaraView {
             infoAcara.file, response.data['content_img'].toString());
         infoAcara.setValue(
             infoAcara.category_id, response.data['category_id'].toString());
-        print(infoAcara.category_id.value);
         infoAcara.setValue(
             infoAcara.content, response.data['content'].toString());
         infoAcara.setValue(
@@ -58,8 +57,6 @@ class APIGetAcaraView {
               "Waktu sesi telah berakhir silahkan Re-Log");
           deviceStorage.write('user_login', false);
           deviceStorage.write('IsFirstTime', false);
-          print(deviceStorage.read('user_login'));
-          print(deviceStorage.read('IsFirstTime'));
           deviceStorage.remove('usertoken');
           deviceStorage.remove('userC');
           NavigationAdmin().toMain();

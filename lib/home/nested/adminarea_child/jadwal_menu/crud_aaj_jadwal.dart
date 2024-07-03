@@ -243,6 +243,8 @@ class _EditJadwal extends State<EditJadwal> {
                     setState(() {
                       isCreated = false;
                     });
+                    var dat = formatTimeToServer(jam_acara.value);
+                    log(dat);
                     await APIJadwalCRUD(
                             name: nama!.text,
                             file: url,

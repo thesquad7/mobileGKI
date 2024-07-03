@@ -3,16 +3,17 @@ import 'package:MobileGKI/common/widget/c_pengunjung_static.dart';
 import 'package:MobileGKI/common/widget/c_sliderhome.dart';
 import 'package:MobileGKI/common/widget/c_vertical_card.dart';
 import 'package:MobileGKI/data/crud_state/acara/public_acaralisting.dart';
+import 'package:MobileGKI/data/crud_state/kesaksian/public_kesaksianlisting.dart';
 import 'package:MobileGKI/home/d_config/widget/b_appbar.dart';
 import 'package:MobileGKI/home/d_config/widget/b_menuSection.dart';
 import 'package:MobileGKI/home/nested/beranda_child/b_productpagedetail.dart';
 import 'package:MobileGKI/init/onboardingscreen.dart';
-import 'package:MobileGKI/utils/constrains/asset_string.dart';
 import 'package:MobileGKI/utils/theme/constrains/sizes.dart';
 import 'package:MobileGKI/utils/theme/constrains/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -31,11 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
   final PengunjungControllerPubHigligth RController =
       Get.put(PengunjungControllerPubHigligth());
   final AcaraControllerPublic AController = Get.put(AcaraControllerPublic());
+  final PublicKesaksianController KController =
+      Get.put(PublicKesaksianController());
   late bool refresh;
   @override
   void initState() {
     refresh = false;
     super.initState();
+  }
+
+  String formatDateTime(String dateString) {
+    DateTime timeconverter = DateTime.parse(dateString);
+    String timeview = DateFormat.yMMMEd('id_ID').format(timeconverter);
+    return timeview;
   }
 
   loadingNewData() {
@@ -97,19 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    const FilemonHomeSlider(
-                      autoplay: true,
-                      banners: [
-                        Filemonimages.slide1,
-                        Filemonimages.slide2,
-                        Filemonimages.slide3
-                      ],
-                    ),
+                    AController.isLoading.value
+                        ? _LoadingCarosel()
+                        : FilemonHomeSlider(),
                     SizedBox(height: 15),
                     RController.isLoading.value
                         ? _buildLoading(context)
                         : _buildPengunjung(),
-                    AController.isLoading.value
+                    KController.isLoading.value
                         ? _buildLoadingKesaksian()
                         : _buildKesaksian()
                   ],
@@ -118,6 +122,18 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _LoadingCarosel() {
+    return SizedBox(
+      height: 240,
+      child: Card(
+        child: Shimmer.fromColors(
+            baseColor: Colors.grey.shade400,
+            highlightColor: Colors.grey.shade200,
+            child: FCarosel()),
       ),
     );
   }
@@ -148,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildKesaksian() {
     return GridView.builder(
-        itemCount: AController.acara.length,
+        itemCount: KController.kesaksian.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -159,9 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (_, index) => GestureDetector(
               onTap: () => Get.to(() => const BerandaProductPageDetail()),
               child: FverticalCard(
-                tag: AController.acara[index].category_name,
-                title: AController.acara[index].name,
-                ImgUrl: AController.acara[index].pic,
+                tag: formatDateTime(KController.kesaksian[index].tanggal),
+                title: KController.kesaksian[index].name,
+                ImgUrl: KController.kesaksian[index].pic,
               ),
             ));
   }
@@ -170,18 +186,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Center(
         child: SizedBox(
       width: FilemonHelperFunctions.screenWidth(),
-      height: 230,
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade400,
-        highlightColor: Colors.grey.shade200,
-        child: ScrollablePositionedList.builder(
-            itemScrollController: RController.itemController,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 2,
-            itemBuilder: (_, index) {
-              return FShimmerCard();
-            }),
+      height: 240,
+      child: Card(
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey.shade400,
+          highlightColor: Colors.grey.shade200,
+          child: ScrollablePositionedList.builder(
+              itemScrollController: RController.itemController,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 1,
+              itemBuilder: (_, index) {
+                return FShimmerCard();
+              }),
+        ),
       ),
     ));
   }
@@ -191,22 +209,21 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SizedBox(
       width: FilemonHelperFunctions.screenWidth(),
       height: 300,
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade400,
-        highlightColor: Colors.grey.shade200,
-        child: GridView.builder(
-            itemCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: FilemonSized.gridViewSpacing,
-                crossAxisSpacing: FilemonSized.gridViewSpacing,
-                mainAxisExtent: 220),
-            itemBuilder: (_, index) => GestureDetector(
-                  onTap: () => Get.to(() => const BerandaProductPageDetail()),
-                  child: FShimmerVerticalCard(),
-                )),
+      child: GridView.builder(
+        itemCount: 2,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: FilemonSized.gridViewSpacing,
+            crossAxisSpacing: FilemonSized.gridViewSpacing,
+            mainAxisExtent: 220),
+        itemBuilder: (_, index) => Card(
+            child: Shimmer.fromColors(
+          baseColor: Colors.grey.shade400,
+          highlightColor: Colors.grey.shade200,
+          child: FShimmerVerticalCard(),
+        )),
       ),
     ));
   }

@@ -5,7 +5,7 @@ class ConfigBack {
   static final addressVPS = "http://103.181.183.56";
   static final localhost = "http://10.0.2.2:8000";
 
-  static final apiAdress = localhost;
+  static final apiAdress = addressVPS;
   static final imgInternet = "/?path_p=";
 }
 

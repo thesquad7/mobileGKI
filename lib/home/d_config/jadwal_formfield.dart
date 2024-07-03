@@ -57,8 +57,10 @@ class _FJadwalFormField extends State<FJadwalFormField> {
                       TimeOfDay? newtime = await showTimePicker(
                           context: context, initialTime: TimeOfDay.now());
                       if (newtime == null) return;
+
                       setState(() {
                         widget.jam.value = newtime;
+                        print(widget.jam.value);
                       });
                     } catch (e) {
                       print(e.toString());

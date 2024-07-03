@@ -14,7 +14,7 @@ class menuSecHome extends StatelessWidget {
       padding: EdgeInsets.all(0),
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.only(left: FilemonSized.defaultSpace / 2),
+          padding: const EdgeInsets.only(left: FilemonSized.defaultSpace),
           child: FilemonCatHeading(
             title: "Menu",
             showActionButton: false,
